@@ -1,0 +1,82 @@
+<hbp-navbar />
+<section id="banner">
+    <h1 class="logo-text">HBMS</h1>
+    <p>
+        We are committed to providing exceptional experiences and prioritizing
+        your health and well-being.
+    </p>
+</section>
+<main>
+    <section id="mission">
+        <div>
+            <h3>Our Mission</h3>
+            <p>
+                Our mission is to transform the patient care experience by
+                providing a seamless, user-friendly booking platform tailored
+                specifically for our hospital. We are dedicated to empowering
+                patients with easy and timely access to our comprehensive range
+                of medical services, ensuring that every step of their
+                healthcare journey is efficient, transparent, and stress-free.
+                By leveraging cutting-edge technology and fostering a
+                patient-centered approach, we aim to deliver exceptional care
+                and improve health outcomes for all who entrust us with their
+                well-being.
+            </p>
+        </div>
+        <div>
+            <hbp-optimized-image
+                src="assets/images/Doctor-Indexfinger.png"
+                fallback="assets/images/Doctor-Indexfinger-small.png"
+            />
+        </div>
+    </section>
+    <section id="vision" class="flex-row-reverse">
+        <div>
+            <h3>Our Vision</h3>
+            <p>
+                Our vision is to set the benchmark for digital healthcare
+                innovation within our hospital, creating an ecosystem where
+                patients can effortlessly connect with our distinguished medical
+                professionals and state-of-the-art services. We aspire to be
+                recognized as the foremost institution in integrating technology
+                with compassionate care, continuously enhancing the
+                accessibility, convenience, and quality of our healthcare
+                offerings. Through relentless dedication to excellence, we
+                strive to foster a culture of trust, reliability, and patient
+                satisfaction, ensuring that every individual who interacts with
+                our platform experiences the highest standard of healthcare.
+            </p>
+        </div>
+        <div>
+            <hbp-optimized-image
+                src="assets/images/MRI-Room.png"
+                fallback="assets/images/MRI-Room-small.png"
+            />
+        </div>
+    </section>
+    <h3 class="mt-5">Meet the Team</h3>
+    <section id="team">
+        @for (teamMember of teamMembers; track teamMember) {
+            <div class="team-member-card">
+                <img [src]="teamMember.image" [alt]="teamMember.name" />
+                <h4 class="mb-1">{{ teamMember.name }}</h4>
+                <p>{{ teamMember.role }}</p>
+            </div>
+        }
+    </section>
+    <section id="contact">
+        <div>
+            <h3>Get in Touch</h3>
+            <p>
+                We're here to help! Do you have questions about our services?,
+                need assistance with booking an appointment, or want to provide
+                feedback, our team is ready to assist you. Reach out to us using
+                any of the methods below.
+            </p>
+            <a href="mailto:hbpbackend.admin@mockinbox.com">Send Us An Email</a>
+        </div>
+        <div class="w-full h-10"></div>
+        <!--        <hbp-about-page-form />-->
+    </section>
+</main>
+<hbp-footer />

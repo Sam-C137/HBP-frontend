@@ -1,0 +1,73 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 25rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+  #label {
+    @include text-bold(1.25rem, $gray-900, 600);
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+section {
+  p {
+    @include text-normal(1rem, $neutral-950, 500);
+  }
+
+  ul {
+    @include flex-column;
+    width: 100%;
+    li {
+      @include flex-row;
+      padding: 0.625rem;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      @include text-normal(0.875rem, $neutral-950, 500);
+      border-bottom: 1px solid $Gray-300;
+    }
+  }
+}
+
+hbp-button {
+  float: right;
+}
+
+hbp-button.cancel {
+  --background: var(--white);
+  --border-color: var(--gray-700);
+  --color: var(--gray-700);
+  --hover-bg: var(--white);
+  --hover-border: var(--gray-700);
+  --hover-color: var(--gray-700);
+}

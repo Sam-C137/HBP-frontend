@@ -1,0 +1,74 @@
+<ol>
+    <li>
+        <a
+            [routerLink]="['/admin', 'services']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Services</a
+        >
+    </li>
+    <i></i>
+    <li>
+        <a [routerLink]="['/admin/services/create']" routerLinkActive="active">
+            {{ currentService ? "Edit Service" : "Add Service" }}
+        </a>
+    </li>
+</ol>
+<section>
+    <form [formGroup]="form" (submit)="submit()">
+        <div>
+            <h3>Service Information</h3>
+            <hbp-input
+                label="Name"
+                id="name"
+                type="text"
+                placeholder="Enter a name for the service"
+                [control]="form.get('name')"
+                [required]="true"
+                [error]="formValidator.errors('name')"
+            />
+            <hbp-textarea
+                label="Description"
+                id="description"
+                type="text"
+                placeholder="Type a description here"
+                [control]="form.get('description')"
+                [error]="formValidator.errors('description')"
+                [required]="true"
+            />
+            <div class="display-flex gap-6 align-items-center">
+                <span>
+                    <hbp-icon-picker
+                        id="icon"
+                        label="Featured Icon"
+                        placeholder="Select an icon"
+                        [control]="form.get('icon')"
+                        [selectedIconUrl]="currentService?.icon"
+                        [required]="true"
+                        [error]="formValidator.errors('icon')"
+                    />
+                </span>
+                <hbp-color-picker
+                    id="color"
+                    label="Color"
+                    [control]="form.get('colorCode')"
+                />
+            </div>
+        </div>
+        <div class="action-buttons">
+            <hbp-button type="button" [routerLink]="['/admin', 'services']"
+                >Cancel</hbp-button
+            >
+            <hbp-button
+                type="submit"
+                [disabled]="
+                    updateMutation.isPending() ||
+                    creationMutation.isPending() ||
+                    form.invalid
+                "
+            >
+                Save Changes
+            </hbp-button>
+        </div>
+    </form>
+</section>

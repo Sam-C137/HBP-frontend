@@ -1,0 +1,54 @@
+@import "main";
+
+:host {
+  --bar-width: 2rem;
+  --color: var(--primary-gradient);
+}
+
+.bars {
+  width: var(--bar-width);
+  aspect-ratio: 0.75;
+  background:
+    no-repeat var(--color) 0% 50%,
+    no-repeat var(--color) 50% 50%,
+    no-repeat var(--color) 100% 50%;
+  animation: wave 1s infinite linear alternate;
+}
+@keyframes wave {
+  0% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 50%;
+  }
+  20% {
+    background-size:
+      20% 20%,
+      20% 50%,
+      20% 50%;
+  }
+  40% {
+    background-size:
+      20% 100%,
+      20% 20%,
+      20% 50%;
+  }
+  60% {
+    background-size:
+      20% 50%,
+      20% 100%,
+      20% 20%;
+  }
+  80% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 100%;
+  }
+  100% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 50%;
+  }
+}

@@ -1,0 +1,68 @@
+@import "main";
+
+blockquote {
+  border-left: 2px solid $gray-400;
+  padding: 1.25rem;
+  margin-left: 1.25rem;
+  font-family: $font-family-secondary;
+  p {
+    @include text-normal(clamp(1rem, 2vw + 0.25rem, 1.25rem), $gray-900);
+    line-height: clamp(1.5rem, 2vw + 0.2rem, 1.875rem);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: -1.5rem;
+      left: -0.5rem;
+      height: 2em;
+      width: 2em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.871 3.871 0 0 1-2.748-1.179'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -1rem;
+      right: 0;
+      height: 2em;
+      width: 2em;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M19.417 6.679C20.447 7.773 21 9 21 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.248-5.621c-.537.278-1.24.375-1.93.311c-1.804-.167-3.226-1.648-3.226-3.489a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179m-10 0C10.447 7.773 11 9 11 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.247-5.621c-.537.278-1.24.375-1.929.311C4.591 12.323 3.17 10.842 3.17 9a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  footer {
+    margin-top: 2rem;
+    @include text-bold(1.375rem, $gray-900, 600);
+    cite {
+      display: block;
+      @include text-normal(clamp(1rem, 2vw + 0.25rem, 1.25rem), $gray-900);
+    }
+  }
+}
+
+article {
+  align-items: center;
+  max-width: 70rem;
+  @include flex-column;
+  @include lg {
+    @include flex-row;
+  }
+  & > div {
+    width: max-content;
+    span {
+      @include rounded-img-container(5rem);
+      @include center;
+      @include lg {
+        @include rounded-img-container(8rem);
+      }
+      img {
+        @include img;
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@import "main";
+
+span {
+  position: fixed;
+  right: 8%;
+  top: 10%;
+  width: auto;
+  border: 1px solid $success-300;
+  height: auto;
+  background-color: $white;
+  border-radius: 0.5rem;
+  min-width: 34.3125rem;
+  max-width: 56ch;
+  word-wrap: normal;
+  cursor: default;
+  z-index: 1000;
+  opacity: 1;
+  transition: all var(--toastAnimationDelay) ease-in-out;
+  @include flex-row;
+  padding: 1rem;
+  gap: 0.75rem;
+  @media (max-height: 700px) {
+    top: 14%;
+    right: 4%;
+    min-width: 30rem;
+  }
+  @include max-lg {
+    right: 4%;
+    min-width: 25rem;
+  }
+  @include max-sm {
+    right: 4%;
+    min-width: 20rem;
+  }
+
+  &.opening {
+    animation: slideIn var(--toastAnimationDelay) forwards;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.closed {
+    animation: slideOut var(--toastAnimationDelay) forwards;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+p {
+  font-family: $font-family-secondary;
+  flex: 2;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  &.success {
+    color: $success-700;
+  }
+  &.error {
+    color: $error-600;
+  }
+  &.warning {
+    color: $yellow-600;
+  }
+}

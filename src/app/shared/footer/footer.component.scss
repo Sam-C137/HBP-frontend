@@ -1,0 +1,68 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+footer {
+  width: 100vw;
+  padding: 3rem 4rem;
+  background: $gray-200;
+  color: $gray-400;
+  @include flex-row;
+  align-items: center;
+  font-size: 1rem;
+
+  @include max-lg {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  summary:first-of-type {
+    @include flex-column;
+    gap: 1rem;
+    padding-right: 2rem;
+    @include max-lg {
+      width: 100%;
+    }
+  }
+  summary:last-of-type {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 70%;
+    @include max-lg {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+p.row-header {
+  font-family: $font-family-secondary;
+  @include text-bold($size: 0.875rem, $color: $gray-400);
+}
+
+a,
+p {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+a {
+  cursor: pointer;
+}
+
+div.licences {
+  padding: 3rem;
+  @include flex-row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $neutral-600;
+  ul {
+    @include flex-row;
+    gap: 2rem;
+  }
+}

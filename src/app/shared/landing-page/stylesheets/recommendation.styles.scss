@@ -1,0 +1,33 @@
+@import "main";
+
+#recommendation-1 {
+  @include flex-column;
+  padding: 2rem;
+  background-color: $gray-100;
+  gap: 2rem;
+  @include lg {
+    @include flex-row;
+    padding: 4rem;
+  }
+  summary {
+    flex: 1;
+    @include center;
+  }
+}
+
+#recommendation-2 {
+  @include flex-column;
+  padding: 4rem;
+  gap: 2rem;
+  @include lg {
+    @include flex-row;
+  }
+  summary {
+    flex: 1;
+    @include center;
+  }
+  h4 {
+    @include text-bold(1.875rem, $gray-900, 600);
+    font-family: $font-family-secondary;
+  }
+}

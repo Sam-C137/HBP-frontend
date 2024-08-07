@@ -1,0 +1,8 @@
+<main>
+    <span>
+        <hbp-doctor-profile-sidebar />
+        <div class="pt-3" [@routeAnimations]="prepareRoute(outlet)">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+    </span>
+</main>

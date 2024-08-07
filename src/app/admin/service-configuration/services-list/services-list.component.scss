@@ -1,0 +1,13 @@
+@import "main";
+
+:host {
+  width: 100%;
+}
+
+div:has(hbp-empty-list, hbp-error-handler) {
+  @include center;
+  min-height: 500px;
+  @include max-lg {
+    min-height: 200px;
+  }
+}

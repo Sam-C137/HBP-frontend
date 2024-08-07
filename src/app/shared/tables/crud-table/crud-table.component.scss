@@ -1,0 +1,17 @@
+@import "main";
+
+.loader {
+  @include center;
+  min-height: 720px;
+  min-width: 10rem;
+  @include max-lg {
+    min-height: 200px;
+  }
+  @media (max-height: 700px) {
+    min-height: 300px;
+  }
+}
+
+.dropdown {
+  @include dropdown;
+}

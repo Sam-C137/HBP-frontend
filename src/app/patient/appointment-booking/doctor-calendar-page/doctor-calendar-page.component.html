@@ -1,0 +1,56 @@
+<hbp-navbar />
+<main>
+    <section id="banner">
+        <h5>Dr. {{ doctor?.fullName || "" }}</h5>
+        <p>{{ doctor?.specialization || "" }}</p>
+    </section>
+    <section id="content">
+        <hbp-breadcrumb
+            [breadcrumbs]="[
+                {
+                    name: doctor?.specialization || '',
+                    route: '/patient/doctors',
+                    queryParams: queryParams,
+                },
+                {
+                    name: doctor?.fullName || '',
+                    route:
+                        '/patient/doctors/' +
+                        doctor?.fullName +
+                        '/book-appointment',
+                    queryParams: queryParams,
+                },
+                {
+                    name: 'Calendar',
+                    route: '/patient/doctors/' + doctor?.fullName + '/calendar',
+                    queryParams: queryParams,
+                },
+            ]"
+        />
+        @if (doctorScheduleQuery.isPending()) {
+            <div class="w-full h-96 center-div">
+                <hbp-spinner size="lg" />
+            </div>
+        } @else if (doctorScheduleQuery.isError()) {
+            <hbp-error-handler
+                [message]="doctorScheduleQuery.error().message"
+                (retry)="doctorScheduleQuery.refetch()"
+            />
+        } @else {
+            <div>
+                <hbp-calendar
+                    [schedule]="
+                        doctorScheduleQuery.data()
+                            ? doctorScheduleQuery.data()!
+                            : []
+                    "
+                    [config]="{
+                        userRole: Roles.Doctor,
+                        detailPrecision: 'shallow',
+                        activeColor: 'red',
+                    }"
+                />
+            </div>
+        }
+    </section>
+</main>

@@ -1,0 +1,10 @@
+<label [for]="label() | lowercase">
+    <input
+        type="checkbox"
+        [checked]="isChecked"
+        (change)="onChanged($event)"
+        [id]="label() | lowercase"
+        class="cursor-pointer"
+    />
+    <span class="truncate">{{ label() }}</span>
+</label>

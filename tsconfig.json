@@ -1,0 +1,50 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom", "es2017","dom.iterable", "scripthost"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@services": ["src/app/services"],
+      "@services/*": ["src/app/services/*"],
+      "@decorators": ["src/app/libs/decorators"],
+      "@utils/*": ["src/app/utils/*"],
+      "@utils": ["src/app/utils"],
+      "@auth/*": ["src/app/auth/*"],
+      "@directives": ["src/app/libs/directives"],
+      "@animations": ["src/app/libs/animations"],
+      "@interceptors": ["src/app/auth/interceptors"],
+      "@types": ["src/app/libs/types"],
+      "@pipes": ["src/app/libs/pipes"],
+      "@constants": ["src/app/libs/constants"],
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

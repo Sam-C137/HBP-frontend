@@ -1,0 +1,29 @@
+@if (reviewsQuery.isPending()) {
+    <div class="display-flex justify-center w-80 mb-6 mt-6">
+        <hbp-bars />
+    </div>
+} @else if (reviewsQuery.error()) {
+    <hbp-error-handler
+        [message]="reviewsQuery.error()?.message"
+        (retry)="reviewsQuery.refetch()"
+    />
+} @else {
+    @for (review of reviewsQuery.data()?.content; track review) {
+        <hbp-review [review]="review" [useDoctor]="true" />
+    } @empty {
+        <h3 class="text-center">
+            Leave a review after booking your favorite doctor to view your
+            review history
+        </h3>
+    }
+}
+
+<div class="display-flex align-items-center justify-center mt-4 w-full">
+    @if (reviewsQuery.data() && reviewsQuery.data()!.totalElements > 10) {
+        <amalitech-pagination
+            (amalitechPageChange)="changePage($event)"
+            [pageNumber]="currentPage() + 1"
+            [totalItems]="reviewsQuery.data()!.totalElements"
+        ></amalitech-pagination>
+    }
+</div>

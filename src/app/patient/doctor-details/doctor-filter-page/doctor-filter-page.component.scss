@@ -1,0 +1,84 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+#banner {
+  background-color: $primary-50;
+  padding: 3.2rem 0;
+  font-size: 2rem;
+  @include text-normal(2rem, $gray-900, 600);
+  @include center;
+  text-align: center;
+  @include max-lg {
+    font-size: 1rem;
+  }
+}
+
+#content {
+  padding: 1rem 2%;
+  margin-bottom: 2rem;
+  @include lg {
+    padding: 0 5%;
+  }
+}
+
+.search {
+  @include flex-column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  // margin-top: 2.13rem;
+  // margin-bottom: 2.62rem;
+  @include lg {
+    @include flex-row;
+    gap: 0;
+  }
+  @include max-lg {
+    align-items: start;
+  }
+}
+
+div:has(hbp-filter-doctor-list) {
+  @include lg {
+    @include flex-row;
+  }
+}
+
+.search-filter {
+  @include max-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+}
+#filter-button {
+  display: none;
+  @include max-lg {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 0.64rem 0.88rem;
+    margin: 0.5rem 0;
+  }
+}
+
+amalitech-pagination {
+  --pagination-active-bg: var(--success-100);
+  --pagination-item-color: var(--gray-500);
+  --pagination-active-color: var(--gray-900);
+  --pagination-font-size: 1.25rem;
+  isolation: isolate;
+  margin-bottom: 4rem;
+
+  @include max-lg {
+    --pagination-item-padding: 0.35rem 0.7rem;
+    --pagination-font-size: 1rem;
+  }
+}

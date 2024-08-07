@@ -1,0 +1,26 @@
+<label [for]="id()">
+    {{ label() }}
+    @if (required()) {
+        <i>*</i>
+    }
+</label>
+<div class="input">
+    <img src="assets/icons/calendar.svg" alt="" />
+    <input
+        (click)="picker.open()"
+        id="date"
+        type="text"
+        [value]="control().value | date"
+        readonly
+        [placeholder]="placeholder()"
+    />
+    <amalitech-date-picker
+        output-type="date"
+        [formControl]="control()"
+        class="position-absolute w-full z-2"
+        [attr.min]="min() | date: 'yyyy-MM-dd'"
+        [attr.max]="max() | date: 'yyyy-MM-dd'"
+        (amalitechDateClear)="control().setValue(queue[0])"
+        #picker
+    ></amalitech-date-picker>
+</div>

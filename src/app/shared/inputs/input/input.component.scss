@@ -1,0 +1,136 @@
+@import "main";
+
+:host {
+  --padding: 0.62rem 0.88rem;
+  --width: 100%;
+  --border-color: var(--gray-300);
+  --border-radius: 0.5rem;
+  --font-size: 1rem;
+  --color: var(--gray-700);
+  --label-color: var(--gray-700);
+  --label-font-size: 0.875rem;
+  --underlying-input-width: 90%;
+  --error-position: relative;
+  --focus-shadow: 0px 1px 2px 0px rgba(125, 228, 204, 0.15),
+    0px 0px 0px 4px rgba(125, 228, 204, 0.15);
+  --shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  display: block;
+  position: relative;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input[type="tel"] {
+  &::before {
+    //content: "+233";
+    //position: absolute;
+    //top: 0;
+    //left: 0;
+    //padding: 0.5rem;
+    //font-size: 0.75rem;
+    //color: var(--gray-500);
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: $error-500;
+    position: relative;
+  }
+}
+
+div:has(input[type="tel"]) {
+  img {
+    display: none;
+  }
+  &::before {
+    content: "+233";
+    padding-right: 0.5rem;
+    padding-top: 0.025rem;
+    font-size: 1rem;
+    color: var(--gray-500);
+  }
+}
+
+label {
+  @include text-normal(var(--label-font-size), var(--label-color), 500);
+  font-family: Montserrat;
+  line-height: 1.25rem;
+}
+
+:where(input) {
+  @include reset;
+  width: var(--underlying-input-width);
+  font-weight: 500;
+  font-size: var(--font-size);
+  position: relative;
+}
+
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+}
+
+[data-visible="false"] {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+}
+
+:where(.input) {
+  font-weight: 500;
+  width: var(--width);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  color: var(--color);
+  font-size: var(--font-size);
+  @include flex-row;
+  gap: 0.3rem;
+  margin: 0.5rem 0;
+  box-shadow: var(--shadow);
+
+  img {
+    cursor: pointer;
+  }
+
+  &.focusable {
+    &.focus {
+      border: 1px solid rgba(141, 242, 218, 0.5);
+      box-shadow: var(--focus-shadow);
+
+      &.focus-error {
+        border-radius: 0.5rem;
+        border: 1px solid #fda29b;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+      }
+    }
+  }
+}
+
+.error {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: -0.25rem;
+  position: var(--error-position);
+}
+
+i {
+  font-weight: 600;
+  color: $error-500;
+}

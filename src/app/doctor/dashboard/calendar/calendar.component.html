@@ -1,0 +1,39 @@
+
+<article class="calendar">
+    <p class="activeDate">{{ selectedDate() | date: 'ccc, MMM d' }}</p>
+    <div class="calendar-controls">
+        <select [(ngModel)]="selectedMonth" name="dates" id="dates">
+            @for (month of monthsOfCalendar; track month) {
+                <option [value]="calendarData.get(month)">{{month}}</option>
+            }
+        </select>
+        <div class="chevrons">
+            <button (click)="goToPrevMonth()">
+                <img class="day" src="/assets/icons/chevron-left.svg" alt="prev month">
+            </button>
+            <button (click)="goToNextMonth()">
+                <img class="day" src="/assets/icons/chevron-right.svg" alt="next month">
+            </button>
+        </div>
+    </div>
+    <div class="calendar-body">
+        <span class="day">S</span>
+        <span class="day">M</span>
+        <span class="day">T</span>
+        <span class="day">W</span>
+        <span class="day">T</span>
+        <span class="day">F</span>
+        <span class="day">S</span>
+        @for (day of days(); track day) { 
+            @if (day) {
+                <hbp-calendar-day
+                    (click)="selectedDate.set(day.date)"
+                    [isSelected]="getFormattedDate(day.date) === getFormattedDate(selectedDate())"
+                    [day]="day"
+                />
+            } @else {
+                <div></div>
+            } 
+        }
+    </div>
+</article>

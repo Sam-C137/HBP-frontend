@@ -1,0 +1,99 @@
+<section>
+    <h1>Doctors</h1>
+    <div class="search-panel mt-3">
+        <hbp-input
+            iconLeftUrl="assets/icons/search.svg"
+            type="text"
+            id="search"
+            [control]="form.get('search')"
+            placeholder="Search doctor by name or email"
+            [toggleIcons]="false"
+        />
+        <span class="display-flex gap-5 buttons">
+            <hbp-button (click)="isFiltersOpen = !isFiltersOpen">
+                <span class="display-flex align-items-center gap-5 font-medium">
+                    Filters
+                    <img src="assets/icons/filter.svg" alt="" />
+                </span>
+            </hbp-button>
+            <hbp-button (click)="isInvitationOpen = !isInvitationOpen">
+                <span class="display-flex align-items-center gap-3 font-medium">
+                    <img src="assets/icons/add-rounded.svg" alt="" />
+                    Invite Doctor
+                </span>
+            </hbp-button>
+        </span>
+    </div>
+    <div class="filters-panel mb-3 mt-1" [class.open]="isFiltersOpen">
+        <div>
+            <div class="content">
+                <form [formGroup]="form" class="options">
+                    <amalitech-select
+                        label="Specialization"
+                        formControlName="specialization"
+                        *ngIf="services.data()"
+                    >
+                        @for (
+                            service of services.data()?.content;
+                            track $index
+                        ) {
+                            <amalitech-select-option
+                                value="{{ service.name }}"
+                                >{{ service.name }}</amalitech-select-option
+                            >
+                        }
+                    </amalitech-select>
+                    <amalitech-select label="Rank" formControlName="rank">
+                        @for (rank of ranks; track $index) {
+                            <amalitech-select-option value="{{ rank.value }}">{{
+                                rank.name
+                            }}</amalitech-select-option>
+                        }
+                    </amalitech-select>
+                    <amalitech-select label="Status" formControlName="status">
+                        <amalitech-select-option value="" selected
+                            >All</amalitech-select-option
+                        >
+                        <amalitech-select-option value="active"
+                            >Active</amalitech-select-option
+                        >
+                        <amalitech-select-option value="inactive"
+                            >Inactive</amalitech-select-option
+                        >
+                    </amalitech-select>
+                </form>
+                <span class="center-div">
+                    <hbp-button (click)="form.reset()">
+                        <span
+                            class="display-flex align-items-center gap-3 font-medium"
+                        >
+                            <img src="assets/icons/close-small.svg" alt="" />
+                            Clear all
+                        </span>
+                    </hbp-button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <hbp-doctor-list
+        [doctors]="doctorsQuery.data() ? doctorsQuery.data()?.content! : []"
+        [isLoading]="doctorsQuery.isPending() || doctorsQuery.isRefetching()"
+        [error]="doctorsQuery.error()?.message"
+        (retry)="doctorsQuery.refetch()"
+    />
+    <div class="display-flex align-items-center justify-center mt-4 w-full">
+        <amalitech-pagination
+            *ngIf="
+                doctorsQuery.data() &&
+                (doctorsQuery?.data())!.totalElements > 10 &&
+                !doctorsQuery.isRefetching()
+            "
+            (amalitechPageChange)="changePage($event)"
+            [pageNumber]="currentPage() + 1"
+            [totalItems]="doctorsQuery.data()!.totalElements"
+        ></amalitech-pagination>
+    </div>
+</section>
+@if (isInvitationOpen) {
+    <hbp-invite-doctor [(open)]="isInvitationOpen" />
+}

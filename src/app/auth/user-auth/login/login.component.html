@@ -1,0 +1,47 @@
+<form [formGroup]="form" (submit)="submit()" class="p-1">
+    <h2 class="mb-1">Login to your account</h2>
+    <hbp-input
+        label="Email Address"
+        id="login-email"
+        type="email"
+        placeholder="Enter your email address"
+        iconLeftUrl="assets/icons/email.svg"
+        [control]="form.get('email')"
+        [error]="formValidator.errors('email')"
+    ></hbp-input>
+    <hbp-input
+        label="Password"
+        id="login-password"
+        type="password"
+        placeholder="Enter your password"
+        iconLeftUrl="assets/icons/lock.svg"
+        iconRightUrl="assets/icons/eye.svg"
+        [control]="form.get('password')"
+        [error]="formValidator.errors('password')"
+    ></hbp-input>
+    <span class="mt-1">
+        <div class="display-flex align-items-center justify-space-between mb-2">
+            <hbp-check-box-group>
+                <hbp-check-box
+                    label="Remember Me"
+                    value="remember"
+                ></hbp-check-box>
+            </hbp-check-box-group>
+            <a [routerLink]="['/auth/forgot-password']">Forgot password?</a>
+        </div>
+        <hbp-button type="submit" [disabled]="loginMutation.isPending()">
+            <span class="display-flex align-items-center justify-center gap-4">
+                @if (loginMutation.isPending()) {
+                    Signing In...
+                    <hbp-spinner />
+                } @else {
+                    Log In
+                }
+            </span>
+        </hbp-button>
+    </span>
+    <p class="mt-1">
+        Don't have an account?
+        <a [routerLink]="['/auth/sign-up']">Sign up</a>
+    </p>
+</form>

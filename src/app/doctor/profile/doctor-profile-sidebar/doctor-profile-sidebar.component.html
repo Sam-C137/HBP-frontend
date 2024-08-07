@@ -1,0 +1,42 @@
+<aside>
+    <h2>Profile</h2>
+    <ul>
+        <li>
+            <a
+                [routerLink]="['/doctor/profile']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                General
+            </a>
+        </li>
+        <li>
+            <a
+                [routerLink]="['/doctor/profile/notifications']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                Email Preferences
+            </a>
+        </li>
+        <li>
+            <a
+                [routerLink]="['/doctor/profile/change-password']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                Change Password
+            </a>
+        </li>
+        <li>
+            <a (click)="deleteAccount()" tabindex="0" class="cursor-pointer"
+                >Delete Account</a
+            >
+        </li>
+    </ul>
+</aside>
+
+<ng-template #modalTemplate>
+    Are you sure you want to permanently delete your account? this action is
+    irreversible
+</ng-template>

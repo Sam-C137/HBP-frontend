@@ -1,0 +1,62 @@
+<span
+    class="position-relative"
+    (clickOutside)="dropdown.classList.remove('open')"
+>
+    <label [for]="id()">
+        {{ label() }}
+        @if (required()) {
+            <i>*</i>
+        }
+    </label>
+    @if (!control().value) {
+        <hbp-input
+            [control]="form.get('search')"
+            id="search"
+            placeholder="Select an icon"
+            (click)="dropdown.classList.toggle('open')"
+        />
+    } @else {
+        <div
+            class="icon-picker cursor-pointer"
+            [class.focus-error]="error()"
+            tabindex="1"
+            (click)="dropdown.classList.toggle('open')"
+        >
+            <span>
+                <img [src]="selectedIconUrl()" alt="icon" />
+                <img
+                    src="assets/icons/close-small.svg"
+                    alt="close"
+                    (click)="
+                        control().setValue('');
+                        dropdown.classList.remove('open');
+                        selectedIconUrl.set(undefined)
+                    "
+                    tabindex="0"
+                />
+            </span>
+        </div>
+    }
+    <section #dropdown class="scrollable">
+        @if (icons.data()) {
+            @for (
+                icon of icons.data()?.content
+                    | filter: form.get("search")?.value : "name";
+                track $index
+            ) {
+                <img
+                    [src]="icon.iconData"
+                    [alt]="icon.name"
+                    (click)="
+                        control().setValue(icon.name);
+                        dropdown.classList.remove('open');
+                        selectedIconUrl.set(icon.iconData)
+                    "
+                    class="cursor-pointer"
+                    tabindex="0"
+                />
+            }
+        }
+    </section>
+    <p class="error">{{ error() }}</p>
+</span>

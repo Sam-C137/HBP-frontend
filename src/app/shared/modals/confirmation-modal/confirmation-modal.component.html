@@ -1,0 +1,34 @@
+<article class="modal screen-fit" role="alertdialog" aria-labelledby="label">
+    <header>
+        <p id="label">{{ details()?.title }}</p>
+        <img
+            src="assets/icons/close-small.svg"
+            (click)="closeModal()"
+            alt="close"
+            class="cursor-pointer"
+            tabindex="0"
+        />
+    </header>
+    <section>
+        <ng-content></ng-content>
+    </section>
+    <footer>
+        <hbp-button type="button" (click)="closeModal()">
+            {{ details()?.cancel }}
+        </hbp-button>
+        <hbp-button
+            type="submit"
+            (click)="confirmEvent.emit()"
+            [disabled]="loading() | async"
+        >
+            <span class="display-flex align-items-center justify-center gap-4">
+                {{ details()?.submit }}
+                @if (loading() | async) {
+                    <hbp-spinner />
+                }
+            </span>
+        </hbp-button>
+    </footer>
+</article>
+
+<div class="backdrop" (click)="closeModal()" tabindex="0"></div>

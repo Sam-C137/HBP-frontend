@@ -1,0 +1,12 @@
+main {
+  padding-top: 4rem;
+  @media (min-width: 960px) {
+    padding-top: 5.3rem;
+  }
+  & > *:not(hbp-sidebar) {
+    padding-left: 14em;
+    @media (max-width: calc(960px - 1px)) {
+      padding-left: 0;
+    }
+  }
+}

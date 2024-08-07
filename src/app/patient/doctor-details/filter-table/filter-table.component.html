@@ -1,0 +1,64 @@
+@if (filtersMenuIsVisible()) {
+    <div
+        @fadeIn
+        (click)="closeFilterTable()"
+        tabindex="-1"
+        class="overlay"
+    ></div>
+    <form @openClose [formGroup]="form()" class="filters">
+        <div class="sidebar-left">
+            <h4>Filters</h4>
+            <div class="filter-content">
+                <span class="rank mt-2 display-block">
+                    <h5>Rank</h5>
+                    <hbp-check-box-group
+                        formControlName="rank"
+                        class="checkbox-group"
+                    >
+                        <hbp-check-box
+                            label="Expert"
+                            value="Expert"
+                        ></hbp-check-box>
+
+                        <hbp-check-box
+                            label="Senior"
+                            value="Senior"
+                        ></hbp-check-box>
+
+                        <hbp-check-box
+                            label="Mid-Level"
+                            value="Mid_Level"
+                        ></hbp-check-box>
+
+                        <hbp-check-box
+                            label="Junior"
+                            value="Junior"
+                        ></hbp-check-box>
+                    </hbp-check-box-group>
+                </span>
+                <span class="gender mt-2 display-block">
+                    <h5>Gender</h5>
+                    <ul class="radio-group">
+                        <hbp-radio-group
+                            class="checkbox-group"
+                            formControlName="gender"
+                        >
+                            <hbp-radio-button
+                                label="All"
+                                value=""
+                            ></hbp-radio-button>
+                            <hbp-radio-button
+                                label="Male"
+                                value="MALE"
+                            ></hbp-radio-button>
+                            <hbp-radio-button
+                                label="Female"
+                                value="FEMALE"
+                            ></hbp-radio-button>
+                        </hbp-radio-group>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </form>
+}

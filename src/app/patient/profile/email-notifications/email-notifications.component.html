@@ -1,0 +1,71 @@
+<form [formGroup]="form">
+    <h2 class="profile-header">Appointments Notifications</h2>
+    <div>
+        <p class="profile-header">Email me when:</p>
+        <ul class="notifications">
+            <li>
+                <hbp-single-check-box
+                    label="I request an appointment booking"
+                    formControlName="appointmentRequested"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="My appointment is rejected"
+                    formControlName="appointmentRejected"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="My appointment is accepted"
+                    formControlName="appointmentAccepted"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="My appointment is cancelled"
+                    formControlName="appointmentCancelled"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="My appointment is completed"
+                    formControlName="appointmentCompleted"
+                ></hbp-single-check-box>
+            </li>
+
+            <li>
+                <hbp-single-check-box
+                    label="My appointment is rescheduled"
+                    formControlName="appointmentRescheduled"
+                ></hbp-single-check-box>
+            </li>
+        </ul>
+    </div>
+
+    <h2 class="profile-header h2">Account Activity</h2>
+    <div>
+        <p class="profile-header">Email me when:</p>
+        <ul class="notifications">
+            <li>
+                <hbp-single-check-box
+                    label="My account is deactivated"
+                    formControlName="accountDeactivated"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="My account information is updated"
+                    value="accountInfoUpdated"
+                    formControlName="accountInfoUpdated"
+                ></hbp-single-check-box>
+            </li>
+        </ul>
+    </div>
+    <hbp-button
+        type="submit"
+        (click)="saveNewPreferences()"
+        [disabled]="emailPreferencesQuery.isPending()"
+        >Save Changes
+    </hbp-button>
+</form>

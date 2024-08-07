@@ -1,0 +1,91 @@
+@import "main";
+
+:host {
+  display: block;
+  width: max-content;
+
+  & > div {
+    @include flex-row;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+h4 {
+  @include text-bold(1.25rem, $gray-900, 500);
+  font-weight: 500;
+  line-height: 1.875rem;
+}
+
+p {
+  @include text-normal(1rem, $gray-700, 500);
+  line-height: 1.25rem;
+}
+
+ol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  li {
+    border-radius: 0.35rem;
+    background: $secondary-100;
+    @include text-normal(0.875rem, $gray-700, 500);
+    line-height: 1.25rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    position: relative;
+    &.active {
+      background: $secondary-300;
+      color: $dark;
+    }
+    &.animated {
+      &:first-child {
+        --border-angle: 0turn;
+        --main-bg: conic-gradient(
+          from var(--border-angle),
+          var(--secondary-300),
+          var(--secondary-300) 5%,
+          var(--secondary-300) 60%,
+          var(--secondary-300) 95%
+        );
+
+        border: solid 2px transparent;
+        --gradient-border: conic-gradient(
+          from var(--border-angle),
+          transparent 25%,
+          #08f,
+          #f03 99%,
+          transparent
+        );
+
+        background:
+          var(--main-bg) padding-box,
+          var(--gradient-border) border-box,
+          var(--main-bg) border-box;
+
+        background-position: center center;
+
+        animation: bg-spin 4s linear;
+        @keyframes bg-spin {
+          to {
+            --border-angle: 1turn;
+          }
+        }
+      }
+    }
+  }
+}
+
+@container (width < 10rem) {
+  ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}

@@ -1,0 +1,81 @@
+<div (clickOutside)="focused.set(false)" class="combobox-container">
+    <button
+        type="button"
+        (click)="onComboboxClick()"
+        [class]="{
+            combobox: true,
+            'combobox--focused': focused(),
+        }"
+    >
+        <div class="combobox__container">
+            <span class="combobox__container__value">
+                @if (selectedValue()) {
+                    {{ selectedValue() }}
+                } @else {
+                    {{ placeholder }}
+                }
+            </span>
+        </div>
+    </button>
+    <div
+        [class]="{
+            'combobox-container__chevron': true,
+            'combobox-container__chevron--rotate': focused(),
+        }"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 20 20"
+            fill="none"
+        >
+            <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="#5B5F5D"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    </div>
+    @if (focused()) {
+        <div
+            #combobox
+            [hbpCollision]="combobox"
+            parentClass="combobox__dropdown"
+            (classOutput)="onCollision($event)"
+        >
+            <div>
+                <input
+                    type="text"
+                    id="filter"
+                    placeholder="Search..."
+                    class="combobox__dropdown__input"
+                    [formControl]="inputControl"
+                />
+            </div>
+            <ul class="combobox__dropdown__list customScroll">
+                @if (filteredItems().length > 0) {
+                    @for (item of filteredItems(); track item) {
+                        <li class="combobox__dropdown__list-item">
+                            <button
+                                (click)="
+                                    onComboItemClick(item.id, item.fullName)
+                                "
+                            >
+                                {{ item.fullName }}
+                            </button>
+                        </li>
+                    }
+                } @else if (loading()) {
+                    <p>Loading...</p>
+                } @else {
+                    <p class="combobox__dropdown__list-item">
+                        No doctors found
+                    </p>
+                }
+            </ul>
+        </div>
+    }
+</div>

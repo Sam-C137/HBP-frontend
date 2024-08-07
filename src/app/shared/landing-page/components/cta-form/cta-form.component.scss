@@ -1,0 +1,17 @@
+@import "main";
+
+.input {
+  @include flex-row;
+  align-items: center;
+  justify-content: space-between;
+  background: $white;
+  padding: 0.25rem 0.88rem 0.25rem 0.25rem;
+  border-radius: 0.85rem;
+}
+
+hbp-input {
+  --border-color: var(--white);
+  --border-radius: 0.5rem;
+  --shadow: none;
+  --focus-shadow: none;
+}

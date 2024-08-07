@@ -1,0 +1,76 @@
+<article
+    [class]="{
+        open: open(),
+        'screen-fit': open(),
+        modal: true,
+    }"
+    role="alertdialog"
+    aria-labelledby="label"
+    @popup
+>
+    <header>
+        <p id="label">Reschedule Appointment</p>
+        <img
+            src="assets/icons/close-small.svg"
+            (click)="close()"
+            alt="close"
+            class="cursor-pointer"
+            tabindex="0"
+        />
+    </header>
+    <section>
+        <form [formGroup]="form" (submit)="submit()">
+            <hbp-date-picker
+                label="Appointment date"
+                id="date"
+                [control]="form.get('appointmentDate')"
+                class="mt-2"
+                [required]="true"
+                [min]="today"
+            />
+            <b>Select new appointment date</b>
+            <hbp-time-picker
+                label="Appointment time"
+                id="time"
+                [control]="form.get('appointmentTime')"
+                [showSpinners]="false"
+                class="mt-2"
+                [required]="true"
+                [useList]="true"
+                [timeList]="
+                    availableTimesQuery.data()
+                        ? availableTimesQuery.data()!
+                        : []
+                "
+                [loadingState]="availableTimesQuery.isPending()"
+                [error]="formValidator.errors('appointmentTime')"
+            />
+            <hbp-textarea
+                label="Notes"
+                id="notes"
+                type="text"
+                placeholder="Reason for rescheduling appointment"
+                [control]="form.get('reason')"
+                [error]="formValidator.errors('reason')"
+                [rows]="5"
+                [required]="true"
+                class="mt-2"
+            />
+            <hbp-button
+                type="submit"
+                [disabled]="rescheduleMutation.isPending()"
+            >
+                Reschedule
+            </hbp-button>
+        </form>
+    </section>
+</article>
+<div
+    class="backdrop"
+    [class.open]="open()"
+    tabindex="-1"
+    (click)="open.set(false)"
+></div>
+@if (rescheduleMutation.isPending() || patientRescheduleMutation.isPending()) {
+    <hbp-spinner size="screen" />
+}

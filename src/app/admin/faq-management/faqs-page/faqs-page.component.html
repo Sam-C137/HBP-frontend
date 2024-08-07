@@ -1,0 +1,54 @@
+<section>
+    <h1>Frequently Asked Questions</h1>
+    <form [formGroup]="form" class="search-panel mt-3 mb-3">
+        <hbp-input
+            iconLeftUrl="assets/icons/search.svg"
+            type="text"
+            id="search"
+            [control]="form.get('search')"
+            placeholder="Search for FAQs"
+            [toggleIcons]="false"
+        />
+        <span class="display-flex gap-5 buttons">
+            <amalitech-select label="Filter" formControlName="state">
+                <amalitech-select-option value="" selected
+                    >All</amalitech-select-option
+                >
+                <amalitech-select-option value="PUBLISHED"
+                    >Published</amalitech-select-option
+                >
+                <amalitech-select-option value="DRAFTED"
+                    >Drafts</amalitech-select-option
+                >
+                <amalitech-select-option value="DELETED"
+                    >Deleted</amalitech-select-option
+                >
+            </amalitech-select>
+            <hbp-button [routerLink]="['create']">
+                <span class="display-flex align-items-center gap-3">
+                    <img src="assets/icons/add-rounded.svg" alt="" />
+                    Add New FAQ
+                </span>
+            </hbp-button>
+        </span>
+    </form>
+    <hbp-faq-list
+        [faqs]="faqsQuery.data() ? faqsQuery.data()?.content! : []"
+        [isLoading]="faqsQuery.isPending() || faqsQuery.isRefetching()"
+        [error]="faqsQuery.error()?.message"
+        (retry)="faqsQuery.refetch()"
+        [filters]="form.get('state')?.value"
+    />
+    <div class="display-flex align-items-center justify-center mt-4 w-full">
+        <amalitech-pagination
+            *ngIf="
+                faqsQuery.data() &&
+                (faqsQuery?.data())!.totalElements > 10 &&
+                !faqsQuery.isRefetching()
+            "
+            (amalitechPageChange)="changePage($event)"
+            [pageNumber]="currentPage() + 1"
+            [totalItems]="faqsQuery.data()!.totalElements"
+        ></amalitech-pagination>
+    </div>
+</section>

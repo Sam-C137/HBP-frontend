@@ -1,0 +1,70 @@
+@import "main";
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 25rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+hbp-button {
+  --width: fit-content;
+  margin-top: 0.5rem;
+  float: right;
+}
+
+.dropdown {
+  padding: 0.75rem;
+  border-radius: 0.35rem;
+  border: 1px solid $gray-200;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  background: $white;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  &.scrollable {
+    max-height: calc(var(--icon-size) * 6 + 0.75rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  &.open {
+    animation: moveDownOut 0.1s linear forwards;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  img {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-bottom: 0.25rem;
+  }
+}

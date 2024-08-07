@@ -1,0 +1,68 @@
+<span
+    (mouseover)="pauseAutoclose()"
+    (mouseout)="autoclose()"
+    (blur)="autoclose()"
+    (focus)="pauseAutoclose()"
+    [class]="{
+        opening: opening,
+        closed: closed,
+    }"
+    [style.borderColor]="
+        config()?.status === 'success'
+            ? 'var(--success-500)'
+            : config()?.status === 'error'
+              ? 'var(--error-500)'
+              : 'var(--yellow-500)'
+    "
+>
+    @switch (config()?.status) {
+        @case ("success") {
+            <img
+                src="assets/icons/success-check.svg"
+                width="24"
+                height="24"
+                alt="success"
+            />
+        }
+        @case ("error") {
+            <img
+                src="assets/icons/x-mark.svg"
+                width="24"
+                height="24"
+                alt="error"
+            />
+        }
+        @case ("warning") {
+            <img
+                src="assets/icons/quill-warn.svg"
+                width="24"
+                height="24"
+                alt="warning"
+            />
+        }
+    }
+    <p class="{{ config()?.status }}">{{ config()?.message }}</p>
+    <svg
+        class="cursor-pointer"
+        (click)="close()"
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="20"
+        viewBox="0 0 21 20"
+        fill="none"
+    >
+        <path
+            d="M15.5 5L5.5 15M5.5 5L15.5 15"
+            [attr.stroke]="
+                config()?.status === 'success'
+                    ? 'var(--success-500)'
+                    : config()?.status === 'error'
+                      ? 'var(--error-500)'
+                      : 'var(--yellow-500)'
+            "
+            stroke-width="1.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+</span>

@@ -1,0 +1,83 @@
+@import "main";
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 25rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  hbp-button:first-of-type {
+    --background: var(--white);
+    --border-color: var(--gray-600);
+    --color: var(--gray-700);
+    --hover-bg: var(--white);
+    --hover-border: var(--gray-600);
+    --hover-color: var(--gray-700);
+  }
+}
+
+hbp-button {
+  --width: fit-content;
+  margin-top: 0.5rem;
+  //   float: right;
+}
+
+.doctor-info {
+  @include flex-column;
+  align-items: center;
+  p {
+    color: var(--Neutral-900, #3d3d3d);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.5rem; /* 150% */
+    width: 70%;
+  }
+}
+
+hbp-user-avatar {
+  --size: 5rem;
+}
+
+amalitech-star-rating {
+  --star-rating-active: var(--yellow-500);
+}
+
+hbp-spinner {
+  --color: var(--white);
+  --thickness: 4px;
+  --width: 20px;
+}

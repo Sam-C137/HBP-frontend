@@ -1,0 +1,32 @@
+<h4>Contact Us</h4>
+<form [formGroup]="form" (submit)="submit()">
+    <hbp-input
+        id="about-form-name"
+        label="Name"
+        [required]="true"
+        placeholder="Enter your name"
+        [control]="form.get('name')"
+        type="text"
+    />
+    <hbp-input
+        id="about-form-email"
+        label="Email"
+        [required]="true"
+        placeholder="Enter your email"
+        [control]="form.get('email')"
+        type="email"
+        iconLeftUrl="assets/icons/email.svg"
+        [toggleIcons]="false"
+        [error]="formValidator.errors('email')"
+    />
+    <hbp-textarea
+        id="about-form-message"
+        label="How can we help you?"
+        [required]="true"
+        placeholder="Enter your message"
+        [control]="form.get('message')"
+    />
+    <hbp-button type="submit" class="mt-2 display-block">
+        Submit Form
+    </hbp-button>
+</form>

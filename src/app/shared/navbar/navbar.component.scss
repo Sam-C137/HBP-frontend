@@ -1,0 +1,122 @@
+@import "main";
+
+:host {
+  --z-index: 10;
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: var(--z-index);
+}
+
+.float.doctor-login {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  color: $primary;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  width: 100%;
+  @include center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+section.mobile-dropdown {
+  background-color: $white;
+  width: 100%;
+  position: absolute;
+  top: 7vh;
+  z-index: 5;
+  transform: translateY(calc(-100% - 8vh));
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid $dark;
+  @include lg {
+    display: none;
+  }
+
+  &.open {
+    transform: translateY(0);
+  }
+  ul {
+    width: 100%;
+    li {
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      color: $dark-700;
+      padding: 1rem 0.5rem;
+      font-size: 1.15rem;
+      &:first-of-type {
+        margin-top: 0.25rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+      }
+      &:last-of-type {
+        background-color: $primary;
+        color: $white;
+      }
+    }
+  }
+}
+
+.hamburger-menu {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  &.display-none {
+    display: none;
+  }
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  & > .menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+
+    & > span {
+      width: 1.5rem;
+      height: 0.2rem;
+      background-color: $dark;
+      border-radius: 0.625rem;
+      transition: all 0.3s linear;
+    }
+
+    &.active {
+      span:nth-child(1) {
+        transform-origin: center;
+        transform: translateY(0.5rem) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+      }
+      span:nth-child(3) {
+        transform-origin: center;
+        transform: translateY(-0.5rem) rotate(-45deg);
+      }
+    }
+  }
+}

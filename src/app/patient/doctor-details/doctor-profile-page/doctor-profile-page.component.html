@@ -1,0 +1,180 @@
+<hbp-navbar />
+<main>
+    <section id="banner">
+        <span>Dr. {{ doctor?.fullName }}</span>
+    </section>
+    <section id="content">
+        <ol>
+            <li>
+                <a
+                    [routerLink]="['/patient', 'home']"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    <img src="assets/icons/home.svg" alt="" />
+                </a>
+            </li>
+            <i></i>
+            <li>
+                <a
+                    [routerLink]="['/patient/doctors', doctor?.fullName]"
+                    routerLinkActive="active"
+                >
+                    {{ doctor?.fullName }}
+                </a>
+            </li>
+        </ol>
+        <div>
+            <div class="profile">
+                <hbp-user-avatar
+                    [src]="doctor?.profilePicture"
+                    [fallback]="doctor!.fullName"
+                />
+                <span>
+                    <h3 class="mb-1">{{ doctor?.fullName }}</h3>
+                    <h5>
+                        {{ doctor?.level }} Doctor of
+                        {{ doctor?.specialization }}
+                    </h5>
+                    <amalitech-star-rating
+                        animated
+                        [value]="doctor?.rating?.toFixed()"
+                        readonly
+                        stroke-color="var(--yellow-500)"
+                    ></amalitech-star-rating>
+                    <hbp-button (click)="navigate(doctor!)">
+                        Book Doctor
+                    </hbp-button>
+                </span>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <span>
+                Specialty:
+                <small>{{ doctor?.specialization }}</small>
+            </span>
+            <span>
+                Years of Experience:
+                <small>{{ doctor?.yearsOfExperience }}</small>
+            </span>
+            <span>
+                Education:
+                <small>{{ doctor?.education }}</small>
+            </span>
+            <span id="about-text">
+                <span>About</span>
+                <span>
+                    <small>
+                        {{ doctor?.bio || "Unknown" }}
+                    </small>
+                </span>
+            </span>
+            <span>
+                Languages Spoken:
+                <small>
+                    {{ doctor?.languages || "Unknown" | titlecase }}
+                </small>
+            </span>
+            <span>
+                Contact:
+                <small>{{ doctor?.email }}</small>
+            </span>
+        </div>
+
+        <div class="ratings-and-feedback mt-2 mb-2">
+            <h4 class="mb-2">
+                Rating and Feedback:
+                <small
+                    >{{ doctor?.rating?.toFixed(1) }}/5 ({{
+                        doctor?.numberOfReviews
+                    }}
+                    Reviews)</small
+                >
+            </h4>
+            <span>
+                <small>5 </small>
+                <hbp-progress-bar
+                    [progress]="
+                        calculatePercentage(
+                            doctor?.numberOfFiveStarReviews ?? 0,
+                            doctor?.numberOfReviews ?? 0
+                        )
+                    "
+                />
+            </span>
+            <span>
+                <small>4 </small>
+                <hbp-progress-bar
+                    [progress]="
+                        calculatePercentage(
+                            doctor?.numberOfFourStarReviews ?? 0,
+                            doctor?.numberOfReviews ?? 0
+                        )
+                    "
+                />
+            </span>
+            <span>
+                <small>3 </small>
+                <hbp-progress-bar
+                    [progress]="
+                        calculatePercentage(
+                            doctor?.numberOfThreeStarReviews ?? 0,
+                            doctor?.numberOfReviews ?? 0
+                        )
+                    "
+                />
+            </span>
+            <span>
+                <small>2 </small>
+                <hbp-progress-bar
+                    [progress]="
+                        calculatePercentage(
+                            doctor?.numberOfTwoStarReviews ?? 0,
+                            doctor?.numberOfReviews ?? 0
+                        )
+                    "
+                />
+            </span>
+            <span>
+                <small>1 </small>
+                <hbp-progress-bar
+                    [progress]="
+                        calculatePercentage(
+                            doctor?.numberOfOneStarReviews ?? 0,
+                            doctor?.numberOfReviews ?? 0
+                        )
+                    "
+                />
+            </span>
+
+            @if (reviewsQuery.isPending()) {
+                <div class="w-full center-div mt-3">
+                    <hbp-spinner />
+                </div>
+            } @else if (reviewsQuery.isError()) {
+                <p class="text-center font-semibold mt-2">
+                    {{ reviewsQuery.error().message }}
+                </p>
+            } @else {
+                @for (review of reviewsQuery.data()?.content; track $index) {
+                    <hbp-review [review]="review" />
+                    <amalitech-pagination
+                        *ngIf="
+                            reviewsQuery.data() &&
+                            reviewsQuery.data()!.totalElements > 10
+                        "
+                        (amalitechPageChange)="changePage($event)"
+                        [pageNumber]="currentPage() + 1"
+                        [totalItems]="reviewsQuery.data()!.totalElements"
+                    ></amalitech-pagination>
+                } @empty {
+                    <p class="text-center font-semibold mt-4">
+                        This doctor has no reviews yet
+                    </p>
+                }
+            }
+        </div>
+    </section>
+</main>
+<hbp-footer />

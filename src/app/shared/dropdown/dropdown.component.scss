@@ -1,0 +1,11 @@
+@import "main";
+
+div {
+  position: absolute;
+  background: $white;
+  box-shadow: 0px 0px 4px 0px rgba(153, 153, 153, 0.25);
+  display: flex;
+  min-width: 11rem;
+  border-radius: 0.25rem;
+  z-index: 1;
+}

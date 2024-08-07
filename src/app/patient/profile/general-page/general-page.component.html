@@ -1,0 +1,199 @@
+<form [formGroup]="form" (submit)="submit()">
+    <h2>Profile picture</h2>
+    <span>
+        <hbp-user-avatar
+            [src]="form.get('profilePicture')?.value"
+            [fallback]="form.get('fullName')?.value"
+        />
+        <div>
+            <button
+                type="button"
+                (click)="pfp.click()"
+                [disabled]="
+                    updateProfileMutation.isPending() ||
+                    deleteProfilePictureMutation.isPending()
+                "
+            >
+                <i></i>
+                Update
+            </button>
+            <button
+                type="button"
+                (click)="deleteProfilePictureMutation.mutate()"
+                [disabled]="
+                    updateProfileMutation.isPending() ||
+                    deleteProfilePictureMutation.isPending()
+                "
+            >
+                <i></i>
+                Remove
+            </button>
+        </div>
+        <input
+            type="file"
+            name="profilePicture"
+            class="display-none"
+            id="pfp"
+            #pfp
+            (change)="onFileChange($event)"
+        />
+        <input
+            type="hidden"
+            name="fileHidden"
+            formControlName="profilePicture"
+        />
+    </span>
+    <p class="error mt-2">{{ formValidator.errors("profilePicture") }}</p>
+    <section>
+        <div>
+            <h2 class="mt-4">Personal information</h2>
+            <hbp-input
+                id="patient-general-name"
+                type="text"
+                placeholder="Enter your full name"
+                iconLeftUrl="assets/icons/user.svg"
+                [control]="form.get('fullName')"
+                [error]="formValidator.errors('fullName')"
+                [label]="'Name'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <b>This name will be shown on your profile</b>
+            <hbp-input
+                id="patient-general-email"
+                type="email"
+                placeholder="Enter your email address"
+                iconLeftUrl="assets/icons/email.svg"
+                [control]="form.get('email')"
+                [error]="formValidator.errors('email')"
+                [label]="'Email'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <ul class="radio-group">
+                <label for="gender">Gender</label>
+                <hbp-radio-group
+                    class="checkbox-group"
+                    formControlName="gender"
+                >
+                    <hbp-radio-button
+                        label="Male"
+                        value="MALE"
+                    ></hbp-radio-button>
+                    <hbp-radio-button
+                        label="Female"
+                        value="FEMALE"
+                    ></hbp-radio-button>
+                </hbp-radio-group>
+            </ul>
+            <hbp-input
+                id="patient-general-contact"
+                type="tel"
+                placeholder="Enter your telephone number"
+                iconLeftUrl="assets/icons/telephone.svg"
+                [control]="form.get('contact')"
+                [error]="formValidator.errors('contact')"
+                [label]="'Contact'"
+                [toggleIcons]="false"
+                [maxLength]="9"
+            ></hbp-input>
+            <hbp-input
+                id="patient-general-location"
+                type="text"
+                placeholder="Enter your location"
+                iconLeftUrl="assets/icons/location-marker.svg"
+                [control]="form.get('address')"
+                [error]="formValidator.errors('address')"
+                [label]="'Location'"
+                [toggleIcons]="false"
+            ></hbp-input>
+        </div>
+        <div>
+            <h2 class="mt-4 profile-header">Emergency Contact</h2>
+            <hbp-input
+                id="patient-emergency-name"
+                type="text"
+                placeholder="Full name"
+                iconLeftUrl="assets/icons/user.svg"
+                [control]="form.get('emergencyName')"
+                [error]="formValidator.errors('emergencyName')"
+                [label]="'Name'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <span>
+                <label for="relationship">Relationship</label>
+                <amalitech-select
+                    scrollable
+                    label="Relationship"
+                    formControlName="emergencyRelationship"
+                >
+                    <amalitech-select-option value="self" disabled
+                        >Self</amalitech-select-option
+                    >
+                    <amalitech-select-option value="wife"
+                        >Wife</amalitech-select-option
+                    >
+                    <amalitech-select-option value="husband"
+                        >Husband</amalitech-select-option
+                    >
+                    <amalitech-select-option value="sister"
+                        >Sister</amalitech-select-option
+                    >
+                    <amalitech-select-option value="brother"
+                        >Brother</amalitech-select-option
+                    >
+                    <amalitech-select-option value="mother"
+                        >Mother</amalitech-select-option
+                    >
+                    <amalitech-select-option value="father"
+                        >Father</amalitech-select-option
+                    >
+                    <amalitech-select-option value="friend"
+                        >Friend</amalitech-select-option
+                    >
+                    <amalitech-select-option value="other"
+                        >Other</amalitech-select-option
+                    >
+                </amalitech-select>
+            </span>
+            <hbp-input
+                id="patient-emergency-email"
+                type="email"
+                placeholder="Email address"
+                iconLeftUrl="assets/icons/email.svg"
+                [control]="form.get('emergencyEmail')"
+                [error]="formValidator.errors('emergencyEmail')"
+                [label]="'Email'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <hbp-input
+                id="patient-emergency-contact"
+                type="tel"
+                placeholder="Telephone number"
+                iconLeftUrl="assets/icons/telephone.svg"
+                [control]="form.get('emergencyPhoneNumber')"
+                [error]="formValidator.errors('emergencyPhoneNumber')"
+                [label]="'Contact'"
+                [toggleIcons]="false"
+                [maxLength]="10"
+            ></hbp-input>
+            <hbp-input
+                id="patient-emergency-location"
+                type="text"
+                placeholder="Location"
+                iconLeftUrl="assets/icons/location-marker.svg"
+                [control]="form.get('emergencyLocation')"
+                [error]="formValidator.errors('emergencyLocation')"
+                [label]="'Location'"
+                [toggleIcons]="false"
+            ></hbp-input>
+        </div>
+    </section>
+    <hbp-button
+        [disabled]="
+            !!form.errors ||
+            updateProfileMutation.isPending() ||
+            deleteProfilePictureMutation.isPending()
+        "
+        type="submit"
+        >Save Changes
+    </hbp-button>
+</form>

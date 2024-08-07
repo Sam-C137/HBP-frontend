@@ -1,0 +1,12 @@
+@import "main";
+main {
+  min-height: 80dvh;
+}
+
+span {
+  display: flex;
+  flex-direction: column;
+  @include md {
+    flex-direction: row;
+  }
+}

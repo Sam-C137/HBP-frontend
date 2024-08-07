@@ -1,0 +1,85 @@
+@import "main";
+
+:host {
+  --color: var(--white);
+  --padding: 0.5rem 1rem;
+  --width: 100%;
+  --height: auto;
+  --height: auto;
+  --font-size: 1rem;
+  --font-weight: 400;
+  --hover-bg: var(--primary-hover);
+  --hover-border: var(--primary-hover);
+  --hover-color: var(--white);
+  --font-family: var(--font-family-base);
+  --display: block;
+  --background: var(--primary);
+  --border-color: var(--primary);
+  --border-radius: 0.5rem;
+  --display: block;
+  --background: var(--primary);
+  --border-color: var(--primary);
+  --border-radius: 0.5rem;
+}
+
+button {
+  height: var(--height);
+  width: var(--width);
+  font-family: var(--font-family);
+  color: var(--color);
+  font-family: var(--font-family);
+  @include button($font-weight: var(--font-weight), $padding: var(--padding));
+  font-size: calc(var(--font-size) * 0.875);
+  color: var(--color);
+  display: var(--display);
+  background: var(--background);
+  border-color: var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: calc(var(--font-size) * 0.875);
+  color: var(--color);
+  display: var(--display);
+  background: var(--background);
+  border-color: var(--border-color);
+  border-radius: var(--border-radius);
+  @include lg {
+    font-size: var(--font-size);
+  }
+  &.secondary {
+    @include button(
+      $bg: $primary-100,
+      $text: $gray-600,
+      $border-color: $gray-600
+    );
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  &:not(:disabled):hover {
+    background: var(--hover-bg);
+    border-color: var(--hover-border);
+    color: var(--hover-color);
+  }
+  &:has(amalitech-progress-ring) {
+    padding: 0.35rem 1.25rem;
+  }
+  &.shadow {
+    &:not(:disabled):hover {
+      box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+amalitech-progress-ring {
+  --progress-ring-text-color: transparent;
+  --progress-ring-indeterminate-timing-function: linear;
+  --progress-ring-indeterminate-duration: 0.5s;
+  margin-bottom: -4px;
+}
+
+hbp-spinner {
+  --color: var(--white);
+  --thickness: 4px;
+  --width: 20px;
+  margin-left: 0.5rem;
+}

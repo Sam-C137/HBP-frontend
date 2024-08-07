@@ -1,0 +1,132 @@
+<h1>Patient Reviews</h1>
+@if (reviewsQuery.isPending()) {
+    <div class="display-flex justify-center w-full mb-6 mt-6">
+        <hbp-bars />
+    </div>
+} @else {
+    <section>
+        <div>
+            @if (reviewsQuery.isError()) {
+                <p>Could not fetch reviews</p>
+            } @else if (reviewsQuery.data()) {
+                <div @reviewStagger>
+                    @for (
+                        review of reviewsQuery.data()?.content;
+                        track review
+                    ) {
+                        <hbp-review
+                            class="display-block mt-2"
+                            [review]="review"
+                        />
+                    } @empty {
+                        <p>No reviews yet</p>
+                    }
+                </div>
+            }
+        </div>
+        @if (summaryQuery.data()) {
+            <article>
+                <h2>Overall Rating</h2>
+                <div class="ratings">
+                    <div class="ratings-col-1">
+                        <p class="average-rating">
+                            {{ summaryQuery.data()?.rating?.toFixed(1) }}
+                        </p>
+                        <amalitech-star-rating
+                            animated
+                            [value]="summaryQuery.data()?.rating"
+                            readonly
+                            stroke-color="var(--yellow-500)"
+                        ></amalitech-star-rating>
+                        <p class="num-of-reviews">
+                            {{ summaryQuery.data()?.numberOfReviews }}
+                            {{
+                                summaryQuery.data()?.numberOfReviews === 1
+                                    ? "Review"
+                                    : "Reviews"
+                            }}
+                        </p>
+                    </div>
+                    <div class="ratings-and-feedback">
+                        <span>
+                            <small>5 </small>
+                            <hbp-progress-bar
+                                [progress]="
+                                    calculatePercentage(
+                                        summaryQuery.data()
+                                            ?.numberOfFiveStarReviews ?? 0,
+                                        summaryQuery.data()?.numberOfReviews ??
+                                            0
+                                    )
+                                "
+                            ></hbp-progress-bar>
+                        </span>
+                        <span>
+                            <small>4 </small>
+                            <hbp-progress-bar
+                                [progress]="
+                                    calculatePercentage(
+                                        summaryQuery.data()
+                                            ?.numberOfFourStarReviews ?? 0,
+                                        summaryQuery.data()?.numberOfReviews ??
+                                            0
+                                    )
+                                "
+                            ></hbp-progress-bar>
+                        </span>
+                        <span>
+                            <small>3 </small>
+                            <hbp-progress-bar
+                                [progress]="
+                                    calculatePercentage(
+                                        summaryQuery.data()
+                                            ?.numberOfThreeStarReviews ?? 0,
+                                        summaryQuery.data()?.numberOfReviews ??
+                                            0
+                                    )
+                                "
+                            ></hbp-progress-bar>
+                        </span>
+                        <span>
+                            <small>2 </small>
+                            <hbp-progress-bar
+                                [progress]="
+                                    calculatePercentage(
+                                        summaryQuery.data()
+                                            ?.numberOfTwoStarReviews ?? 0,
+                                        summaryQuery.data()?.numberOfReviews ??
+                                            0
+                                    )
+                                "
+                            ></hbp-progress-bar>
+                        </span>
+                        <span>
+                            <small>1 </small>
+                            <hbp-progress-bar
+                                [progress]="
+                                    calculatePercentage(
+                                        summaryQuery.data()
+                                            ?.numberOfOneStarReviews ?? 0,
+                                        summaryQuery.data()?.numberOfReviews ??
+                                            0
+                                    )
+                                "
+                            ></hbp-progress-bar>
+                        </span>
+                    </div>
+                </div>
+            </article>
+        }
+        <div class="display-flex align-items-center justify-center mt-4 w-full">
+            @if (
+                reviewsQuery.data() && reviewsQuery.data()!.totalElements > 10
+            ) {
+                <amalitech-pagination
+                    (amalitechPageChange)="changePage($event)"
+                    [pageNumber]="currentPage() + 1"
+                    [totalItems]="reviewsQuery.data()!.totalElements"
+                ></amalitech-pagination>
+            }
+        </div>
+    </section>
+}

@@ -1,0 +1,59 @@
+@import "main";
+
+:host {
+  --thickness: 8px;
+  --width: 50px;
+  --color: var(--primary);
+}
+
+.loader {
+  width: var(--width);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(farthest-side, var(--color) 94%, #0000)
+      top/var(--thickness) var(--thickness) no-repeat,
+    conic-gradient(#0000 30%, var(--color));
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    #0000 calc(100% - var(--thickness)),
+    #000 0
+  );
+  animation: l13 1s infinite linear;
+
+  &.size-sm {
+    --thickness: 6px;
+    --width: 30px;
+  }
+
+  &.size-lg {
+    --thickness: 10px;
+    --width: 70px;
+  }
+
+  &.size-xl {
+    --thickness: 12px;
+    --width: 100px;
+  }
+}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background-color: rgb(156 163 175 / 0.4);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.3s ease-out;
+  display: grid;
+  place-items: center;
+}

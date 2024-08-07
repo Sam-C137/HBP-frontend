@@ -1,0 +1,74 @@
+<nav class="desktop">
+    <span class="logo-text" [routerLink]="['']"> HBMS </span>
+    <hbp-navigation-list />
+    <span class="actions">
+        @if (user) {
+            <hbp-authenticated-actions [user]="user" />
+        } @else {
+            <!--            <p-->
+            <!--                (mouseenter)="floatActions.mouseEnter(float)"-->
+            <!--                (mouseleave)="floatActions.mouseLeave(float)"-->
+            <!--                class="position-relative"-->
+            <!--            >-->
+            <!--                {{ isDoctor() ? "Are you a patient?" : "Are you a Doctor?" }}-->
+            <!--                <img src="assets/icons/caret-down.svg" alt="" />-->
+            <!--                <span-->
+            <!--                    class="float doctor-login"-->
+            <!--                    #float-->
+            <!--                    [routerLink]="-->
+            <!--                        isDoctor() ? ['/auth/login'] : ['/doctor/auth/sign-up']-->
+            <!--                    "-->
+            <!--                    routerLinkActive="active"-->
+            <!--                >-->
+            <!--                    {{ isDoctor() ? "Log In" : "Sign Up" }}-->
+            <!--                </span>-->
+            <!--            </p>-->
+            <button *ngIf="!isDoctor()" [routerLink]="['/auth/login']">
+                Log in
+            </button>
+            <button [routerLink]="['/auth/sign-up']">Register</button>
+        }
+    </span>
+</nav>
+
+<nav class="mobile">
+    <div
+        [class]="{
+            'hamburger-menu': true,
+            hidden: user?.role === 'admin' || user?.role === 'doctor',
+        }"
+    >
+        <div
+            class="menu-icon"
+            #burgerIcon
+            (click)="
+                mobileDropdown.classList.toggle('open');
+                burgerIcon.classList.toggle('active')
+            "
+            tabindex="0"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <span class="actions mr-2">
+        @if (user) {
+            <hbp-authenticated-actions [user]="user" />
+        } @else {
+            <button [routerLink]="['/auth/login']">Login</button>
+            <button [routerLink]="['/auth/sign-up']">Register</button>
+        }
+    </span>
+</nav>
+<section class="mobile-dropdown" #mobileDropdown>
+    <hbp-navigation-list />
+</section>
+<div
+    class="backdrop"
+    (click)="
+        mobileDropdown.classList.remove('open');
+        burgerIcon.classList.remove('active')
+    "
+    tabindex="0"
+></div>

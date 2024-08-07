@@ -1,0 +1,20 @@
+@import "main";
+
+form {
+  margin-top: 0;
+  h2 {
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $blue-base;
+    text-align: right;
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+  }
+  p:not(.w-full) {
+    margin-top: 1.62rem;
+    color: $gray-700;
+  }
+}

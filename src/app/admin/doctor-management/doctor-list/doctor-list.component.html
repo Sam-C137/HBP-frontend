@@ -1,0 +1,42 @@
+@if (error()) {
+    <div>
+        <hbp-error-handler [message]="error()" (retry)="retry.emit()" />
+    </div>
+} @else if (!isLoading() && doctors().length < 1) {
+    <div>
+        <hbp-empty-list />
+    </div>
+} @else {
+    <hbp-crud-table
+        [headers]="headers"
+        [items]="doctors()"
+        [loading]="isLoading()"
+        [keys]="keys"
+        listName="doctor"
+        [(actions)]="actions"
+        [(selectedItem)]="selectedDoctor"
+        (activate)="activateDoctor()"
+        (deactivate)="deactivateDoctor()"
+        (delete)="deleteDoctor()"
+    />
+}
+
+<ng-template #modalTemplate>
+    @if (actions === "delete") {
+        <div>
+            Are you sure you want to permanently delete
+            <span class="font-bold">{{ selectedDoctor?.fullName }}</span
+            >?
+        </div>
+    }
+    @if (actions === "deactivate") {
+        <div>
+            Deactivating
+            <span class="font-bold">
+                {{ selectedDoctor?.fullName }}
+            </span>
+            means they will be unable to access their account. Are you sure you
+            want to deactivate them?
+        </div>
+    }
+</ng-template>

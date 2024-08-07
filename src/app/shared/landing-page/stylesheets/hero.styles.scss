@@ -1,0 +1,109 @@
+@import "main";
+
+$bg-color: $primary-50;
+$typewriterSpeed: 2s;
+
+#hero {
+  background-color: $primary-50;
+  @include flex-column;
+  align-items: center;
+  padding-left: 1rem;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  @include lg {
+    padding-top: 12rem;
+    padding-bottom: 4rem;
+    padding-left: 5rem;
+    @include flex-row;
+  }
+
+  h3 {
+    font-family: $font-family-secondary;
+    color: $gray-600;
+    font-size: clamp(2.65rem, 3.5rem, 3.25rem);
+    line-height: clamp(2.75rem, 4.5rem, 5.15625rem);
+    font-weight: 700;
+    margin-bottom: clamp(1rem, 2rem, 2rem);
+  }
+
+  p {
+    font-family: $font-family-base;
+    color: $neutral-700;
+    width: 80%;
+    font-weight: 400;
+    font-size: clamp(1rem, 2vw + 1rem, 1.4rem);
+    line-height: clamp(1.75rem, 2rem, 2.5rem);
+  }
+
+  summary {
+    width: 100%;
+    @include lg {
+      margin-top: -10%;
+      width: 45%;
+    }
+    @include xlg {
+      width: 42%;
+    }
+    span.animated-text {
+      display: block;
+      @include lg {
+        display: inline;
+      }
+      @media (min-width: 60.5625em) and (max-width: 70.5625em) {
+        display: block;
+      }
+
+      color: $warning-300;
+      position: relative;
+      font-family: "Source Code Pro", monospace;
+      font-size: inherit;
+      position: relative;
+      width: max-content;
+      height: max-content;
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+      &.typewriter::before {
+        background: $bg-color;
+        animation: typewriter $typewriterSpeed
+          steps(var(--typewriterCharacters)) 1s forwards;
+      }
+      &.typewriter::after {
+        width: 0.125em;
+        background: $warning-300;
+        animation:
+          typewriter $typewriterSpeed steps(var(--typewriterCharacters)) 1s
+            forwards,
+          blink 750ms steps(var(--typewriterCharacters)) infinite;
+      }
+    }
+  }
+
+  div:has(button.primary, button.secondary) {
+    gap: 1rem;
+  }
+
+  hbp-button {
+    --padding: 0.875rem 1.5rem;
+    --font-weight: 500;
+    --font-family: var(--font-family-secondary);
+
+    &:first-of-type {
+      --background: var(--primary-50);
+      --border-color: var(--dark);
+      --color: var(--dark);
+      --hover-bg: var(--dark);
+      --hover-border: var(--dark);
+      --hover-color: var(--white);
+    }
+    &:hover {
+      svg path {
+        fill: $white;
+        transition: all 0.3s;
+      }
+    }
+  }
+}

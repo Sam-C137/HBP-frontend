@@ -1,0 +1,98 @@
+@import "main";
+
+:host {
+  position: relative;
+  z-index: 1;
+}
+
+form {
+  background-color: $white;
+  box-shadow: 0.952px 0.952px 19.038px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+  border: 1px solid $gray-200;
+  padding: 1rem 2.8rem 1.65rem 2.8rem;
+  border-radius: 0.5rem;
+  & > * {
+    margin-bottom: 1rem;
+  }
+
+  @include max-sm {
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  @include lg {
+    @include flex-row;
+    justify-content: space-between;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2rem);
+    & > *:first-child {
+      flex: 40%;
+    }
+    & > *:not(:last-child, :first-child) {
+      flex: 25%;
+    }
+    & > * {
+      margin-bottom: 0;
+    }
+  }
+}
+
+label {
+  @include text-normal(0.875rem, $gray-700, 500);
+  font-family: $font-family-secondary;
+  display: block;
+}
+
+hbp-button {
+  --padding: 0.625rem 1.5rem;
+  --height: 2.75rem;
+  --font-weight: 500;
+  --font-family: var(--font-family-secondary);
+  @include lg {
+    --width: fit-content;
+  }
+  @include max-lg {
+    --display: block;
+  }
+}
+
+amalitech-select {
+  --select-label-padding: 0.625rem 0.875rem;
+  --select-label-font-size: 1rem;
+  --select-label-border-color: var(--gray-300);
+  --select-label-radius: 0.5rem;
+  --select-dropdown-border-color: var(--gray-300);
+  --select-option-font-size: 1rem;
+  --select-width: 100%;
+  min-width: max-content;
+  z-index: 1;
+  margin-top: 0.5rem;
+  display: block;
+  @include md {
+    width: 20rem;
+  }
+  @include max-sm {
+    width: 85vw;
+  }
+}
+
+b {
+  @include text-normal(0.875rem, $secondary-500, 500);
+  font-family: $font-family-secondary;
+  line-height: 1.25rem;
+  cursor: pointer;
+  position: absolute;
+}
+
+hbp-date-picker {
+  @include md {
+    width: 20rem;
+  }
+  @include max-sm {
+    width: 85vw;
+  }
+}

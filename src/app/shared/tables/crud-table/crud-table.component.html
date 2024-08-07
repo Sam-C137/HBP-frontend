@@ -1,0 +1,136 @@
+<table role="table">
+    <thead role="rowgroup">
+        <tr role="row">
+            @for (header of headers(); track $index) {
+                <th role="columnheader">{{ header }}</th>
+            }
+        </tr>
+    </thead>
+    @if (!loading()) {
+        <tbody role="rowgroup">
+            @for (item of items(); track $index) {
+                <tr role="row">
+                    @for (column of keys(); track $index) {
+                        @if (hasNameKey(column)) {
+                            <td role="cell" [attr.data-cell]="column">
+                                <span
+                                    class="display-flex align-items-center gap-5"
+                                >
+                                    @if (column === "serviceName") {
+                                        <hbp-service-avatar
+                                            [src]="item.image"
+                                            [fallback]="item.name"
+                                            [colorCode]="item.colorCode"
+                                        />
+                                    } @else {
+                                        <hbp-user-avatar
+                                            [src]="item.image"
+                                            [fallback]="item.name"
+                                        />
+                                    }
+                                    {{ item["name"] }}
+                                </span>
+                            </td>
+                        } @else if (column === "status") {
+                            <td role="cell" data-cell="status">
+                                <span
+                                    [class]="{
+                                        status: true,
+                                        active: item.status === 'ACTIVE',
+                                    }"
+                                >
+                                    {{ item.status | titlecase }}
+                                </span>
+                            </td>
+                        } @else if ($index === keys().length - 1) {
+                            <td role="cell" data-cell="actions">
+                                <i
+                                    (click)="
+                                        dropdownActions.openDropdown(
+                                            $event,
+                                            dropdownTemplate
+                                        );
+                                        selectedItem.set(item)
+                                    "
+                                    tabindex="0"
+                                ></i>
+                            </td>
+                        } @else if (!hasImageKey(column)) {
+                            <td role="cell" [attr.data-cell]="column">
+                                <p>{{ item[column] || "N/A" }}</p>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+@if (loading()) {
+    <div class="loader">
+        <hbp-spinner size="lg" />
+    </div>
+}
+
+<ng-template #dropdownTemplate>
+    <ul class="dropdown">
+        @if (listName() === "service") {
+            <li
+                (click)="
+                    actions.set(CrudActions.Edit);
+                    edit.emit();
+                    dropdownActions.closeDropdown()
+                "
+                tabindex="0"
+            >
+                <img src="assets/icons/pencil.svg" alt="" />
+                Edit {{ listName() }}
+            </li>
+            <li
+                (click)="
+                    actions.set(CrudActions.Archive);
+                    archive.emit();
+                    dropdownActions.closeDropdown()
+                "
+                tabindex="0"
+            >
+                <img src="assets/icons/archive.svg" alt="" />
+                Archive {{ listName() }}
+            </li>
+        } @else {
+            <li
+                (click)="
+                    actions.set(CrudActions.Activate);
+                    activate.emit();
+                    dropdownActions.closeDropdown()
+                "
+                tabindex="0"
+            >
+                <img src="assets/icons/verify-check.svg" alt="" />
+                Activate {{ listName() }}
+            </li>
+            <li
+                (click)="
+                    actions.set(CrudActions.Deactivate);
+                    deactivate.emit();
+                    dropdownActions.closeDropdown()
+                "
+                tabindex="0"
+            >
+                <img src="assets/icons/cancel.svg" alt="" />
+                Deactivate {{ listName() }}
+            </li>
+        }
+        <li
+            (click)="
+                actions.set(CrudActions.Delete);
+                delete.emit();
+                dropdownActions.closeDropdown()
+            "
+            tabindex="0"
+        >
+            <img src="assets/icons/trash-can.svg" alt="" />
+            Delete {{ listName() }}
+        </li>
+    </ul>
+</ng-template>

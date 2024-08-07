@@ -1,0 +1,164 @@
+@import "main";
+
+:host {
+  display: block;
+  padding: 2vw;
+  @include lg {
+    padding: 2vw;
+  }
+}
+
+h1 {
+  @include text-bold(clamp(1.5rem, 2vw + 1rem, 2rem), $neutral-900, 600);
+  margin-bottom: 2rem;
+}
+
+h4 {
+  @include text-bold(1.25rem, $neutral-950, 600);
+  line-height: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+span.status {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  text-transform: capitalize;
+  border-radius: 50vw;
+  font-size: 0.875rem;
+  position: relative;
+  width: max-content;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+  }
+
+  &.pending {
+    color: $yellow-500;
+    background: $yellow-100;
+
+    &::before {
+      background-color: $yellow-500;
+    }
+  }
+
+  &.accepted,
+  &.active {
+    color: $success-500;
+    background: $success-100;
+
+    &::before {
+      background-color: $success-500;
+    }
+  }
+
+  &.rejected,
+  &.inactive {
+    color: $error-500;
+    background: $error-100;
+
+    &::before {
+      background-color: $error-500;
+    }
+  }
+}
+
+hbp-table {
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.actions-th {
+  padding-left: 7rem;
+}
+
+[data-cell="actions"] {
+  button {
+    background: none;
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-family: $font-family-secondary;
+
+    &:first-of-type {
+      color: $success-500;
+
+      &:hover {
+        background: $success-50;
+      }
+    }
+
+    &:last-of-type {
+      color: $error-500;
+
+      &:hover {
+        background: $error-50;
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: $neutral-500;
+      background: none;
+    }
+  }
+
+  @include max-md {
+    grid-template-columns: 1fr;
+  }
+}
+
+section {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  @include max-lg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  article {
+    @include flex-column;
+    min-height: 10rem;
+    border-radius: 0.625rem;
+    background: $gray-50;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    @include text-normal(1rem, $neutral-950, 500);
+    flex: 1;
+    padding: 1rem;
+
+    span {
+      margin-bottom: 2.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      width: max-content;
+
+      &.blue {
+        background: $secondary-500;
+      }
+
+      &.yellow {
+        background: $yellow-500;
+      }
+
+      &.red {
+        background: $pink-500;
+      }
+
+      &.green {
+        background: $success-500;
+      }
+    }
+
+    h6 {
+      @include text-bold(1.625rem, $neutral-950, 600);
+      margin-bottom: 0.5rem;
+    }
+  }
+}

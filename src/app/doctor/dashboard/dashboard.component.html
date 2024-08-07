@@ -1,0 +1,123 @@
+<section>
+    <h1>Hello Dr. {{ doctorName }},</h1>
+    <h3>Welcome back!</h3>
+
+    <div class="cards">
+        <hbp-dashboard-card
+            cardLabel="Total Appointments"
+            [numOfPatients]="statsQuery.data()?.['totalAppointments'] || 0"
+            svgSrc="/assets/icons/vertical-lines.svg"
+            color="var(--secondary-500)"
+        />
+        <hbp-dashboard-card
+            cardLabel="Completed Appointments"
+            [numOfPatients]="statsQuery.data()?.['completedAppointments'] || 0"
+            svgSrc="/assets/icons/calender-checked.svg"
+            color="var(--success-500)"
+        />
+        <hbp-dashboard-card
+            cardLabel="Cancelled Appointments"
+            [numOfPatients]="statsQuery.data()?.['cancelledAppointments'] || 0"
+            svgSrc="/assets/icons/calender-unchecked.svg"
+            color="var(--red-500)"
+        />
+    </div>
+
+    <div class="dashboard-content">
+        <div class="">
+            <hbp-chart />
+            <div class="appointment-requests">
+                <h3>New Appointment Requests</h3>
+                @if (appointmentsQuery.isError()) {
+                    <div>
+                        <hbp-error-handler
+                            [message]="appointmentsQuery.error().message"
+                            (retry)="appointmentsQuery.refetch()"
+                        />
+                    </div>
+                } @else if (
+                    !appointmentsQuery.isPending() &&
+                    !appointmentsQuery.isRefetching() &&
+                    appointmentsQuery.data()?.content?.length === 0
+                ) {
+                    <div>
+                        <hbp-empty-list />
+                    </div>
+                } @else {
+                    <hbp-appointment-table
+                        [actions]="action"
+                        (accept)="
+                            selectedAppointment = $event; acceptAppointment()
+                        "
+                        (reject)="
+                            selectedAppointment = $event; rejectAppointment()
+                        "
+                        [(selectedAppointment)]="selectedAppointment"
+                        [items]="appointmentsQuery.data()?.content || []"
+                        [loading]="appointmentsQuery.isPending()"
+                    />
+                }
+            </div>
+        </div>
+        <div class="upcoming-appointments">
+            <hbp-calendar
+                [selectedDate]="selectedDate()"
+                (selectedDateChange)="onSelectedDateChange($event)"
+            />
+            <div class="upcoming-appointment-header">
+                <h4>Upcoming Appointments</h4>
+                <a routerLink="/doctor/schedule">View Calendar</a>
+            </div>
+            @if (upcomingAppointmentsQuery.isPending()) {
+                @for (loader of [1, 2, 3, 4, 5]; track $index) {
+                    <hbp-contact-loader
+                        [isUpcomingAppointment]="true"
+                        [lowerLoaderWidth]="80"
+                        [upperLoaderWidth]="120"
+                    />
+                }
+            } @else if (upcomingAppointmentsQuery.data()) {
+                <div @reviewStagger class="appointments">
+                    @for (
+                        appointment of upcomingAppointmentsQuery.data();
+                        track appointment.bookingId
+                    ) {
+                        <div class="appointment">
+                            <hbp-user-avatar
+                                [src]="appointment.relatedUser.profilePicture"
+                                [fallback]="appointment.relatedUser.fullName"
+                            />
+                            <div class="patient-info">
+                                <p class="patient-name">
+                                    {{ appointment.relatedUser.fullName }}
+                                </p>
+                                <p class="patient-time">
+                                    {{
+                                        appointment.appointmentTime
+                                            | time: 12 : "next"
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                    } @empty {
+                        <div class="empty-img mt-4">
+                            <img
+                                class="empty"
+                                src="/assets/images/Calendar-pana.png"
+                                alt="no appointments today"
+                            />
+                            <p>You have no upcoming appointments</p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<ng-template #modalTemplate>
+    Do you really want to reject an appointment with
+    <span class="font-bold">{{
+        selectedAppointment?.relatedUser?.fullName
+    }}</span
+    >?
+</ng-template>

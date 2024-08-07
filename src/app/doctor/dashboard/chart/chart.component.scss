@@ -1,0 +1,58 @@
+@import "main";
+
+.chart {
+  grid-column: span 1 / span 3;
+  border-radius: 0.625rem;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+
+  @include max-lg {
+    box-shadow: unset;
+    padding: 0;
+  }
+
+  &__header {
+    @include flex-row;
+    justify-content: space-between;
+    align-items: center;
+    &__title {
+      @include text-bold(1.25rem, $neutral-800, 500);
+    }
+    &__switch {
+      margin-left: auto;
+      :first-child {
+        margin-right: 1.06rem;
+      }
+      &--inactive {
+        color: $neutral-400;
+      }
+    }
+  }
+
+  &__filters {
+    @include flex-row;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.31rem;
+
+    &__filter {
+      &__1 {
+        width: 5rem;
+      }
+      &__2 {
+        width: 8.125rem;
+      }
+    }
+  }
+}
+amalitech-switch {
+  --amalitech-switch-checked-bg: #287dfd;
+}
+
+amalitech-select {
+  --select-width: 100%;
+  --select-label-padding: 0.5rem 0.3rem;
+  --select-label-gap: 0.5rem;
+  --select-label-border-color: var(--gray-300);
+  --select-dropdown-border-color: var(--gray-300);
+}

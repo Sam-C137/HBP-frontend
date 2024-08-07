@@ -1,0 +1,18 @@
+<ol>
+    <li>
+        <a [routerLink]="[homeRoot(), 'home']" routerLinkActive="active">
+            <img src="assets/icons/home.svg" alt="" />
+        </a>
+    </li>
+    @for (breadcrumb of breadcrumbs(); track breadcrumb; let i = $index) {
+    <i></i>
+    <li>
+        <button
+            (click)="navigateTo(breadcrumb.route, breadcrumb.queryParams)"
+            [disabled]="i === breadcrumbs().length - 1"
+        >
+            {{ breadcrumb.name }}
+        </button>
+    </li>
+    }
+</ol>

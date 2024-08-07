@@ -1,0 +1,57 @@
+@import "main";
+
+:host {
+  --padding: 0.875rem;
+  --width: 100%;
+  --border-color: var(--gray-300);
+  --border-radius: 0.5rem;
+  --font-size: 1rem;
+  --font-weight: 500;
+  --color: var(--gray-700);
+  --label-color: var(--gray-700);
+  --label-font-size: 0.875rem;
+  --error-position: relative;
+  display: block;
+}
+
+label {
+  @include text-normal(var(--label-font-size), var(--label-color), 500);
+  font-family: $font-family-secondary;
+  line-height: 1.25rem;
+}
+
+:where(textarea) {
+  @include reset;
+  font-weight: var(--font-weight);
+  width: var(--width);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  color: var(--color);
+  font-size: var(--font-size);
+  margin: 0.5rem 0;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  resize: none;
+  &:focus {
+    border: 1px solid rgba(141, 242, 218, 0.5);
+    box-shadow:
+      0px 1px 2px 0px rgba(125, 228, 204, 0.15),
+      0px 0px 0px 4px rgba(125, 228, 204, 0.15);
+  }
+  &.focus-error {
+    border: 1px solid #fda29b;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  }
+}
+
+.error {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: -0.25rem;
+  position: var(--error-position);
+}
+
+i {
+  font-weight: 600;
+  color: $error-500;
+}

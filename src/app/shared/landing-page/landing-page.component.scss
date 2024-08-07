@@ -1,0 +1,51 @@
+@import "main";
+
+$bg-color: $primary-100;
+$typewriterSpeed: 2s;
+// var(--typewriterCharacters): 6;
+
+section {
+  min-height: 100dvh;
+  width: 100vw;
+}
+
+h3 {
+  font-family: $font-family-secondary;
+  color: $gray-600;
+  font-size: clamp(2.65rem, 3.5rem, 3.25rem);
+  line-height: clamp(2.75rem, 4.5rem, 5.15625rem);
+  font-weight: 700;
+  margin-bottom: clamp(1rem, 2rem, 2rem);
+}
+
+h3 {
+  font-family: $font-family-secondary;
+  color: $gray-600;
+  font-size: clamp(2.65rem, 2vw + 1rem, 3.25rem);
+  line-height: clamp(2.75rem, 2vw + 1rem, 5.15625rem);
+  font-weight: 700;
+  margin-bottom: clamp(1rem, 2rem, 2rem);
+}
+
+p {
+  font-family: $font-family-base;
+  color: $neutral-700;
+  width: 80%;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.5vw + 1rem, 1.25rem);
+  line-height: clamp(1.75rem, 1vw + 1rem, 2.5rem);
+}
+
+blockquote {
+  border-left: 2px solid $gray-900;
+  padding: 1.25rem;
+  p {
+    font-style: italic;
+    color: $gray-900;
+  }
+  footer {
+    margin-top: 2rem;
+    color: $gray-500;
+    font-family: $font-family-secondary;
+  }
+}

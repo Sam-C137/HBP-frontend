@@ -1,0 +1,18 @@
+<hbp-navbar position="fixed" />
+<main>
+    <hbp-breadcrumb
+        [breadcrumbs]="[
+            {
+                name: currentRoute() | replace: '-' : ' ' | titlecase,
+                route: '/patient/profile' + currentRoute(),
+            },
+        ]"
+    />
+    <span>
+        <hbp-profile-sidebar />
+        <div [@routeAnimations]="prepareRoute(outlet)">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
+    </span>
+</main>
+<hbp-footer />

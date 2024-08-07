@@ -1,0 +1,152 @@
+<main>
+    <a [routerLink]="['/doctor/appointments']">
+        <i></i>
+        Back
+    </a>
+    <section>
+        <div class="profile" *ngIf="patientInfoQuery.data()">
+            <div>
+                <hbp-user-avatar
+                    [src]="patientInfoQuery.data()?.patientProfilePicture"
+                    [fallback]="patientInfoQuery.data()?.patientName"
+                />
+                <h4 class="mt-1">{{ patientInfoQuery.data()?.patientName }}</h4>
+                <p>{{ patientInfoQuery.data()?.patientEmail }}</p>
+                <hbp-button [routerLink]="['/doctor/messages']">
+                    <span
+                        class="display-flex align-items-center justify-content-center gap-3"
+                    >
+                        <i></i>
+                        Send Chat
+                    </span>
+                </hbp-button>
+            </div>
+            <div>
+                <h5 class="mb-2">Patient Information</h5>
+                <ol>
+                    <li>
+                        Gender
+                        <span>
+                            {{
+                                patientInfoQuery.data()?.gender || "Unknown"
+                                    | titlecase
+                            }}
+                        </span>
+                    </li>
+                    <li>
+                        Contact
+                        <span>
+                            {{
+                                patientInfoQuery.data()?.contact?.trim() ||
+                                    "Unknown"
+                            }}
+                        </span>
+                    </li>
+                    <li>
+                        Emergency Contact
+                        <span>
+                            {{
+                                patientInfoQuery
+                                    .data()
+                                    ?.emergencyContact?.trim() || "Unknown"
+                            }}
+                        </span>
+                    </li>
+                </ol>
+            </div>
+            <div>
+                <span
+                    (click)="sideview = 'appointment-history'"
+                    class="appointment-history"
+                    tabindex="0"
+                    [class.active]="sideview === 'appointment-history'"
+                >
+                    <i class="calendar"></i>
+                    Appointment History</span
+                >
+                <span
+                    (click)="sideview = 'medical-records'"
+                    class="medical-records"
+                    tabindex="0"
+                    [class.active]="sideview === 'medical-records'"
+                >
+                    <i class="record"></i>
+                    Medical Records</span
+                >
+            </div>
+        </div>
+        <div class="appointments">
+            @if (sideview === "appointment-history") {
+                <ul class="appointment-history-list" @reviewStagger>
+                    <h5 class="mb-2">Appointment History</h5>
+                    @if (appointmentHistoryQuery.isPending()) {
+                        <div
+                            class="display-flex justify-center w-full mt-6 mb-6"
+                        >
+                            <hbp-bars />
+                        </div>
+                    } @else if (appointmentHistoryQuery.isError()) {
+                        <h2 class="text-center font-semibold text-lg mt-4">
+                            {{ appointmentHistoryQuery.error()?.message }}
+                        </h2>
+                    } @else {
+                        @for (
+                            page of appointmentHistoryQuery.data()?.pages;
+                            track $index
+                        ) {
+                            @for (appointment of page.content; track $index) {
+                                <li
+                                    [style.backgroundColor]="
+                                        lighten(appointment.serviceColor, 90)
+                                    "
+                                >
+                                    <div
+                                        [style.borderLeftColor]="
+                                            appointment.serviceColor
+                                        "
+                                    >
+                                        <h6>
+                                            {{ appointment.doctorName }}
+                                        </h6>
+                                        <p>
+                                            {{
+                                                appointment.appointmentDate
+                                                    | date: "MMMM d yyyy"
+                                            }}
+                                            {{
+                                                appointment.appointmentDate
+                                                    | time: 12 : "next"
+                                            }}
+                                        </p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
+                    @if (endOfList() && patientInfoQuery.data()) {
+                        <h2 class="text-center font-semibold text-md mt-4">
+                            You have reached the end of
+                            {{ patientInfoQuery.data()?.patientName }}'s
+                            appointment history
+                        </h2>
+                    }
+                    <div
+                        hbpIntersectionObserver
+                        #pageBottom="intersection"
+                        [debounce]="1000"
+                        id="page-bottom"
+                        (intersectionEmitted)="
+                            !isFetchDisabled() &&
+                                appointmentHistoryQuery.fetchNextPage()
+                        "
+                    ></div>
+                </ul>
+            } @else {
+                <ul class="medical-records-list" @reviewStagger>
+                    <h5 class="mb-2">Medical Records</h5>
+                    <li></li>
+                </ul>
+            }
+        </div>
+    </section>
+</main>

@@ -1,0 +1,74 @@
+<hbp-navbar />
+<main>
+    <section id="banner">
+        <h1>Schedule An Appointment With A Doctor</h1>
+        <div>
+            <span>
+                <h3>Welcome {{ user ? user.fullName.split(" ")[0] : "" }}</h3>
+                <p>
+                    We are committed to providing you with the best healthcare
+                    experience. Please use the form below to book your
+                    appointment. We look forward to serving you!
+                </p>
+            </span>
+            <hbp-appointment-bar [specializations]="services?.content" />
+        </div>
+    </section>
+    <section id="content">
+        <div class="search mb-2">
+            <h2>Find Doctors by Categories</h2>
+            <hbp-input
+                iconLeftUrl="assets/icons/search.svg"
+                id="search"
+                placeholder="Search doctor by name"
+                [toggleIcons]="false"
+                [control]="form.get('search')"
+            />
+        </div>
+        <div
+            class="services no-inline"
+            *ngIf="services && services.content.length > 0"
+            data-animated="true"
+        >
+            <div class="scroll-inner">
+                @for (
+                    service of services.content.concat(services.content);
+                    track $index
+                ) {
+                    <hbp-service-mini-card
+                        [control]="form.get('specialization')"
+                        [service]="service"
+                        name="service"
+                        [value]="service.name"
+                        [attr.aria-hidden]="
+                            $index >= services.content.length ? 'true' : 'false'
+                        "
+                    />
+                }
+            </div>
+        </div>
+        <h4 class="mt-4 mb-3">
+            Top rated Doctors in {{ form.get("specialization")?.value }}
+        </h4>
+        <hbp-appointment-doctor-list
+            class="no-inline"
+            [doctors]="doctorsQuery.data() ? doctorsQuery.data()?.content! : []"
+            [loading]="doctorsQuery.isPending() || doctorsQuery.isRefetching()"
+            [error]="doctorsQuery.error()?.message"
+        />
+        <div
+            class="display-flex align-items-center justify-center mt-4 w-full no-inline"
+        >
+            <amalitech-pagination
+                *ngIf="
+                    doctorsQuery.data() &&
+                    doctorsQuery.data()!.totalElements > 9
+                "
+                (amalitechPageChange)="changePage($event)"
+                [pageNumber]="currentPage() + 1"
+                [totalItems]="doctorsQuery.data()!.totalElements"
+            ></amalitech-pagination>
+        </div>
+    </section>
+    <hbp-footer />
+</main>

@@ -1,0 +1,42 @@
+<section>
+    <header>
+        <h5 [attr.data-count]="count()">Updates</h5>
+        <h6 (click)="markAllAsRead()" tabindex="0">Mark all as read</h6>
+    </header>
+    <ul *ngIf="isNotificationsLoading">
+        <li class="w-full">
+            <hbp-spinner size="sm" />
+        </li>
+    </ul>
+    <ul *ngIf="!isNotificationsLoading">
+        @for (notification of notifications.slice(0, 5); track $index) {
+            <li
+                [class]="{
+                    notification: true,
+                    unread: !notification.receipt,
+                }"
+                [routerLink]="['/notifications']"
+                (click)="markAsRead(notification.id)"
+                tabindex="0"
+            >
+                <div class="display-flex">
+                    <span class="img mr-2">
+                        <hbp-user-avatar
+                            [src]="notification.profilePicture"
+                            [fallback]="notification.senderName"
+                        />
+                    </span>
+                    <span>
+                        <h4>{{ notification.senderName }}</h4>
+                        <p class="clamp">{{ notification.context }}</p>
+                    </span>
+                </div>
+                <b>{{ notification.timeStamp | date: "dd/MM/yyyy" }}</b>
+            </li>
+        } @empty {
+            <li class="w-full no-hover">
+                <h4 class="pt-2 pb-2">You have no new notificactions</h4>
+            </li>
+        }
+    </ul>
+</section>

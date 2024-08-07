@@ -1,0 +1,28 @@
+@import "main";
+
+:host {
+  margin-left: 1rem;
+  display: block;
+}
+
+* {
+  font-family: $font-family-secondary;
+}
+
+main {
+  width: 100%;
+  padding-inline: 3%;
+  @include lg {
+    padding-inline: 6%;
+  }
+}
+
+div {
+  @include center;
+  width: 100%;
+}
+
+hbp-breadcrumb {
+  margin-block: 3rem;
+  display: block;
+}

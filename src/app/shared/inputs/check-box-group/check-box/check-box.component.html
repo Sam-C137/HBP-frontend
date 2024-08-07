@@ -1,0 +1,9 @@
+<label [for]="label() | lowercase">
+    <input
+        type="checkbox"
+        (click)="checkboxGroup.toggleValue(value())"
+        [checked]="checkboxGroup.isSelected(value())"
+        [id]="label() | lowercase"
+    />
+    <span class="truncate">{{ label() }}</span>
+</label>

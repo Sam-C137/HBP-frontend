@@ -1,0 +1,196 @@
+<form [formGroup]="form" (submit)="submit()">
+    <h2>General</h2>
+    @if (profileQuery.isPending()) {
+        <div class="h-80 w-full center-div ml-2">
+            <hbp-bars class="mt-3" />
+            Hang on while we get your info...
+        </div>
+    } @else {
+        <span>
+            <hbp-user-avatar
+                [src]="form.get('profilePicture')?.value"
+                [fallback]="form.get('fullName')?.value"
+            />
+            <div>
+                <button
+                    type="button"
+                    (click)="pfp.click()"
+                    [disabled]="
+                        updateProfileMutation.isPending() ||
+                        deleteProfilePictureMutation.isPending()
+                    "
+                >
+                    <i></i>
+                    Update
+                </button>
+                <button
+                    type="button"
+                    (click)="deleteProfilePictureMutation.mutate()"
+                    [disabled]="
+                        updateProfileMutation.isPending() ||
+                        deleteProfilePictureMutation.isPending()
+                    "
+                >
+                    <i></i>
+                    Remove
+                </button>
+            </div>
+            <input
+                type="file"
+                name="profilePicture"
+                class="display-none"
+                id="pfp"
+                #pfp
+                (change)="onFileChange($event)"
+            />
+            <input
+                type="hidden"
+                name="fileHidden"
+                formControlName="profilePicture"
+            />
+        </span>
+        <p class="error mt-2">{{ formValidator.errors("profilePicture") }}</p>
+        <section>
+            <hbp-input
+                id="doctor-general-name"
+                type="text"
+                placeholder="Enter your full name"
+                iconLeftUrl="assets/icons/user.svg"
+                [control]="form.get('fullName')"
+                [error]="formValidator.errors('fullName')"
+                [label]="'Full Name'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <b>This name will be shown on your profile</b>
+            <hbp-input
+                id="doctor-general-email"
+                type="email"
+                placeholder="Enter your email address"
+                iconLeftUrl="assets/icons/email.svg"
+                [control]="form.get('email')"
+                [error]="formValidator.errors('email')"
+                [label]="'Email'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <ul class="radio-group">
+                <label for="gender">Gender</label>
+                <hbp-radio-group
+                    class="checkbox-group"
+                    formControlName="gender"
+                >
+                    <hbp-radio-button
+                        label="Male"
+                        value="MALE"
+                    ></hbp-radio-button>
+                    <hbp-radio-button
+                        label="Female"
+                        value="FEMALE"
+                    ></hbp-radio-button>
+                </hbp-radio-group>
+            </ul>
+            <hbp-input
+                id="doctor-general-education"
+                type="text"
+                placeholder="Enter your education information"
+                [control]="form.get('education')"
+                [error]="formValidator.errors('education')"
+                [label]="'Education'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <span>
+                <label for="specialization">Service Offered </label>
+                <amalitech-select
+                    scrollable
+                    label="Specialization"
+                    formControlName="specialization"
+                >
+                    @if (servicesQuery.data()) {
+                        @for (
+                            service of servicesQuery.data()?.content;
+                            track service
+                        ) {
+                            <amalitech-select-option
+                                value="{{ service.name }}"
+                                [selected]="
+                                    service.name ===
+                                    form.get('specialization')?.value
+                                "
+                                >{{ service.name }}
+                            </amalitech-select-option>
+                        }
+                    }
+                </amalitech-select>
+            </span>
+            <hbp-input
+                id="doctor-general-yearsofexperience"
+                type="number"
+                placeholder="Number of years of experience"
+                [control]="form.get('yearsOfExperience')"
+                [error]="formValidator.errors('yearsOfExperience')"
+                [label]="'Years of Experience'"
+                [maxLength]="2"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <hbp-input
+                id="doctor-general-contact"
+                type="tel"
+                placeholder="Enter your telephone number"
+                iconLeftUrl="assets/icons/telephone.svg"
+                [control]="form.get('contact')"
+                [error]="formValidator.errors('contact')"
+                [label]="'Contact'"
+                [toggleIcons]="false"
+                [maxLength]="9"
+            ></hbp-input>
+            <hbp-input
+                id="doctor-general-location"
+                type="text"
+                placeholder="Enter your location"
+                iconLeftUrl="assets/icons/location-marker.svg"
+                [control]="form.get('address')"
+                [error]="formValidator.errors('address')"
+                [label]="'Location'"
+                [toggleIcons]="false"
+            ></hbp-input>
+            <label for="language">Languages</label>
+            <amalitech-select
+                scrollable
+                label="Languages Spoken"
+                [formControl]="languageControl"
+                multiple
+            >
+                @for (lang of languages; track lang) {
+                    <amalitech-select-option value="{{ lang }}" #lang>
+                        {{ lang }}
+                    </amalitech-select-option>
+                }
+            </amalitech-select>
+            <p class="error">{{ formValidator.errors("languages") }}</p>
+            <hbp-textarea
+                class="mt-1"
+                id="bio"
+                placeholder="Something about you..."
+                [control]="form.get('bio')"
+                [error]="formValidator.errors('bio')"
+                [label]="'Bio'"
+                [rows]="7"
+            ></hbp-textarea>
+            <b
+                >Please provide a brief biography, including your professional
+                background, areas of expertise, and any notable achievements or
+                experiences. Limit your biography to 250 words</b
+            >
+        </section>
+        <hbp-button
+            [disabled]="
+                doctor?.firstLogin
+                    ? false
+                    : !!form.errors ||
+                      updateProfileMutation.isPending() ||
+                      deleteProfilePictureMutation.isPending()
+            "
+            type="submit"
+            >Save Changes
+        </hbp-button>
+    }
+</form>

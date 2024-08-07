@@ -1,0 +1,15 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+hbp-review {
+  display: block;
+  border-radius: 0.5rem;
+  border-bottom: 1px solid $gray-100;
+  background: $white;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.75rem;
+  margin-bottom: 1.25rem;
+}

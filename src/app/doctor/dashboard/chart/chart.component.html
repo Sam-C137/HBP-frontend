@@ -1,0 +1,67 @@
+<div class="chart">
+    <div class="chart__header">
+        <h4 class="chart__header__title">Booking Statistics</h4>
+        <span class="chart__header__switch">
+            <span
+                [class]="{
+                    'chart__header__switch--inactive': !yearly(),
+                }"
+                >Yearly</span
+            >
+            <amalitech-switch
+                size="medium"
+                [checked]="yearly()"
+                (amalitechSwitchChange)="toggleSwitch($event)"
+            ></amalitech-switch>
+        </span>
+    </div>
+    <form [formGroup]="form" class="chart__filters">
+        <amalitech-select
+            formControlName="seriesType"
+            [label]="form.get('seriesType')?.value"
+            (amalitechChange)="onSelectChange($event, 'seriesType')"
+            class="chart__filters__filter__2"
+        >
+            @for (serieType of chartSeriesTypes; track serieType) {
+                <amalitech-select-option
+                    [value]="serieType"
+                    [selected]="serieType === form.get('seriesType')?.value"
+                    >{{ serieType }}</amalitech-select-option
+                >
+            }
+        </amalitech-select>
+        @if (yearly()) {
+            <amalitech-select
+                [label]="form.get('year')?.value"
+                (amalitechChange)="onSelectChange($event, 'year')"
+                formControlName="year"
+                class="chart__filters__filter__1"
+            >
+                @for (year of years; track year) {
+                    <amalitech-select-option
+                        [value]="year"
+                        [selected]="year === form.get('year')?.value"
+                    >
+                        {{ year }}
+                    </amalitech-select-option>
+                }
+            </amalitech-select>
+        } @else {
+            <amalitech-select
+                formControlName="month"
+                [label]="months[form.get('month')?.value]"
+                (amalitechChange)="onSelectChange($event, 'month')"
+                class="chart__filters__filter__2"
+            >
+                @for (month of months; track $index) {
+                    <amalitech-select-option
+                        [value]="$index"
+                        [selected]="month === months[form.get('month')?.value]"
+                        >{{ months[$index] }}</amalitech-select-option
+                    >
+                }
+            </amalitech-select>
+        }
+    </form>
+    <div [chart]="chart()"></div>
+</div>

@@ -1,0 +1,7 @@
+@if (size() === 'screen') {
+    <div class="backdrop">
+        <div class="loader size-xl"></div>
+    </div>
+} @else {
+    <div class="loader size-{{ size() }}"></div>
+}

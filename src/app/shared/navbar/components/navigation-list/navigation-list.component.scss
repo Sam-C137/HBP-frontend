@@ -1,0 +1,62 @@
+@import "main";
+
+:host {
+  @include max-lg {
+    display: block;
+    width: 100%;
+    & * {
+      width: 100%;
+    }
+  }
+}
+
+ul {
+  @include flex-row;
+  justify-content: space-evenly;
+  &.display-none {
+    display: none;
+  }
+
+  li {
+    padding: 0.5rem 1rem;
+    //&:last-of-type {
+    //  @include lg {
+    //    display: none !important;
+    //  }
+    //}
+  }
+
+  @include max-lg {
+    display: block;
+    li {
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      color: $dark-700;
+      padding: 1rem 0.5rem;
+      font-size: 1.15rem;
+      &:first-of-type {
+        margin-top: 0.25rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+      }
+      &:last-of-type {
+        background-color: $primary;
+        color: $white;
+        a.active {
+          color: $white;
+        }
+      }
+      a {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+
+p,
+a,
+button {
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}

@@ -1,0 +1,64 @@
+@import "../node_modules/@amalitech-design-system/utilities/dist/main.min.css";
+@import "main";
+@import "./variables.css";
+
+:root {
+  --amalitech-color-primary: var(--primary) !important;
+}
+
+body {
+  font-family: $font-family-base, "Work Sans";
+  overflow-x: hidden;
+  background-color: $white;
+  &:has(.screen-fit) {
+    overflow: hidden;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.show-on-large-screens {
+  display: block;
+  @include max-lg {
+    display: none;
+  }
+}
+
+.show-on-smaller-screens {
+  display: none;
+  @include max-lg {
+    display: block;
+  }
+}
+
+.customScroll::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  margin-inline: 2px; /* width of the entire scrollbar */
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+amalitech-pagination {
+  --pagination-active-bg: var(--success-100);
+  --pagination-item-color: var(--gray-500);
+  --pagination-active-color: var(--gray-900);
+  --pagination-font-size: 1.25rem;
+  isolation: isolate;
+
+  @include max-lg {
+    --pagination-item-padding: 0.35rem 0.7rem;
+    --pagination-font-size: 1rem;
+  }
+}

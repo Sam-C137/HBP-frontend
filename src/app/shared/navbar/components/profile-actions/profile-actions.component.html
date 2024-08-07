@@ -1,0 +1,29 @@
+<ul class="w-full">
+    <li>
+        <hbp-user-avatar
+            [src]="user().profilePicture"
+            [fallback]="user().fullName"
+        />
+        <span>
+            <p data-testId="username">{{ user().fullName }}</p>
+            <p class="font-light" data-testId="email">{{ user().email }}</p>
+        </span>
+    </li>
+    <li
+        *ngIf="user().role !== 'admin'"
+        [routerLink]="['/' + user().role, 'profile']"
+    >
+        <a class="w-full display-block"> View Profile </a>
+    </li>
+    <li [routerLink]="['/notifications']" class="w-full display-block">
+        <a> Updates </a>
+    </li>
+    <li
+        (click)="logout()"
+        tabindex="0"
+        [routerLink]="['']"
+        class="w-full display-block"
+    >
+        Logout
+    </li>
+</ul>

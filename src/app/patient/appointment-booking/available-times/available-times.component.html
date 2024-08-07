@@ -1,0 +1,39 @@
+<div>
+    <img src="assets/icons/calendar-active.png" alt="date" />
+    <span>
+        <p>
+            Sessions Available For
+            {{
+                DateBuilder.compare(today(), currentDay, "===")
+                    ? "Today"
+                    : (today() | date: "EEEE")
+            }}
+        </p>
+        <h4>{{ today() | date: "MMM d, y" }}</h4>
+    </span>
+</div>
+@if (availableTimesQuery.isPending()) {
+    <span class="center-div w-full h-28">
+        <hbp-spinner />
+    </span>
+} @else if (availableTimesQuery.data()) {
+    <ol>
+        @for (time of availableTimesQuery.data(); track $index) {
+            <li
+                (click)="timeSelected.emit(time)"
+                #li
+                tabindex="0"
+                (animationend)="li.classList.remove('animated')"
+                class="animated"
+                [class.active]="timeSelected$ === time"
+            >
+                {{ time | time: 12 : "next" }}
+            </li>
+        }
+    </ol>
+    @if (availableTimesQuery.data()?.length === 0) {
+        <p class="text-center font-semibold">
+            No available times for the chosen period, please select another day
+        </p>
+    }
+}

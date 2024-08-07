@@ -1,0 +1,42 @@
+<div
+    *ngIf="user().role === 'patient'"
+    class="mr-1"
+    [routerLink]="['/patient/chat']"
+>
+    <i class="message"></i>
+</div>
+<div
+    (click)="floatActions.mouseEnter(notifications)"
+    (clickOutside)="floatActions.immediateLeave(notifications)"
+    class="mr-1 position-relative"
+    tabindex="0"
+>
+    <i class="notification" [class.active]="newNotification()"></i>
+
+    <div class="float notifications" #notifications>
+        <hbp-notification-panel [(newNotification)]="newNotification" />
+    </div>
+</div>
+<div
+    (click)="floatActions.mouseEnter(profileActions)"
+    (clickOutside)="floatActions.immediateLeave(profileActions)"
+    class="position-relative"
+    tabindex="0"
+>
+    <div class="display-flex gap-4 cursor-pointer">
+        <hbp-user-avatar
+            [src]="user().profilePicture"
+            [fallback]="user().fullName"
+        />
+        <img
+            class="align-self-end"
+            ngSrc="assets/icons/caret-down-black.svg"
+            alt=""
+            height="24"
+            width="24"
+        />
+    </div>
+    <div class="float profile-actions" #profileActions>
+        <hbp-profile-actions [user]="user()" />
+    </div>
+</div>

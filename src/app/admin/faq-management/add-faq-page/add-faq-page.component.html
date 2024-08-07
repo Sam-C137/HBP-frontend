@@ -1,0 +1,75 @@
+<ol>
+    <li>
+        <a
+            [routerLink]="['/admin', 'faqs']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >FAQs</a
+        >
+    </li>
+    <i></i>
+    <li>
+        <a [routerLink]="['/admin/faqs/create']" routerLinkActive="active">
+            {{ currentFaq ? "Edit FAQ" : "Add FAQ" }}
+        </a>
+    </li>
+</ol>
+<section>
+    <form [formGroup]="form" (submit)="submit()">
+        <h3>FAQ Information</h3>
+        <hbp-input
+            label="Question"
+            id="name"
+            type="text"
+            placeholder="Enter a question"
+            [control]="form.get('question')"
+            [required]="true"
+        />
+        <hbp-textarea
+            label="Answer"
+            id="description"
+            type="text"
+            placeholder="Type the answer here"
+            [control]="form.get('answer')"
+            [required]="true"
+        />
+    </form>
+    @if (currentFaq) {
+        <footer class="edit-mode">
+            <hbp-button type="button" [routerLink]="['/admin', 'faqs']"
+                >Cancel</hbp-button
+            >
+            <hbp-button
+                type="submit"
+                (click)="submit()"
+                [disabled]="updateFaqQuery.isPending()"
+                >Save Changes</hbp-button
+            >
+        </footer>
+    } @else {
+        <footer class="create-mode">
+            <hbp-button type="button" [routerLink]="['/admin', 'faqs']"
+                >Cancel</hbp-button
+            >
+            <div>
+                <hbp-button
+                    (click)="submit()"
+                    class="draft"
+                    [disabled]="
+                        publishFaqQuery.isPending() ||
+                        saveAsDraftQuery.isPending()
+                    "
+                    >Save as Draft</hbp-button
+                >
+                <hbp-button
+                    (click)="submit(true)"
+                    [disabled]="
+                        publishFaqQuery.isPending() ||
+                        saveAsDraftQuery.isPending()
+                    "
+                    >Publish</hbp-button
+                >
+            </div>
+        </footer>
+    }
+</section>

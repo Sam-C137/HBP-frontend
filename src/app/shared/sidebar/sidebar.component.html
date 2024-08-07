@@ -1,0 +1,39 @@
+<aside #aside [style.position]="position()">
+    <span class="logo-text">HBMS</span>
+    <ul>
+        @for (nav of navigationList(); track $index) {
+            <li>
+                <a
+                    [routerLink]="[baseRoot(), nav.path]"
+                    (click)="aside.classList.toggle('open')"
+                    routerLinkActive="active"
+                >
+                    <span [innerHTML]="renderIcon(nav.icon)"></span>
+                    {{ nav.label }}</a
+                >
+            </li>
+        }
+    </ul>
+</aside>
+<div
+    class="backdrop"
+    (click)="aside.classList.toggle('open')"
+    tabindex="0"
+></div>
+<div class="menu-icon" (click)="aside.classList.toggle('open')" tabindex="0">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="1.7rem"
+        height="1.7rem"
+        viewBox="0 0 16 16"
+    >
+        <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M2.75 12.25h10.5m-10.5-4h10.5m-10.5-4h10.5"
+        />
+    </svg>
+</div>

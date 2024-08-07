@@ -1,0 +1,38 @@
+@import "main";
+
+p {
+  color: $gray-700;
+  font-family: $font-family-secondary;
+  @include text-normal(0.875rem);
+  margin-bottom: 0.375rem;
+  text-align: left;
+}
+
+section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-300;
+  background: $white;
+  box-shadow: $shadow-xs;
+
+  input {
+    @include reset;
+    max-width: 3rem;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 0.25rem;
+    margin: 2px;
+    background: $white;
+    font-weight: bold;
+    color: $gray-600;
+    outline: none;
+    transition: all 0.3s ease;
+
+    &:disabled {
+      background: $gray-200;
+      color: $gray-400;
+    }
+  }
+}

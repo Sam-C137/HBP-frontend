@@ -1,0 +1,12 @@
+@import "main";
+
+.chart {
+  padding: 1.25rem;
+  @include max-lg {
+    padding-inline: 0;
+  }
+  &__title {
+    @include text-bold(1.25rem, $neutral-800, 500);
+    margin-bottom: 2.31rem;
+  }
+}

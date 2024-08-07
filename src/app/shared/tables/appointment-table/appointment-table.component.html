@@ -1,0 +1,176 @@
+<table role="table">
+    <thead role="rowgroup">
+        <tr role="row">
+            @for (header of headers(); track $index) {
+                <th role="columnheader">{{ header }}</th>
+            }
+            @if (actions() === AppointmentStatuses.COMPLETED) {
+                <th role="columnheader">Status</th>
+            } @else {
+                <th role="columnheader">Actions</th>
+            }
+        </tr>
+    </thead>
+    @if (!loading()) {
+        <tbody role="rowgroup">
+            @for (item of items(); track $index) {
+                <tr role="row">
+                    @for (column of keys(); track $index) {
+                        @if (column === "relatedUser") {
+                            <td
+                                role="cell"
+                                [attr.data-cell]="column"
+                                (click)="
+                                    selectedAppointment.set(item);
+                                    isAppointmentDetailsOpen =
+                                        !isAppointmentDetailsOpen
+                                "
+                            >
+                                <span
+                                    class="display-flex align-items-center gap-5"
+                                >
+                                    <hbp-user-avatar
+                                        [src]="item.relatedUser.profilePicture"
+                                        [fallback]="item.relatedUser.fullName"
+                                    />
+                                    {{ item["relatedUser"]["fullName"] }}
+                                </span>
+                            </td>
+                        } @else if (column === $any("appointmentDate")) {
+                            <td
+                                role="cell"
+                                [attr.data-cell]="column"
+                                (click)="
+                                    selectedAppointment.set(item);
+                                    isAppointmentDetailsOpen =
+                                        !isAppointmentDetailsOpen
+                                "
+                            >
+                                <p>{{ $any(item[column]) | date }}</p>
+                            </td>
+                        } @else if (column === "appointmentTime") {
+                            <td
+                                role="cell"
+                                [attr.data-cell]="column"
+                                (click)="
+                                    selectedAppointment.set(item);
+                                    isAppointmentDetailsOpen =
+                                        !isAppointmentDetailsOpen
+                                "
+                            >
+                                <p>{{ item[column] | time: 12 : "next" }}</p>
+                            </td>
+                        } @else {
+                            <td
+                                role="cell"
+                                [attr.data-cell]="column"
+                                (click)="
+                                    selectedAppointment.set(item);
+                                    isAppointmentDetailsOpen =
+                                        !isAppointmentDetailsOpen
+                                "
+                            >
+                                <p>{{ item[column] }}</p>
+                            </td>
+                        }
+                    }
+
+                    @switch (actions()) {
+                        @case (AppointmentStatuses.COMPLETED) {
+                            <td
+                                (click)="
+                                    selectedAppointment.set(item);
+                                    isAppointmentDetailsOpen =
+                                        !isAppointmentDetailsOpen
+                                "
+                                role="cell"
+                                data-cell="status"
+                            >
+                                <span class="status active"> Completed </span>
+                            </td>
+                        }
+
+                        @case (AppointmentStatuses.ACCEPTED) {
+                            <td role="cell" data-cell="actions">
+                                <i
+                                    class="reschedule"
+                                    title="Reschedule Appointment"
+                                    (click)="reschedule.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                                <i
+                                    class="cancel"
+                                    title="Cancel Appointment"
+                                    (click)="cancel.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                                <i
+                                    class="profile"
+                                    title="View Profile"
+                                    [routerLink]="[
+                                        'patient-profile',
+                                        item.relatedUser.id,
+                                    ]"
+                                ></i>
+                                <i
+                                    class="complete"
+                                    title="Mark As Completed"
+                                    #check
+                                    (click)="complete.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                            </td>
+                        }
+
+                        @case (AppointmentStatuses.RESCHEDULED) {
+                            <td role="cell" data-cell="actions">
+                                <i
+                                    class="accept"
+                                    title="Accept Appointment"
+                                    (click)="accept.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                                <i
+                                    class="cancel"
+                                    title="Cancel Appointment"
+                                    (click)="cancel.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                            </td>
+                        }
+
+                        @default {
+                            <td role="cell" data-cell="actions">
+                                <i
+                                    class="accept"
+                                    title="Accept Appointment"
+                                    (click)="accept.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                                <i
+                                    class="reject"
+                                    title="Reject Appointment"
+                                    (click)="reject.emit(item)"
+                                    tabindex="0"
+                                ></i>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+@if (loading()) {
+    <div class="loader">
+        <hbp-spinner size="lg" />
+    </div>
+}
+
+@if (isAppointmentDetailsOpen) {
+    <hbp-appointment-details-overlay
+        [(open)]="isAppointmentDetailsOpen"
+        [appointment]="selectedAppointment()"
+    />
+}

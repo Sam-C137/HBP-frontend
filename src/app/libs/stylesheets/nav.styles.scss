@@ -1,0 +1,104 @@
+@import "main";
+
+*:not(.logo-text) {
+  font-family: $font-family-secondary;
+}
+
+nav.desktop {
+  @include max-lg {
+    display: none !important;
+  }
+}
+
+nav.mobile {
+  @include lg {
+    display: none !important;
+  }
+}
+
+nav:is(.mobile, .desktop) {
+  @include center;
+  justify-content: space-between;
+  background-color: $white;
+  padding: 0;
+  @include lg {
+    padding: 0.75rem 4.5rem;
+  }
+  > span {
+    @include flex-row;
+    align-items: center;
+    &.actions {
+      p {
+        padding: 0.75rem 1.25rem;
+        color: $primary;
+        margin-right: 0.75rem;
+        @include center;
+        gap: 0.5rem;
+        width: max-content;
+        @include max-sm {
+          margin-right: 0.25rem;
+          width: 100px;
+          padding: 0;
+          padding-left: 0.5rem;
+        }
+        @include breakpoint-max(380px) {
+          font-size: 0.75rem;
+        }
+      }
+      button {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        margin-right: 0.75rem;
+        font-weight: 500;
+        background: none;
+        border: none;
+        @include lg {
+          padding: 0.75rem 1.25rem;
+        }
+        &:hover {
+          background-color: $gray-900;
+          color: $white;
+          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+        transition: all 0.2s ease-in-out;
+        &:last-of-type {
+          background: $primary;
+          color: $white;
+          &:hover {
+            background: $primary-hover;
+          }
+        }
+      }
+    }
+  }
+}
+
+nav.desktop {
+  border-bottom: 1px solid $gray-200;
+  ul {
+    @include flex-row;
+    justify-content: space-evenly;
+
+    li {
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+
+nav.mobile {
+  position: sticky;
+  z-index: 10;
+  @include max-lg {
+    padding: 0.5rem !important;
+  }
+  border-bottom: 2px solid $gray-200;
+}
+
+p,
+a,
+button {
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}

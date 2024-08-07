@@ -1,0 +1,7 @@
+<div
+    [style.top.px]="position().top"
+    [style.left.px]="position().left"
+    (clickOutside)="close.emit()"
+>
+    <ng-content></ng-content>
+</div>

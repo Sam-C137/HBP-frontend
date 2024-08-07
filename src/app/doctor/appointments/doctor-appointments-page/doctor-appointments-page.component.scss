@@ -1,0 +1,106 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+main {
+  padding: 2rem;
+  padding-left: 2.15rem;
+  width: 100%;
+}
+
+header {
+  @include flex-row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    @include text-bold(1.25rem, $gray-900, 500);
+  }
+  a {
+    @include text-normal(1rem, $secondary-500, 500);
+    line-height: 1.5rem;
+  }
+}
+
+form,
+ul {
+  @include flex-row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li {
+  @include text-normal(clamp(0.875rem, calc(2vw + 1rem), 1rem), $gray-800, 500);
+  padding: 0.75rem 0.625rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  &.active {
+    color: $secondary-500;
+    border-bottom: 2px solid $secondary-500;
+  }
+  &:first-of-type {
+    &::after {
+      display: inline;
+      // content: attr(data-count);
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: $white;
+      background: $blue-base;
+      border-radius: 50vw;
+      padding: 0.25rem 0.5rem;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.reel {
+  --gap: 1rem;
+  display: grid;
+  gap: var(--gap);
+  grid-auto-flow: column;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-padding: var(--gap);
+  scroll-behavior: smooth;
+
+  & > * {
+    scroll-snap-align: start;
+  }
+
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &:has(hbp-upcoming-appointment-card.short) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+div:has([alt="no-appointments"]) {
+  background: $Gray-100;
+  border-radius: 0.5rem;
+}
+
+#last-card {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+amalitech-select {
+  --select-label-padding: 0.625rem 0.875rem;
+  --select-label-font-size: 1rem;
+  --select-label-border-color: var(--gray-300);
+  --select-label-radius: 0.5rem;
+  --select-dropdown-border-color: var(--gray-300);
+  --select-option-font-size: 1rem;
+  --select-width: 12.5rem;
+}

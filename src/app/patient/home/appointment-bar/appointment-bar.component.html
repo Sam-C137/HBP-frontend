@@ -1,0 +1,30 @@
+<form [formGroup]="form" (submit)="submit()">
+    <hbp-date-picker
+        label="Appointment date"
+        id="date"
+        [control]="form.get('date')"
+        [min]="today"
+    />
+    <span>
+        <label for="specialization">Select service</label>
+        <amalitech-select
+            label="Specialization"
+            formControlName="specialization"
+            scrollable
+        >
+            @for (specialization of specializations(); track $index) {
+                <amalitech-select-option
+                    [value]="specialization"
+                    [selected]="
+                        specialization === form.get('specialization')?.value
+                    "
+                    >{{ specialization }}</amalitech-select-option
+                >
+            }
+        </amalitech-select>
+    </span>
+    <span>
+        <label for="submit" class="opacity-0">Text</label>
+        <hbp-button type="submit">Proceed</hbp-button>
+    </span>
+</form>

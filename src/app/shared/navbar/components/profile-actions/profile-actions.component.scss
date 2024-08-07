@@ -1,0 +1,46 @@
+@import "main";
+
+:host {
+  width: 100%;
+  max-width: 230px;
+  @include center;
+  min-width: 14rem;
+}
+
+p,
+li,
+a {
+  @include text-normal(0.875rem, $gray-700, 500);
+  line-height: 142%;
+  &.font-light {
+    color: $gray-500;
+  }
+}
+
+p {
+  @include ellipses($width: 8rem, $height: 100%, $clamp: 1);
+  word-wrap: break-word;
+}
+
+li {
+  padding: 0.62rem 1rem;
+  border-top: 1px solid $gray-100;
+  cursor: pointer;
+  &:first-of-type {
+    @include flex-row;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 1rem;
+    border-top: none;
+    cursor: default;
+    &:hover {
+      background: none;
+    }
+  }
+  &:last-of-type:hover {
+    border-radius: 0 0.5rem;
+  }
+  &:hover {
+    background: $gray-100;
+  }
+}

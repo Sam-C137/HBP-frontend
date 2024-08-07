@@ -1,0 +1,16 @@
+<article>
+    <div>
+        <span>
+            <img [src]="imgUrl()" [alt]="author()" />
+        </span>
+    </div>
+    <blockquote>
+        <p>
+            {{ content() }}
+        </p>
+        <footer>
+            {{ author() }}
+            <cite>{{ role() }}</cite>
+        </footer>
+    </blockquote>
+</article>

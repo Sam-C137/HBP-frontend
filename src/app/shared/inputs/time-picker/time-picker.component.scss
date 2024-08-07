@@ -1,0 +1,111 @@
+@import "main";
+
+:host {
+  --label-color: var(--gray-700);
+  --label-font-size: 0.875rem;
+  --input-margin: 0.5rem 0;
+  display: block;
+}
+
+label {
+  @include text-normal(var(--label-font-size), var(--label-color), 500);
+  font-family: var(--label-font-family, $font-family-secondary);
+  line-height: 1.25rem;
+}
+
+.input {
+  position: relative;
+  @include synthetic-input;
+  min-width: 264px;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-300;
+  background: $white;
+  box-shadow: $shadow-xs;
+  padding: 0.625rem 0.875rem;
+  font-size: 1rem;
+  margin: var(--input-margin);
+  input::placeholder {
+    color: $gray-500;
+    opacity: 0.5;
+  }
+}
+
+amalitech-time-picker {
+  --time-picker-active-bg: var(--primary);
+  --time-picker-font-family: var(--font-family-secondary);
+  --time-picker-panel-display: none;
+  --time-picker-footer-padding: 0.25rem 0.5rem;
+  --time-picker-footer-ok-button-padding: 0.25rem 0.5rem;
+  align-self: flex-start;
+}
+
+i {
+  font-weight: 600;
+  color: $error-500;
+}
+
+.dropdown {
+  padding: 0.75rem;
+  border-radius: 0.35rem;
+  border: 1px solid $gray-200;
+  left: 0;
+  top: 2.75rem;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  background: $white;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0px -2px 6px 0px rgba(0, 0, 0, 0.15),
+    0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+
+  &.scrollable {
+    max-height: 10rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  &.open {
+    animation: moveDownOut 0.1s linear forwards;
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+ul {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr;
+  &.dbl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  li {
+    border-radius: 0.35rem;
+    background: $Gray-100;
+    @include text-normal(0.875rem, $gray-700, 500);
+    line-height: 1.25rem;
+    padding: 0.375rem 0.625rem;
+    cursor: pointer;
+    border-radius: 50vw;
+    &:hover {
+      background: $Gray-200;
+    }
+  }
+}
+
+hbp-spinner {
+  --thickness: 4px;
+  --width: 20px;
+}
+
+.error {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: -0.25rem;
+  position: var(--error-position);
+}

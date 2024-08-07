@@ -1,0 +1,81 @@
+@import "main";
+
+h1 {
+  padding: 2.5rem;
+  padding-bottom: 0;
+}
+
+h1 {
+  @include text-bold(1.25rem, $neutral-800, 500);
+  margin-bottom: 1.56rem;
+}
+
+section {
+  display: grid;
+  grid-template-columns: 60% 35%;
+  column-gap: 3.75rem;
+  padding : {
+    inline: 2.5rem;
+    bottom: 2.5rem;
+  }
+
+  @include max-lg {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  article > h2 {
+    @include text-bold(1.125rem, $dark, 600);
+    margin-bottom: 1rem;
+  }
+
+  .ratings {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 2rem;
+
+    .ratings-col-1 {
+      place-self: start center;
+      text-align: center;
+
+      .average-rating {
+        @include text-bold(1.75rem, $dark, 600);
+        margin-bottom: 0.62rem;
+      }
+
+      .num-of-reviews {
+        @include text-bold(0.875rem, $dark, 600);
+        margin-top: 0.62rem;
+      }
+    }
+  }
+}
+
+div.ratings-and-feedback {
+  h4 {
+    @include text-bold(clamp(1rem, 0.5vw + 1rem, 1.15rem), $dark, 600);
+  }
+  small {
+    @include text-normal(clamp(1rem, 0.5vw + 1rem, 1.15rem), $gray-800, 500);
+  }
+
+  span:has(hbp-progress-bar) {
+    display: grid;
+    grid-template-columns: 1.5rem 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+}
+
+amalitech-star-rating {
+  --star-rating-active: var(--yellow-500);
+  display: inline;
+}
+
+hbp-progress-bar {
+  --width: auto;
+}
+
+hbp-bars {
+  --color: linear-gradient(90deg, var(--yellow-500) 0%, var(--yellow-500) 100%);
+}

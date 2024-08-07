@@ -1,0 +1,197 @@
+<hbp-navbar position="fixed" />
+<section id="hero">
+    <summary>
+        <h3>
+            Make an appointment with a
+            <span #animatedText class="animated-text">{{ currentText }}</span>
+        </h3>
+        <p>
+            Get the care you deserve at a time that suits you. Booking an
+            appointment with us is quick and easy. Just select the service you
+            need, and choose a convenient date and time.
+        </p>
+        <div class="display-flex w-full mt-4">
+            <hbp-button routerLink="services"> Learn More </hbp-button>
+            <hbp-button
+                [routerLink]="user ? ['/patient/home'] : ['/auth/login']"
+                >Book an Appointment</hbp-button
+            >
+        </div>
+    </summary>
+    <summary class="display-flex flex-row-reverse w-full">
+        <hbp-optimized-image
+            src="assets/images/Gynecologist.png"
+            fallback="assets/images/Gynecologist-small.png"
+        />
+    </summary>
+</section>
+<section id="services">
+    <div class="display-flex flex-column align-items-center">
+        <h3 class="mt-6">Explore Our Services</h3>
+        <p>
+            At our healthcare facility, we offer a diverse range of services
+            aimed at promoting your well-being. From advanced diagnostic
+            procedures to personalized treatment plans, our dedicated team of
+            professionals is committed to providing the highest quality care.
+            With a patient-centered approach, we strive to create a nurturing
+            environment where your health concerns are heard, understood, and
+            addressed with utmost expertise.
+        </p>
+    </div>
+    @if (services.isLoading()) {
+        <div class="center-div w-full h-full mt-2">
+            <hbp-spinner />
+        </div>
+    } @else if (services.data()) {
+        @if (services.data()!.content.length < 1) {
+            <div class="center-div w-full">
+                <h2 class="text-center font-semibold text-md">
+                    We currently have no services available on the platform,
+                    please check back later
+                </h2>
+            </div>
+        } @else {
+            <div class="services">
+                @for (
+                    service of services.data()?.content?.slice(0, 6);
+                    track $index
+                ) {
+                    <hbp-animated-card [service]="service" />
+                }
+            </div>
+        }
+    }
+</section>
+<section id="recommendation-1">
+    <summary>
+        <div>
+            <h3>Your health is our Priority!</h3>
+            <p>
+                At HBMS, your well-being is our top priority. We are dedicated
+                to providing exceptional care and personalized service, tailored
+                to meet your unique needs. Whether you're visiting for a routine
+                check-up, seeking specialized treatment, or need expert advice,
+                our experienced team is here to support you every step of the
+                way.
+            </p>
+            <p class="mt-4">
+                Your health is more than just a number to us; it's our mission.
+                We prioritize your health and well-being above all else. Trust
+                us to provide the best care possible. Book your appointment
+                today and take the first step towards a healthier, happier life.
+            </p>
+        </div>
+    </summary>
+    <summary>
+        <hbp-optimized-image
+            src="assets/images/Dentist.png"
+            fallback="assets/images/Dentist-small.png"
+        />
+    </summary>
+</section>
+<section id="recommendation-2">
+    <summary>
+        <hbp-optimized-image
+            src="assets/images/Clerk.png"
+            fallback="assets/images/Clerk-small.png"
+        />
+    </summary>
+    <summary>
+        <div>
+            <h3>Get monthly health tips from our professionals</h3>
+            <p class="mb-4">
+                Stay informed and take charge of your health with our monthly
+                health tips, curated by our team of expert professionals. Each
+                month, we'll share valuable insights, practical advice, and the
+                latest in health and wellness trends, all designed to help you
+                live a healthier and more fulfilling life.
+            </p>
+            <h4 class="mb-3">Did you know ?</h4>
+            <blockquote>
+                <p>
+                    “The greatest medicine of all is to teach people how to make
+                    themselves well.”
+                </p>
+                <footer>— Aeschylus</footer>
+            </blockquote>
+        </div>
+    </summary>
+</section>
+<section id="testimonies">
+    <header class="mb-4">
+        <h3 class="text-center">Trusted by Thousands of Happy Customers</h3>
+        <p class="text-center">
+            These are the stories of our customers who have joined us with great
+            pleasure when using this crazy feature. Hear from some of our happy
+            customers
+        </p>
+    </header>
+    <div #reel class="display-flex flex-row reel">
+        @for (testimony of testimonies; track $index) {
+            <hbp-testimony-card
+                [imgUrl]="testimony.image"
+                [author]="testimony.name"
+                [content]="testimony.comments"
+                [role]="testimony.role"
+            />
+        }
+    </div>
+    <div class="mt-4 controls">
+        <div class="display-flex flex-row">
+            @for (_ of testimonies; track $index) {
+                <span
+                    (click)="scrollToIndex($index)"
+                    [class.active]="$index === currentIndex"
+                    tabindex="0"
+                ></span>
+            }
+        </div>
+        <div class="display-flex flex-row">
+            <button
+                type="button"
+                class="mr-2"
+                aria-label="left"
+                (click)="scrollLeft()"
+                [disabled]="atScrollStart"
+            >
+                <i></i>
+            </button>
+            <button
+                type="button"
+                aria-label="right"
+                (click)="scrollRight()"
+                [disabled]="atScrollEnd"
+            >
+                <i></i>
+            </button>
+        </div>
+    </div>
+</section>
+<div id="cta">
+    <span>
+        <h3>Sign up for our general health tips</h3>
+        <p>Be the first to know about releases, industry news and insights</p>
+    </span>
+    <span>
+        <hbp-cta-form />
+        <p>We care about your data in our privacy policy</p>
+    </span>
+</div>
+<section id="faq">
+    <header>
+        <h3>Frequently asked questions</h3>
+        <p>Everything you need to know about the product and billing.</p>
+    </header>
+    @if (faqQuery.isPending()) {
+        <div class="center-div w-full h-full mt-2">
+            <hbp-spinner />
+        </div>
+    } @else if (faqQuery.data()) {
+        <div>
+            @for (faq of faqQuery.data()?.content; track $index) {
+                <hbp-accordion [label]="faq.question" [content]="faq.answer" />
+            }
+        </div>
+    }
+</section>
+<hbp-footer />

@@ -1,0 +1,113 @@
+@import "main";
+
+:host {
+  display: block;
+  height: 200vh;
+}
+
+* {
+  font-family: $font-family-secondary;
+}
+
+main {
+  padding-inline: 3%;
+  @include lg {
+    padding-inline: 6%;
+  }
+}
+
+.notification-card {
+  @include flex-row;
+  max-width: 73.0625rem;
+  padding: 1.125rem 2rem;
+  gap: 2rem;
+  border-radius: 0.625rem;
+  background: $gray-50;
+  margin-bottom: 1rem;
+  &.new {
+    background: $secondary-50;
+  }
+
+  div {
+    width: 100%;
+    h3 {
+      @include text-bold(1.25rem, $gray-900, 600);
+    }
+    p {
+      @include text-normal(1rem, $gray-700, 500);
+      margin-block: 0.65rem;
+      line-height: 1.5rem;
+    }
+    a {
+      font-weight: 500;
+      color: $secondary-500;
+    }
+  }
+}
+
+hbp-breadcrumb {
+  margin-block: 4rem;
+  display: block;
+}
+
+hbp-user-avatar {
+  --size: 5rem;
+  @include max-lg {
+    --size: 4rem;
+  }
+}
+
+#page-bottom {
+  width: 2rem;
+  height: 2rem;
+  margin-top: 50px;
+}
+
+.bars {
+  width: 30px;
+  aspect-ratio: 0.75;
+  --c: no-repeat var(--primary-gradient);
+  background:
+    var(--c) 0% 50%,
+    var(--c) 50% 50%,
+    var(--c) 100% 50%;
+  animation: l7 1s infinite linear alternate;
+}
+@keyframes l7 {
+  0% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 50%;
+  }
+  20% {
+    background-size:
+      20% 20%,
+      20% 50%,
+      20% 50%;
+  }
+  40% {
+    background-size:
+      20% 100%,
+      20% 20%,
+      20% 50%;
+  }
+  60% {
+    background-size:
+      20% 50%,
+      20% 100%,
+      20% 20%;
+  }
+  80% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 100%;
+  }
+  100% {
+    background-size:
+      20% 50%,
+      20% 50%,
+      20% 50%;
+  }
+}

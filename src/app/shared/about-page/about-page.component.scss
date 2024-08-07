@@ -1,0 +1,137 @@
+@use "main" as *;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+* {
+  font-family: $font-family-secondary;
+}
+
+section#banner {
+  text-align: center;
+  background: $primary-50;
+  padding-bottom: 5rem;
+  padding-top: 2rem;
+  @include flex-column;
+  align-items: center;
+  h1 {
+    font-size: clamp(3.5rem, 2vw + 1rem, 5rem);
+  }
+  p {
+    @include text-normal(clamp(1rem, 2vw + 0.5rem, 1.45rem), $neutral-950, 500);
+    max-width: 50rem;
+    padding-block: 0.5rem;
+    @include max-sm {
+      padding-inline: 2vw;
+    }
+  }
+}
+
+main {
+  padding-inline: 5vw;
+  padding-block: 2rem;
+}
+
+section#mission,
+section#vision,
+section#contact {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 3rem;
+  @include max-md {
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 1rem;
+  }
+  gap: 10vw;
+  @include xl {
+    gap: 20vw;
+  }
+
+  p {
+    @include text-normal(clamp(1rem, 2vw + 0.5rem, 1.25rem), $neutral-800, 500);
+    line-height: 135%;
+  }
+}
+
+section#team {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5vw;
+  @include max-lg {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+}
+
+h3 {
+  @include text-normal(
+    clamp(1.25rem, 2vw + 0.5rem, 1.75rem),
+    $neutral-950,
+    600
+  );
+  margin-bottom: 2rem;
+}
+
+a {
+  @include center;
+  margin-top: 1.825rem;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: $primary-gradient;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+  width: max-content;
+  color: $white;
+  float: right;
+}
+
+hbp-optimized-image {
+  width: 27rem;
+  height: 24rem;
+  display: block;
+  @include xl {
+    width: 30rem;
+    height: 27rem;
+  }
+  @include max-lg {
+    padding-inline: 2vw;
+    width: 20rem;
+    height: 18rem;
+  }
+}
+
+.team-member-card {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+
+  img {
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.05);
+      transition: all 0.3s ease;
+    }
+  }
+
+  h4 {
+    @include text-bold(1.25rem, $neutral-950, 600);
+  }
+
+  p {
+    @include text-normal(1rem, $neutral-950, 500);
+  }
+}
+
+section#contact {
+  margin-block: 5rem;
+  flex-direction: row-reverse;
+}

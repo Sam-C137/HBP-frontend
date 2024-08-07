@@ -1,0 +1,28 @@
+@import "main";
+
+article {
+  footer {
+    hbp-button:first-of-type {
+      --background: var(--white);
+      --border-color: var(--gray-300);
+      --color: var(--gray-700);
+      --hover-bg: var(--white);
+      --hover-border: var(--gray-300);
+      --hover-color: var(--gray-900);
+    }
+    hbp-button:last-of-type {
+      --background: var(--error-500);
+      --border-color: var(--error-500);
+      --color: var(--white);
+      --hover-bg: var(--error-700);
+      --hover-border: var(--error-700);
+      --hover-color: var(--white);
+    }
+  }
+}
+
+hbp-spinner {
+  --color: var(--white);
+  --thickness: 4px;
+  --width: 20px;
+}

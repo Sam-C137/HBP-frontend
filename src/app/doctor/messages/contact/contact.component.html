@@ -1,0 +1,35 @@
+<article class="contact">
+    <div class="contact-info">
+        <hbp-user-avatar
+            [fallback]="
+                contact().doctorsId === userService.user?.id
+                    ? contact().patientsName!
+                    : contact().doctorsName!
+            "
+            [src]="
+                contact().doctorsId === userService.user?.id
+                    ? contact().patientPic
+                    : contact().doctorPic
+            "
+        />
+        <div class="message truncate">
+            <p class="truncate receipient">
+                {{
+                    contact().doctorsId === userService.user?.id
+                        ? contact().patientsName!
+                        : contact().doctorsName!
+                }}
+            </p>
+            <p class="content truncate">{{ contact().lastChat.content }}</p>
+        </div>
+    </div>
+    <div class="indicators">
+        <p class="time content">{{ modifyTimeOutput(timeStamp()) }}</p>
+        <div
+            [class]="{
+                'message-indicator': contact().newMessages,
+                'message-indicator--selected': isSelected(),
+            }"
+        ></div>
+    </div>
+</article>

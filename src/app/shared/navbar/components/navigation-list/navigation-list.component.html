@@ -1,0 +1,46 @@
+<ul
+    [class]="{
+        'display-none': user?.role === 'admin' || user?.role === 'doctor',
+    }"
+>
+    <li>
+        <a
+            [routerLink]="['/patient/home']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+        >
+    </li>
+    <li>
+        <a
+            [routerLink]="['/services']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Services</a
+        >
+    </li>
+    <li *ngIf="user">
+        <a
+            [routerLink]="['/patient/appointments']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Appointments</a
+        >
+    </li>
+    <li>
+        <a
+            [routerLink]="['/about']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >About Us</a
+        >
+    </li>
+    <!--    <li>-->
+    <!--        <a-->
+    <!--            [routerLink]="['/doctor/auth/sign-up']"-->
+    <!--            routerLinkActive="active"-->
+    <!--            [routerLinkActiveOptions]="{ exact: true }"-->
+    <!--            >Sign Up as a Doctor</a-->
+    <!--        >-->
+    <!--    </li>-->
+</ul>

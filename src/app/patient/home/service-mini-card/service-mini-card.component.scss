@@ -1,0 +1,43 @@
+@import "main";
+
+:host {
+  display: flex;
+}
+
+article {
+  padding: 0.47594rem 1rem 0.47594rem 0.47594rem;
+  @include flex-row;
+  align-items: center;
+  border-radius: 0.59494rem;
+  background: $white;
+  border: 1px solid $gray-200;
+  width: max-content;
+  gap: 1rem;
+  flex-grow: 1;
+  cursor: pointer;
+  &.active {
+    box-shadow: 0.952px 0.952px 19.038px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    @include text-normal(
+      $size: clamp(0.75rem, 1vw + 0.5rem, 1.25rem),
+      $color: $gray-900
+    );
+  }
+
+  .img-bg {
+    display: none;
+  }
+
+  @include max-lg {
+    gap: 0.5rem;
+    .img-bg {
+      @include rounded-img-container(0.5rem);
+      display: block;
+    }
+    hbp-service-avatar {
+      display: none;
+    }
+  }
+}

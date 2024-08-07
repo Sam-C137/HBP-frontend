@@ -1,0 +1,21 @@
+<a>
+    <img [src]="fileUrl() | file: 'icon'" alt="" />
+    <div (click)="downloadFile(fileUrl())" tabindex="0" class="cursor-pointer">
+        @if (useActualFileName()) {
+            {{ fileUrl() | file: "text" }}
+        } @else {
+            {{ fileName() }}.{{ fileUrl() | file: "ext" }}
+        }
+        @if (downloadProgress() > 0) {
+            <div class="progress-wrapper">
+                <span
+                    class="progress"
+                    [style.width]="downloadProgress() + '%'"
+                ></span>
+            </div>
+        }
+    </div>
+    @if (downloadProgress() >= 100) {
+        <i class="complete"></i>
+    }
+</a>

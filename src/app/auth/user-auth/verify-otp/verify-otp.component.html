@@ -1,0 +1,32 @@
+<form class="text-center">
+    <div>
+        <h2>Verify your email address</h2>
+        <p class="mb-3">
+            We've sent an email with a verification code to
+            <span class="font-semibold">{{ email }}</span
+            >.
+        </p>
+        <hbp-otp-input #otp (submit)="verifyOtp($event)" [length]="6" />
+        <a (click)="otp.clear(); resendOtp()" tabindex="0">Resend Code</a>
+        <hbp-button
+            type="button"
+            (click)="submit()"
+            [disabled]="
+                verificationMutation.isPending() ||
+                resendVerificationMutation.isPending()
+            "
+        >
+            <span class="display-flex align-items-center justify-center gap-4">
+                @if (
+                    verificationMutation.isPending() ||
+                    resendVerificationMutation.isPending()
+                ) {
+                    Verifying Code...
+                    <hbp-spinner />
+                } @else {
+                    Verify Email
+                }
+            </span>
+        </hbp-button>
+    </div>
+</form>

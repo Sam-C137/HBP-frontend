@@ -1,0 +1,120 @@
+<h1>Dashboard</h1>
+
+@if (dashboardQuery.isPending()) {
+    <div class="w-full h-80 center-div">
+        <hbp-bars />
+    </div>
+} @else if (dashboardQuery.isError()) {
+    <hbp-error-handler
+        [message]="dashboardQuery.error().message"
+        (retry)="dashboardQuery.refetch()"
+    />
+} @else {
+    <section>
+        <article>
+            <span class="blue">
+                <img
+                    ngSrc="assets/icons/users-check.svg"
+                    width="30"
+                    height="30"
+                    alt="new users"
+                />
+            </span>
+            <h6>{{ dashboardQuery.data()?.numberOfNewUsers }}</h6>
+            New Users
+        </article>
+
+        <article>
+            <span class="yellow">
+                <img
+                    ngSrc="assets/icons/doctors.svg"
+                    alt="number of doctors"
+                    height="30"
+                    width="31"
+                />
+            </span>
+            <h6>{{ dashboardQuery.data()?.numberOfDoctors }}</h6>
+            Number of Doctors
+        </article>
+
+        <article>
+            <span class="red">
+                <img
+                    ngSrc="assets/icons/patients.svg"
+                    alt="number of patients"
+                    height="30"
+                    width="31"
+                />
+            </span>
+            <h6>{{ dashboardQuery.data()?.numberOfPatients }}</h6>
+            Number of Patients
+        </article>
+
+        <article>
+            <span class="green">
+                <img
+                    ngSrc="assets/icons/all-users.svg"
+                    alt="total users"
+                    height="30"
+                    width="31"
+                />
+            </span>
+            <h6>{{ dashboardQuery.data()?.totalNumberOfUsers }}</h6>
+            Total Users
+        </article>
+    </section>
+
+    <h4 class="mb-2">New Users</h4>
+    <div [chart]="chart()"></div>
+
+    <h4>Recently Invited Doctors</h4>
+
+    <hbp-table [data]="dashboardQuery.data()?.newInvitedDoctors || []">
+        <ng-template
+            [hbpTableHead]="dashboardQuery.data()?.newInvitedDoctors || []"
+        >
+            <th>Email Address</th>
+            <th>Date Invited</th>
+            <th>Invitation Status</th>
+            <th class="actions-th">Actions</th>
+        </ng-template>
+        <ng-template
+            [hbpTableRow]="dashboardQuery.data()?.newInvitedDoctors || []"
+            let-doctor
+        >
+            <td data-cell="Email Address">{{ doctor.email }}</td>
+            <td data-cell="Date Invited">{{ doctor.dateInvited | date }}</td>
+            <td data-cell="Invitation Status">
+                <span data-status="pending" class="status pending">
+                    Pending
+                </span>
+            </td>
+            <td data-cell="actions">
+                <button
+                    class="mr-1"
+                    (click)="selectedUser = doctor; sendReminder()"
+                    [disabled]="
+                        resendDoctorInviteMutation.isPending() ||
+                        cancelDoctorInviteMutation.isPending()
+                    "
+                >
+                    Send Reminder
+                </button>
+                <button
+                    (click)="selectedUser = doctor; cancelInvite()"
+                    [disabled]="
+                        cancelDoctorInviteMutation.isPending() ||
+                        resendDoctorInviteMutation.isPending()
+                    "
+                >
+                    Cancel Invite
+                </button>
+            </td>
+        </ng-template>
+    </hbp-table>
+}
+
+<ng-template #modalTemplate>
+    Do you want to cancel an invitation sent to
+    <span class="font-bold"> {{ selectedUser?.email }} </span>?
+</ng-template>

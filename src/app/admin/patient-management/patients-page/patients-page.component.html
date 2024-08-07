@@ -1,0 +1,42 @@
+<section>
+    <h1>Patients</h1>
+    <form [formGroup]="form" class="search-panel mt-3 mb-3">
+        <hbp-input
+            iconLeftUrl="assets/icons/search.svg"
+            type="text"
+            id="search"
+            [control]="form.get('search')"
+            placeholder="Search patients by name or email"
+            [toggleIcons]="false"
+        />
+        <amalitech-select label="Filter" formControlName="status">
+            <amalitech-select-option value="" selected
+                >All</amalitech-select-option
+            >
+            <amalitech-select-option value="active"
+                >Active</amalitech-select-option
+            >
+            <amalitech-select-option value="inactive"
+                >Inactive</amalitech-select-option
+            >
+        </amalitech-select>
+    </form>
+    <hbp-patient-list
+        [patients]="patientsQuery.data() ? patientsQuery.data()?.content! : []"
+        [isLoading]="patientsQuery.isLoading() || patientsQuery.isRefetching()"
+        [error]="patientsQuery.error()?.message"
+        (retry)="patientsQuery.refetch()"
+    />
+    <div class="display-flex align-items-center justify-center mt-4 w-full">
+        <amalitech-pagination
+            *ngIf="
+                patientsQuery.data() &&
+                patientsQuery.data()!.totalElements > 0 &&
+                !patientsQuery.isRefetching()
+            "
+            (amalitechPageChange)="changePage($event)"
+            [pageNumber]="currentPage() + 1"
+            [totalItems]="patientsQuery.data()!.totalElements"
+        ></amalitech-pagination>
+    </div>
+</section>

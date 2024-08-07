@@ -1,0 +1,69 @@
+@import "main";
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 25rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+div.listed-emails {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid $gray-300;
+  background: $white;
+  height: 10.75rem;
+  overflow: auto;
+  margin-top: 1rem;
+  div.email-list {
+    @include center;
+    gap: 6px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-top: 0.5rem;
+    overscroll-behavior: contain;
+  }
+  p {
+    flex: 100%;
+    color: $gray-500;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    border-bottom: 1px solid $gray-300;
+  }
+  span {
+    @include center;
+    font-size: 0.875rem;
+    color: $gray-700;
+    padding: 0.3125rem 0.75rem;
+    gap: 3px;
+    border-radius: 50vw;
+    background: $gray-200;
+  }
+}

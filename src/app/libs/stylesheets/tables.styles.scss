@@ -1,0 +1,131 @@
+@import "main";
+
+:host {
+  width: min(900px, 100% - 3rem);
+  margin-inline: auto;
+  @include max-lg {
+    overflow: auto;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: $white;
+}
+
+thead {
+  background: $gray-200;
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+th {
+  text-align: left;
+  background: inherit;
+  color: $gray-800;
+  font-weight: 600;
+  font-family: $font-family-secondary;
+  &:first-of-type {
+    border-radius: 0.5rem 0 0 0;
+  }
+  &:last-of-type {
+    border-radius: 0 0.5rem 0 0;
+  }
+}
+
+tr {
+  border-bottom: 1px solid $gray-200;
+}
+
+td {
+  color: $gray-500;
+  font-family: $font-family-secondary;
+  font-size: clamp(0.875rem, 1.25vw + 0.5rem, 1rem);
+  font-weight: 500;
+  line-height: 1.25rem;
+  min-width: 5rem;
+  &:first-child {
+    color: $gray-900;
+  }
+  P {
+    line-height: 128.571%;
+    @include ellipses($height: 1.25rem, $clamp: 2);
+  }
+}
+
+.status {
+  text-transform: capitalize;
+  border-radius: 50vw;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  position: relative;
+  color: $error-700;
+  background-color: $error-50;
+  display: block;
+  width: max-content;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: $error-500;
+  }
+
+  &.active {
+    color: $success-500;
+    background-color: $success-50;
+    &::before {
+      background-color: $success-500;
+    }
+  }
+}
+
+[data-cell="actions"] {
+  i {
+    position: relative;
+    cursor: pointer;
+    &::before {
+      content: "";
+      @include icon(
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23667085' d='M12 3c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0 14c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0-7c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2'/%3E%3C/svg%3E")
+      );
+    }
+    &:hover {
+      &::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 3c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0 14c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0-7c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2'/%3E%3C/svg%3E");
+      }
+    }
+  }
+}
+
+@include max-md {
+  th {
+    display: none;
+  }
+
+  td {
+    display: grid;
+    grid-template-columns: 15ch auto;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+
+    &:first-child {
+      padding-top: 1rem;
+    }
+    &:last-child {
+      padding-bottom: 1rem;
+    }
+
+    &:before {
+      content: attr(data-cell) ":";
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+  }
+}

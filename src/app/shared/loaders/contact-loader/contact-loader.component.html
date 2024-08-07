@@ -1,0 +1,17 @@
+<article class="contact">
+    <div class="contact-info">
+        <ngx-skeleton-loader appearance="circle" />
+        <div class="message">
+            <ngx-skeleton-loader [theme]="upperLoaderConfig()" />
+            <ngx-skeleton-loader [theme]="lowerLoaderConfig()" />
+        </div>
+    </div>
+    <div class="indicators">
+        <ngx-skeleton-loader
+            [theme]="{
+                width: '40px',
+                height: '15px',
+            }"
+        />
+    </div>
+</article>

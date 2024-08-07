@@ -1,0 +1,89 @@
+@import "main";
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+div {
+  p:first-of-type {
+    @include text-bold(1rem, $neutral-800, 500);
+  }
+  p:nth-child(2) {
+    @include text-bold(0.875rem, $neutral-950, 500);
+  }
+}
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 50%;
+  padding: 1.25rem 2rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+  form {
+    @include flex-column;
+    gap: 0.625rem;
+  }
+  header {
+    margin-bottom: 2.72rem;
+  }
+  #label {
+    @include text-bold(1.25rem, $gray-900, 500);
+  }
+
+  footer {
+    margin-top: auto;
+    width: max-content;
+    margin-left: auto;
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+amalitech-select {
+  --select-width: 100%;
+  --select-label-border-color: var(--gray-300);
+  --select-dropdown-border-color: var(--gray-300);
+  --select-dropdown-height: 8rem;
+}
+
+hbp-date-picker {
+  --input-margin: 0rem;
+  --input-padding: 0.5rem 0.75rem;
+  --active-border: 1px solid var(--gray-300);
+  --active-box-shadow: none;
+  --label-font-size: 1rem;
+  --justify: flex-start;
+}
+
+hbp-button {
+  --width: fit-content;
+  white-space: nowrap;
+}
+
+hbp-button:first-of-type {
+  --background: var(--white);
+  --border-color: var(--gray-900);
+  --color: var(--gray-900);
+  --hover-bg: black;
+  --hover-border: var(--gray-300);
+  --hover-color: var(--white);
+  --font-family: Montserrat;
+}

@@ -1,0 +1,17 @@
+@import "main";
+main {
+  padding: 5rem 2% 1rem 2%;
+  margin-bottom: 12rem;
+  min-height: 80dvh;
+  @include lg {
+    padding: 5.5rem 5% 2rem 5%;
+  }
+}
+
+span {
+  display: flex;
+  flex-direction: column;
+  @include md {
+    flex-direction: row;
+  }
+}

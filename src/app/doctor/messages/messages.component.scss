@@ -1,0 +1,29 @@
+@import "main";
+
+:host {
+  font-family: var(--font-family-secondary);
+}
+.chat {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  grid-template-columns: 35% 65%;
+  @include max-lg {
+    grid-template-columns: 100%;
+    overflow: hidden;
+  }
+}
+
+.desktop-chat,
+.desktop-message-bar {
+  @include max-lg {
+    display: none;
+  }
+}
+.mobile-chat,
+.mobile-message-bar {
+  @include lg {
+    display: none;
+  }
+}

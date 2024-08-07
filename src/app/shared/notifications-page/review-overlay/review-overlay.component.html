@@ -1,0 +1,78 @@
+<article
+    [class]="{
+        open: open(),
+        'screen-fit': open(),
+        modal: true,
+    }"
+    role="alertdialog"
+    aria-labelledby="label"
+    @popup
+>
+    <header>
+        <p id="label">Review Doctor</p>
+        <img
+            src="assets/icons/close-small.svg"
+            (click)="close()"
+            alt="close"
+            class="cursor-pointer"
+            tabindex="0"
+        />
+    </header>
+    <section>
+        <form [formGroup]="form" (submit)="submit()">
+            <div class="doctor-info">
+                <hbp-user-avatar
+                    [src]="selectedDoctor?.profilePicture"
+                    [fallback]="selectedDoctor?.fullName"
+                />
+                <p class="mt-2">
+                    How was your experience with {{ selectedDoctor?.fullName }}?
+                </p>
+                <amalitech-star-rating
+                    size="medium"
+                    animated
+                    stroke-color="var(--yellow-500)"
+                    class="mt-1"
+                    (amalitechRatingChange)="selectedRating.set($event.detail)"
+                ></amalitech-star-rating>
+            </div>
+            <hbp-textarea
+                label="Write your review"
+                id="review"
+                type="text"
+                placeholder="Enter your review here..."
+                [control]="form.get('review')"
+                [rows]="5"
+                class="mt-2"
+            />
+            <div class="actions">
+                <hbp-button
+                    type="button"
+                    (click)="close()"
+                    [disabled]="reviewMutation.isPending()"
+                >
+                    Cancel
+                </hbp-button>
+                <hbp-button
+                    type="submit"
+                    [disabled]="reviewMutation.isPending()"
+                >
+                    <span
+                        class="display-flex align-items-center justify-center gap-4"
+                    >
+                        Submit
+                        @if (reviewMutation.isPending()) {
+                            <hbp-spinner />
+                        }
+                    </span>
+                </hbp-button>
+            </div>
+        </form>
+    </section>
+</article>
+<div
+    class="backdrop"
+    [class.open]="open()"
+    tabindex="-1"
+    (click)="open.set(false)"
+></div>

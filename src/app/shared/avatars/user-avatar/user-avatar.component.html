@@ -1,0 +1,11 @@
+<span
+    [style.backgroundColor]="color"
+    [style.width]="size()"
+    [style.height]="size()"
+>
+    @if (src()) {
+        <img [src]="src()" [alt]="fallback()" />
+    } @else {
+        <p>{{ fallback() | initials }}</p>
+    }
+</span>

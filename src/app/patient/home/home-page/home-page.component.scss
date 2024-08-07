@@ -1,0 +1,204 @@
+@import "main";
+
+main {
+  min-height: 100dvh;
+  min-width: 100vw;
+  background: $primary-200;
+}
+
+section {
+  width: 100%;
+}
+
+//typography
+h2 {
+  @include text-bold(clamp(1.25rem, 2vw + 1rem, 1.5rem), $gray-900, 600);
+  font-family: $font-family-secondary;
+  line-height: 135%;
+}
+
+h4 {
+  @include text-bold(clamp(1rem, 1vw + 1rem, 1.25rem), $gray-900, 600);
+  font-family: $font-family-secondary;
+  line-height: 135%;
+}
+
+p {
+  font-family: $font-family-base;
+  color: $gray-500;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 0.5vw + 1rem, 1.75rem);
+}
+
+#banner {
+  background-color: $primary-50;
+  padding: 2rem 0;
+  position: relative;
+  @include lg {
+    padding-bottom: 5rem;
+  }
+  h1 {
+    @include text-normal(clamp(1rem, 2vw + 1rem, 2rem), $gray-900, 600);
+    margin-top: 0.75rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    @include max-md {
+      display: none;
+    }
+  }
+
+  h3 {
+    line-height: clamp(1.5rem, 1rem + 1vw, 2rem);
+    margin-bottom: 1rem;
+    @include text-bold(clamp(0.875rem, 1rem + 1vw, 1.5rem), $neutral-900, 500);
+    @include max-sm {
+      font-weight: 700;
+    }
+  }
+
+  p {
+    line-height: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    @include text-normal(clamp(0.75rem, 1rem + 1vw, 1rem), $neutral-900, 500);
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    width: 90%;
+    @include lg {
+      width: 900px;
+    }
+  }
+
+  div:has(hbp-appointment-bar) {
+    @include flex-column;
+    align-items: center;
+  }
+
+  hbp-appointment-bar {
+    @include max-lg {
+      margin-top: 1rem;
+    }
+    @include lg {
+      position: absolute;
+      bottom: -7rem;
+      margin: auto;
+    }
+  }
+}
+
+#content {
+  padding: 1rem 3%;
+  margin-bottom: 12rem;
+  margin-top: 5rem;
+  @include lg {
+    padding-block: 2rem;
+    padding-inline: 0;
+    & > *:not(.no-inline) {
+      margin-inline: 8%;
+    }
+  }
+  div.services {
+    .scroll-inner {
+      padding: 1rem 0.25rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      & > * {
+        flex: 1;
+      }
+
+      @include max-lg {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        & > * {
+          flex: 0;
+        }
+      }
+    }
+    &[data-animated] {
+      @media (prefers-reduced-motion: no-preference) {
+        overflow: hidden;
+        max-width: 100vw;
+        @include xlg {
+          max-width: 90vw;
+          margin-inline: auto;
+          -webkit-mask: linear-gradient(
+            90deg,
+            transparent,
+            white 20%,
+            white 80%,
+            transparent
+          );
+          mask: linear-gradient(
+            90deg,
+            transparent,
+            white 20%,
+            white 80%,
+            transparent
+          );
+        }
+        .scroll-inner {
+          @include lg {
+            width: max-content;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            animation: scroll 30s forwards linear infinite;
+            &:hover {
+              animation-play-state: paused;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.search {
+  @include flex-column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  @include lg {
+    @include flex-row;
+    gap: 0;
+  }
+}
+
+amalitech-pagination {
+  --pagination-active-bg: var(--success-100);
+  --pagination-item-color: var(--gray-500);
+  --pagination-active-color: var(--gray-900);
+  --pagination-font-size: 1.25rem;
+  isolation: isolate;
+
+  @include max-lg {
+    --pagination-item-padding: 0.35rem 0.7rem;
+    --pagination-font-size: 1rem;
+  }
+}
+hbp-input {
+  z-index: 0;
+}
+
+div:has(hbp-spinner) {
+  @include center;
+}
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 0.5rem));
+  }
+}
+
+hbp-service-mini-card[aria-hidden="false"] {
+  @include max-lg {
+    display: none;
+  }
+}

@@ -1,0 +1,42 @@
+@mixin button(
+  $bg: $primary,
+  $text: $white,
+  $border-color: $bg,
+  $text-size: 1rem,
+  $hover-bg: $primary-hover,
+  $hover-border-color: $hover-bg,
+  $hover-text: $text,
+  $padding: 8px 12px,
+  $border-thickness: 1.5px,
+  $border-radius: 0.5rem,
+  $font-weight: 600
+) {
+  border-radius: $border-radius;
+  border: $border-thickness solid $border-color;
+  background: $bg;
+  padding: $padding;
+  font-size: $text-size;
+  font-weight: $font-weight;
+  color: $text;
+  @include center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:not(:disabled):hover {
+    background: $hover-bg;
+    border-color: $hover-border-color;
+    color: $hover-text;
+  }
+}
+
+@mixin text-bold($size: 2.5rem, $color: $gray-1100, $weight: 700) {
+  font-weight: $weight;
+  font-size: $size;
+  color: $color;
+}
+
+@mixin text-normal($size: 1rem, $color: $gray-500, $weight: 400) {
+  font-weight: $weight;
+  font-size: $size;
+  color: $color;
+}

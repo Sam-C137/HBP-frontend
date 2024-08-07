@@ -1,0 +1,74 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  @include center;
+  z-index: 10;
+  inset: 0;
+  pointer-events: none;
+}
+
+:host(:has(.open)) {
+  pointer-events: all;
+}
+
+.modal {
+  transform: translate(-50%, -50%) !important;
+  min-width: 25rem;
+  @include max-lg {
+    min-width: 80vw;
+  }
+  #label {
+    @include text-bold(1.25rem, $gray-900, 600);
+  }
+}
+
+.modal,
+.backdrop {
+  opacity: 0;
+  pointer-events: none;
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+form {
+  p {
+    @include text-normal(1rem, $gray-900, 500);
+    margin-bottom: 1rem;
+  }
+}
+
+hbp-button {
+  --background: var(--error-500);
+  --border-color: var(--error-500);
+  --color: var(--white);
+  --hover-bg: var(--error-700);
+  --hover-border: var(--error-700);
+  --hover-color: var(--white);
+  --width: fit-content;
+  --font-family: var(--font-family-secondary);
+  --font-size: 0.875rem;
+  float: right;
+}
+
+hbp-textarea {
+  --label-font-size: 0.875rem;
+  --underlying-input-width: 100%;
+  --label-color: var(--gray-900);
+  --error-position: relative;
+  margin-top: 1.5rem;
+}
+
+hbp-spinner {
+  --color: var(--white);
+  --thickness: 4px;
+  --width: 20px;
+}

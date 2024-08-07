@@ -1,0 +1,28 @@
+@import "main";
+
+:host {
+  overflow: auto;
+  display: block;
+  width: 100%;
+}
+
+.loader {
+  @include center;
+  min-height: 30rem;
+  min-width: 10rem;
+}
+
+.dropdown {
+  @include dropdown;
+}
+
+div:has(hbp-empty-list) {
+  @include center;
+  min-height: 500px;
+  @include max-lg {
+    min-height: 200px;
+  }
+  @media (max-height: 700px) {
+    min-height: 200px;
+  }
+}

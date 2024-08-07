@@ -1,0 +1,80 @@
+@use "main" as *;
+
+* {
+  font-family: $font-family-secondary;
+}
+
+article {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: default;
+  background-color: $white;
+  border-radius: 0.5rem;
+  border: 1.5px solid $gray-300;
+  width: 100%;
+  min-width: 20px;
+  height: 275px;
+  overflow: hidden;
+
+  &:hover {
+    span {
+      transform: translateY(-40%);
+    }
+    hbp-service-avatar {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+}
+
+.img-bg {
+  @include rounded-img-container(100px);
+  @include center;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+span {
+  transform: translateY(30%);
+  @include max-lg {
+    transform: translateY(20%);
+  }
+  transition: all 0.3s ease-in-out;
+  @include flex-column;
+  align-items: center;
+
+  h2 {
+    @include text-bold($size: 1.75rem);
+    margin-bottom: 20px;
+  }
+
+  p {
+    @include text-normal(1rem, $gray-600);
+    line-height: 1.25rem;
+    margin-bottom: 10px;
+    width: 80% !important;
+    @include ellipses($height: calc(1rem * 4), $clamp: 3);
+  }
+
+  hbp-button {
+    --padding: 0.65rem 1rem;
+    --font-weight: 500;
+    --font-family: var(--font-family-secondary);
+    --font-size: 0.875rem;
+  }
+}
+
+.center-div {
+  padding: 0.35rem 2rem;
+}
+
+hbp-service-avatar {
+  margin-top: 1rem;
+  @include center;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+  --size: 5rem;
+  --image-size: 3rem;
+}

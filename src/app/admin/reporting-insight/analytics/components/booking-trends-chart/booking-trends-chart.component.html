@@ -1,0 +1,86 @@
+<div class="chart">
+    <form [formGroup]="form">
+        <div class="chart__header">
+            <h4 class="chart__header__title">Booking Trends</h4>
+            <div class="chart__filters">
+                <amalitech-select
+                    (amalitechChange)="onSelectChange($event, 'services')"
+                    formControlName="services"
+                    [label]="form.get('services')?.value"
+                    class="chart__filters__filter__1"
+                >
+                    <amalitech-select-option
+                        value="All Services"
+                        [selected]="
+                            'All Services' === form.get('services')?.value
+                        "
+                        >All Services</amalitech-select-option
+                    >
+                    @for (service of doctorServices(); track service) {
+                        <amalitech-select-option
+                            [value]="service.name"
+                            [selected]="
+                                service.name === form.get('services')?.value
+                            "
+                            >{{ service.name }}</amalitech-select-option
+                        >
+                    }
+                </amalitech-select>
+                <amalitech-select
+                    (amalitechChange)="onSelectChange($event, 'duration')"
+                    formControlName="duration"
+                    [label]="durations.get(this.duration.value)"
+                    class="chart__filters__filter__2"
+                >
+                    @for (duration of durations.entries(); track $index) {
+                        <amalitech-select-option
+                            [value]="duration[0]"
+                            [selected]="
+                                duration[1] === durations.get(duration[$index])
+                            "
+                            >{{ duration[1] }}</amalitech-select-option
+                        >
+                    }
+                </amalitech-select>
+            </div>
+        </div>
+        @if (duration.value === "MONTHLY" || duration.value === "YEARLY") {
+            <div class="chart__timePeriod">
+                <amalitech-select
+                    (amalitechChange)="onSelectChange($event, 'timePeriod')"
+                    formControlName="timePeriod"
+                    [label]="
+                        duration.value === 'MONTHLY'
+                            ? months[prevTimePeriod - 1]
+                            : prevTimePeriod
+                    "
+                    class="chart__filters__filter__3"
+                >
+                    @if (duration.value === "YEARLY") {
+                        @for (year of years; track $index) {
+                            <amalitech-select-option
+                                [value]="year"
+                                [selected]="
+                                    year === form.get('timePeriod')?.value
+                                "
+                                >{{ year }}</amalitech-select-option
+                            >
+                        }
+                    } @else {
+                        @for (month of months; track $index) {
+                            <amalitech-select-option
+                                [value]="$index + 1"
+                                [selected]="
+                                    month ===
+                                    months[form.get('timePeriod')?.value - 1]
+                                "
+                                >{{ month }}</amalitech-select-option
+                            >
+                        }
+                    }
+                </amalitech-select>
+            </div>
+        }
+    </form>
+    <div [chart]="chart()"></div>
+</div>

@@ -1,0 +1,53 @@
+<div class="messages-bar">
+    <div class="header">
+        <div class="messages">
+            <h2 class="title">Messages</h2>
+            @if (numberOfActiveContacts()) {
+                <div class="active-messages">
+                    <p>{{ numberOfActiveContacts() }}</p>
+                </div>
+            }
+        </div>
+        <hbp-input
+            iconLeftUrl="assets/icons/search.svg"
+            type="text"
+            id="search"
+            [control]="searchControl"
+            placeholder="Search"
+            [toggleIcons]="false"
+        />
+    </div>
+    <div class="conversations">
+        @if (filteredContacts() === undefined) {
+            @for (loader of [1, 2, 3, 4]; track loader) {
+                <hbp-contact-loader />
+            }
+        } @else if (filteredContacts()?.length === 0) {
+            <p class="empty-conversations">
+                Start a conversation with a {{ role }}
+            </p>
+        } @else {
+            <div class="chats customScroll">
+                @for (
+                    contact of filteredContacts();
+                    track contact.conversationId
+                ) {
+                    <hbp-contact
+                        (click)="onSelectContact(contact)"
+                        [class]="
+                            contact.conversationId ===
+                            selectedContact()?.conversationId
+                                ? 'highlight-contact'
+                                : ''
+                        "
+                        [contact]="contact"
+                        [isSelected]="
+                            selectedContact()?.conversationId ===
+                            contact.conversationId
+                        "
+                    />
+                }
+            </div>
+        }
+    </div>
+</div>

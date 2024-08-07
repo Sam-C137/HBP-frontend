@@ -1,0 +1,57 @@
+@import "main";
+
+h1 {
+  @include text-bold(clamp(2rem, 4vw, 2.5rem), $dark);
+  line-height: clamp(40%, 2vh, 50%);
+  font-family: $font-family-secondary;
+  letter-spacing: -0.05rem;
+}
+
+p {
+  @include text-normal(clamp(1.5rem, 2vw, 1.6875rem), $dark);
+  line-height: clamp(150%, 3vh, 170.37%);
+  font-family: $font-family-secondary;
+  margin: 1.25rem 0;
+}
+
+main {
+  width: 100vw;
+  height: 90dvh;
+  background: $white;
+  display: grid;
+  place-items: center;
+
+  div {
+    @include flex-column;
+    align-items: center;
+    @include lg {
+      @include flex-row;
+      gap: 2rem;
+    }
+  }
+
+  span {
+    max-width: 31.25rem;
+    @include max-lg {
+      max-width: 18.75rem;
+      padding: 1rem 0;
+    }
+  }
+
+  img {
+    width: 18.75rem;
+    height: 18.75rem;
+    @include lg {
+      width: 32.25rem;
+      height: 32.25rem;
+    }
+  }
+}
+
+hbp-button {
+  --width: fit-content;
+  --padding: 0.62956rem 1.00725rem;
+  --height: 2.75rem;
+  --font-weight: 500;
+  --font-family: var(--font-family-secondary);
+}

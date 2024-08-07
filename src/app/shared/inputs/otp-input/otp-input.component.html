@@ -1,0 +1,14 @@
+<p>{{ label() }}</p>
+<section>
+    @for (box of arr(); track $index) {
+    <input
+        type="text"
+        (input)="onInput($event, $index)"
+        (keydown)="onKeydown($event)"
+        (paste)="onPaste($event)"
+        (focus)="onFocus($event, $index)"
+        maxlength="1"
+        #input
+    />
+    }
+</section>

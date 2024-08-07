@@ -1,0 +1,53 @@
+@if (loading()) {
+    <div>
+        <hbp-spinner size="lg" />
+    </div>
+} @else if (error()) {
+    <div>
+        <hbp-error-handler [message]="error()" (retry)="retry.emit()" />
+    </div>
+} @else if (!loading() && doctors().length < 1) {
+    <div>
+        <hbp-empty-list />
+    </div>
+} @else {
+    <div class="doctor-list">
+        @for (doctor of doctors(); track $index) {
+            <article>
+                <div>
+                    <hbp-user-avatar
+                        [src]="doctor.profilePicture"
+                        [fallback]="doctor.fullName"
+                    />
+                    <span>
+                        <h3>{{ doctor.fullName }}</h3>
+                        <h5>{{ doctor.specialization }}</h5>
+                        <amalitech-star-rating
+                            size="small"
+                            animated
+                            [value]="Math.floor(doctor.rating)"
+                            readonly
+                            stroke-color="var(--yellow-500)"
+                        ></amalitech-star-rating>
+                        <b class="ml-2">{{ doctor.rating.toFixed(1) }}</b>
+                    </span>
+                </div>
+                <div class="bio">
+                    <p>{{ doctor.bio }}</p>
+                </div>
+                <div class="footer">
+                    <a
+                        [routerLink]="['/patient/doctors', doctor.fullName]"
+                        (click)="
+                            appointmentBookingService.selectedDoctor.set(doctor)
+                        "
+                        >View Profile</a
+                    >
+                    <hbp-button (click)="navigate(doctor)">
+                        Book Doctor
+                    </hbp-button>
+                </div>
+            </article>
+        }
+    </div>
+}

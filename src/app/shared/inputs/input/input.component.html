@@ -1,0 +1,53 @@
+<span class="position-relative">
+    <label [for]="id()">
+        {{ label() }}
+        @if (required()) {
+            <i>*</i>
+        }
+    </label>
+    <div class="input {{ highlightFocus() ? 'focusable' : '' }}" #base>
+        <img [src]="iconLeftUrl()" data-visible="true" #iconLeft alt="" />
+        <input
+            preventLeadingSpace
+            [id]="id()"
+            [type]="type()"
+            [class]="class()"
+            [placeholder]="placeholder()"
+            [required]="required()"
+            [autocomplete]="autocomplete()"
+            [formControl]="control()"
+            (focus)="
+                base.classList.toggle('focus');
+                error() ? base.classList.toggle('focus-error') : null;
+                toggleIcons() ? (iconLeft.dataset['visible'] = 'false') : null;
+                iconRight.dataset['visible'] = 'true'
+            "
+            (blur)="
+                base.classList.remove('focus');
+                error() ? null : base.classList.remove('focus-error');
+                iconLeft.dataset['visible'] = 'true';
+                formatText(control().value)
+            "
+            (input)="handleInput($event)"
+            [value]="control().value | tel: type() === 'tel'"
+            #input
+        />
+
+        <img
+            (click)="togglePasswordVisibility(input)"
+            [src]="iconRightUrl()"
+            alt=""
+            data-visible="false"
+            #iconRight
+            tabindex="0"
+        />
+
+        <img
+            src="assets/icons/error.svg"
+            data-visible="false"
+            alt=""
+            #iconError
+        />
+    </div>
+    <p class="error">{{ error() }}</p>
+</span>

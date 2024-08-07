@@ -1,0 +1,89 @@
+@import "main";
+
+:host(.hbp-table-host) {
+  width: min(900px, 100% - 3rem);
+  margin-inline: auto;
+  @include max-lg {
+    overflow: auto;
+  }
+}
+
+table.hbp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: $white;
+}
+
+thead.hbp-thead {
+  background: $gray-200;
+}
+
+.hbp-thead th,
+.hbp-table-row td {
+  padding: 1rem;
+}
+
+.hbp-thead th {
+  text-align: left;
+  background: inherit;
+  color: $gray-800;
+  font-weight: 600;
+  font-family: $font-family-secondary;
+
+  &:first-of-type {
+    border-radius: 0.5rem 0 0 0;
+  }
+
+  &:last-of-type {
+    border-radius: 0 0.5rem 0 0;
+  }
+}
+
+tr.hbp-table-row {
+  border-bottom: 1px solid $gray-200;
+}
+
+.hbp-table-row td {
+  color: $gray-500;
+  font-family: $font-family-secondary;
+  font-size: clamp(0.875rem, 1.25vw + 0.5rem, 1rem);
+  font-weight: 500;
+  line-height: 1.25rem;
+  min-width: 5rem;
+
+  &:first-child {
+    color: $gray-900;
+  }
+
+  P {
+    line-height: 128.571%;
+    @include ellipses($height: 1.25rem, $clamp: 2);
+  }
+}
+
+@include max-md {
+  .hbp-thead th {
+    display: none;
+  }
+
+  .hbp-table-row td {
+    display: grid;
+    grid-template-columns: 15ch auto;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+
+    &:first-child {
+      padding-top: 1rem;
+    }
+
+    &:last-child {
+      padding-bottom: 1rem;
+    }
+
+    &:before {
+      content: attr(data-cell) ":";
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+  }
+}

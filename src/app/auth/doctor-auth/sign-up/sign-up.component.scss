@@ -1,0 +1,10 @@
+@import "main";
+
+form {
+  p:first-of-type {
+    a {
+      text-decoration: underline;
+      color: $gray-600;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<main>
+    <a [routerLink]="['/doctor/appointments']">
+        <i></i>
+        Back
+    </a>
+
+    @if (scheduleQuery.isPending()) {
+        <div class="w-full h-96 center-div">
+            <hbp-spinner size="lg" />
+        </div>
+    } @else if (scheduleQuery.data()) {
+        <div>
+            <hbp-calendar
+                [schedule]="scheduleQuery.data()!"
+                [config]="{
+                    userRole: Roles.Patient,
+                    detailPrecision: 'precise',
+                    activeColor: 'blue',
+                    moveTo: 'today',
+                }"
+            />
+        </div>
+    } @else if (scheduleQuery.error()) {
+        <hbp-error-handler
+            [message]="scheduleQuery.error()?.message"
+            (retry)="scheduleQuery.refetch()"
+        />
+    }
+</main>

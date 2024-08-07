@@ -1,0 +1,31 @@
+<section class="chat">
+    <div class="desktop-message-bar">
+        <hbp-message-bar
+            [contacts]="contacts()"
+            [(selectedContact)]="selectedContact"
+        />
+    </div>
+    @if (!selectedContact()) {
+        <div @popup class="mobile-message-bar">
+            <hbp-message-bar
+                [contacts]="contacts()"
+                [(selectedContact)]="selectedContact"
+            />
+        </div>
+    }
+
+    <div class="desktop-chat">
+        <hbp-chat-section
+            [(selectedContact)]="selectedContact"
+            [contacts]="contacts()"
+        />
+    </div>
+    @if (selectedContact()) {
+        <div @slideUpDelayed class="mobile-chat">
+            <hbp-chat-section
+                [(selectedContact)]="selectedContact"
+                [contacts]="contacts()"
+            />
+        </div>
+    }
+</section>

@@ -1,0 +1,89 @@
+<div class="calendar">
+    <header class="mb-2">
+        <div class="toggles-left">
+            <button (click)="setToday()" class="today">Today</button>
+        </div>
+        <div class="summary">
+            <h4>{{ months[date.getMonth()] }}, {{ date.getFullYear() }}</h4>
+        </div>
+        <div class="toggles-right">
+            <span class="center">
+                <button title="previous" class="center" (click)="handlePrev()">
+                    <img src="assets/icons/chevron-left.svg" alt="previous" />
+                </button>
+                <button title="next" class="center" (click)="handleNext()">
+                    <img src="assets/icons/chevron-right.svg" alt="next" />
+                </button>
+            </span>
+        </div>
+    </header>
+    @if (viewmode === "week") {
+        <main class="week-view">
+            <header>
+                <section>
+                    @for (day of days; track $index) {
+                        <div
+                            [class]="{
+                                center: true,
+                                'week-day': true,
+                                active:
+                                    DateBuilder.generateWeekDays(date)[
+                                        $index
+                                    ].toDateString() === today.toDateString(),
+                            }"
+                        >
+                            <h5>{{ day }}</h5>
+                            <h6>
+                                {{
+                                    DateBuilder.generateWeekDays(date)[
+                                        $index
+                                    ].getDate()
+                                }}
+                            </h6>
+                        </div>
+                    }
+                </section>
+            </header>
+            <summary>
+                <div>
+                    <section class="outline-grid">
+                        @for (date of dateFill; track $index) {
+                            <div
+                                [attr.data-time]="getTime($index)"
+                                [style.backgroundColor]="
+                                    isActive($index)
+                                        ? 'hsl(from ' +
+                                          getActiveColor(date) +
+                                          ' h s l / 0.3)'
+                                        : ''
+                                "
+                                [style.borderLeft]="
+                                    isActive($index)
+                                        ? '3px solid ' + getActiveColor(date)
+                                        : ''
+                                "
+                                [class.active]="isActive($index)"
+                            >
+                                @if (config().detailPrecision === "shallow") {
+                                    <p class="mb-1">Session Booked</p>
+                                } @else {
+                                    <p class="mb-1">
+                                        @if (
+                                            config().userRole === Roles.Doctor
+                                        ) {
+                                            Dr.
+                                        }
+                                        {{
+                                            getRelatedUserByDate(date)?.fullName
+                                        }}
+                                    </p>
+                                }
+                                <b>{{ date | time: 12 : "next" }}</b>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </summary>
+        </main>
+    }
+</div>

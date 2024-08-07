@@ -1,0 +1,159 @@
+<hbp-navbar />
+<main>
+    <section id="banner">
+        <h5>Dr. {{ doctor?.fullName }}</h5>
+        <p>{{ doctor?.specialization }}</p>
+    </section>
+    <section id="content">
+        <hbp-breadcrumb
+            [breadcrumbs]="[
+                {
+                    name: queryParams['specialization'],
+                    route: '/patient/doctors',
+                    queryParams: {
+                        date: queryParams['date'],
+                        specialization: queryParams['specialization'],
+                        rank: queryParams['rank'],
+                        gender: queryParams['gender'],
+                        availability: queryParams['availability'],
+                    },
+                },
+                { name: doctor?.fullName || '', route: '' },
+            ]"
+        />
+        <div>
+            <form [formGroup]="form" (submit)="submit()">
+                <h2 class="mb-4 text-center">Book Appointment</h2>
+                <hbp-input
+                    id="patient-name"
+                    type="text"
+                    placeholder="Full Name"
+                    iconLeftUrl="assets/icons/user.svg"
+                    [control]="form.get('name')"
+                    [error]="formValidator.errors('name')"
+                    [label]="'Name'"
+                    [toggleIcons]="false"
+                ></hbp-input>
+                <hbp-input
+                    id="doctor-email"
+                    type="email"
+                    placeholder="Email address"
+                    iconLeftUrl="assets/icons/email.svg"
+                    [control]="form.get('email')"
+                    [error]="formValidator.errors('email')"
+                    [label]="'Email'"
+                    [toggleIcons]="false"
+                ></hbp-input>
+                <hbp-date-picker
+                    label="Appointment date"
+                    id="date"
+                    [control]="form.get('appointmentDate')"
+                    [min]="today"
+                />
+                <hbp-time-picker
+                    label="Appointment time"
+                    id="time"
+                    [control]="form.get('appointmentTime')"
+                    [showSpinners]="false"
+                />
+                <label for="time">Appointment sessions lasts for an hour</label>
+                <span class="display-flex justify-space-between mt-2">
+                    <b>Medical Record</b>
+                </span>
+                <div class="file" (click)="file.click()" tabindex="0">
+                    @if (form.get("medicalRecord")?.value.name) {
+                        <span>
+                            <img
+                                src="assets/icons/upload-complete.svg"
+                                alt=""
+                            />
+                            <b class="text-center display-block mt-0">{{
+                                form.get("medicalRecord")?.value.name
+                            }}</b>
+                            <small class="text-center">
+                                Choose a different file
+                            </small>
+                        </span>
+                    } @else {
+                        <span>
+                            <img src="assets/icons/upload.svg" alt="" />
+                            <b class="text-center display-block mt-0"
+                                >Click to upload</b
+                            >
+                            <small class="text-center">
+                                PDF, PNG or JPG (max. 5mb)
+                            </small>
+                        </span>
+                    }
+                    <input
+                        type="file"
+                        name="profilePicture"
+                        class="display-none"
+                        id="file"
+                        #file
+                        (change)="onFileChange($event)"
+                        accept="image/*, application/pdf"
+                    />
+                    <input
+                        type="hidden"
+                        name="fileHidden"
+                        formControlName="medicalRecord"
+                    />
+                </div>
+                <span class="error mt-2 text-sm text-center font-semibold">
+                    {{ formValidator.errors("medicalRecord") }}
+                </span>
+                <hbp-textarea
+                    id="message"
+                    placeholder="Enter a description..."
+                    [control]="form.get('description')"
+                    [error]="formValidator.errors('description')"
+                    [label]="'Additional Notes'"
+                    [rows]="7"
+                ></hbp-textarea>
+                <b>Please be specific, max: 1000 characters</b>
+                <hbp-button
+                    class="display-block mt-2"
+                    [disabled]="
+                        form.invalid || bookAppointmentMutation.isPending()
+                    "
+                    type="submit"
+                    >Book Appointment
+                </hbp-button>
+            </form>
+            <div class="profile-details">
+                <hbp-user-avatar
+                    class="display-block mb-1"
+                    [src]="doctor?.profilePicture"
+                    [fallback]="doctor?.fullName"
+                />
+                <h3>{{ doctor?.fullName }}</h3>
+                <p>
+                    {{ doctor?.level }} Doctor of {{ doctor?.specialization }}
+                </p>
+                <span class="display-flex gap-4 mt-1">
+                    <hbp-button
+                        [routerLink]="[
+                            '/patient/doctors',
+                            doctor?.fullName,
+                            'calendar',
+                        ]"
+                        [queryParams]="queryParams"
+                        >View Calendar</hbp-button
+                    >
+                    <hbp-button [routerLink]="['/patient/chat']"
+                        >Send a Chat</hbp-button
+                    >
+                </span>
+                <hr />
+                <hbp-available-times
+                    #availableTimes
+                    (timeSelected)="
+                        form.get('appointmentTime')?.setValue($event)
+                    "
+                    [today]="form.get('appointmentDate')?.value"
+                />
+            </div>
+        </div>
+    </section>
+</main>

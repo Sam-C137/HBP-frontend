@@ -1,0 +1,38 @@
+<table class="hbp-table" role="table" #table>
+    <thead class="hbp-thead" role="rowgroup">
+        <tr class="hbp-table-row" role="row">
+            <ng-container
+                *ngTemplateOutlet="
+                    headers() || defaultHeaderTemplate;
+                    context: { $implicit: data() }
+                "
+            ></ng-container>
+        </tr>
+    </thead>
+    <tbody role="rowgroup">
+        @for (row of data(); track row) {
+            <tr class="hbp-table-row" role="row">
+                <ng-container
+                    *ngTemplateOutlet="
+                        rows() || defaultRowTemplate;
+                        context: { $implicit: row }
+                    "
+                ></ng-container>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<ng-template #defaultHeaderTemplate let-data>
+    @for (header of data[0] | keyvalue; track header) {
+        <th role="columnheader">
+            {{ $any(header.key) | replace: regexp : "$1 $2" | titlecase }}
+        </th>
+    }
+</ng-template>
+
+<ng-template #defaultRowTemplate let-data>
+    @for (row of data | keyvalue; track row) {
+        <td role="cell" [attr.data-cell]="row.key">{{ row.value }}</td>
+    }
+</ng-template>

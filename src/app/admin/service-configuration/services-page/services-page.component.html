@@ -1,0 +1,45 @@
+<section>
+    <h1>Services</h1>
+    <form [formGroup]="form" class="search-panel mt-3 mb-3">
+        <hbp-input
+            iconLeftUrl="assets/icons/search.svg"
+            type="text"
+            id="search"
+            [control]="form.get('search')"
+            placeholder="Search for services"
+            [toggleIcons]="false"
+        />
+        <span class="display-flex gap-5 buttons">
+            <amalitech-select label="Filter" formControlName="status">
+                <amalitech-select-option value="">All</amalitech-select-option>
+                <amalitech-select-option value="inactive"
+                    >Archived</amalitech-select-option
+                >
+            </amalitech-select>
+            <hbp-button [routerLink]="['create']">
+                <span class="display-flex align-items-center gap-3">
+                    <img src="assets/icons/add-rounded.svg" alt="" />
+                    Add Service
+                </span>
+            </hbp-button>
+        </span>
+    </form>
+    <hbp-services-list
+        [services]="servicesQuery.data() ? servicesQuery.data()?.content! : []"
+        [isLoading]="servicesQuery.isLoading() || servicesQuery.isRefetching()"
+        [error]="servicesQuery.error()?.message"
+        (retry)="servicesQuery.refetch()"
+    />
+    <div class="display-flex align-items-center justify-center mt-4 w-full">
+        <amalitech-pagination
+            *ngIf="
+                servicesQuery.data() &&
+                (servicesQuery?.data())!.totalElements > 10 &&
+                !servicesQuery.isRefetching()
+            "
+            (amalitechPageChange)="changePage($event)"
+            [pageNumber]="currentPage() + 1"
+            [totalItems]="servicesQuery.data()!.totalElements"
+        ></amalitech-pagination>
+    </div>
+</section>

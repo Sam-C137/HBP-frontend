@@ -1,0 +1,139 @@
+@import "main";
+
+h1 {
+  color: $dark;
+  font-family: $font-family-secondary;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+section {
+  display: block;
+  padding: 2vw;
+  @include lg {
+    padding: 2vw;
+  }
+  width: 100%;
+
+  .search-panel {
+    width: 100%;
+    @include flex-column;
+    justify-content: space-between;
+    gap: 0.5rem;
+    @include md {
+      @include flex-row;
+      align-items: center;
+    }
+  }
+  span.buttons {
+    @include max-md {
+      justify-content: flex-end;
+    }
+    @include max-sm {
+      justify-content: space-between;
+    }
+  }
+  .filters-panel {
+    @include accordion;
+    .content {
+      background: $gray-50;
+      height: max-content;
+      border-radius: 0.625rem;
+      padding: 1.5rem;
+      @include flex-row;
+      justify-content: space-between;
+      @include max-lg {
+        padding: 1rem;
+      }
+
+      span.center-div {
+        @include max-lg {
+          width: 100%;
+          hbp-button {
+            --padding: 0 0 0 0.25rem;
+          }
+        }
+      }
+
+      form.options {
+        @include flex-row;
+        gap: 0.5rem;
+        @include max-lg {
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: flex-start;
+        }
+      }
+
+      hbp-button {
+        --background: var(--gray-50);
+        --border-color: var(--gray-50);
+        --color: var(--gray-900);
+        --hover-bg: var(--gray-50);
+        --hover-border: var(--gray-50);
+        --hover-color: var(--gray-900);
+        --border-radius: 0;
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background: var(--gray-500);
+        }
+      }
+    }
+    &.open {
+      overflow: visible !important;
+      & > div {
+        overflow: visible !important;
+      }
+    }
+  }
+}
+
+hbp-input {
+  --width: 120%;
+  @include max-md {
+    --width: 100%;
+  }
+}
+
+hbp-button {
+  --hover-bg: var(--primary);
+}
+
+hbp-button:first-of-type {
+  --background: var(--white);
+  --border-color: var(--gray-300);
+  --color: var(--gray-900);
+  --hover-bg: var(--white);
+  --hover-border: var(--gray-300);
+  --hover-color: var(--gray-900);
+}
+
+amalitech-pagination {
+  --pagination-active-bg: var(--success-100);
+  --pagination-item-color: var(--gray-500);
+  --pagination-active-color: var(--gray-900);
+  --pagination-font-size: 1.25rem;
+  isolation: isolate;
+
+  @include max-lg {
+    --pagination-item-padding: 0.35rem 0.7rem;
+    --pagination-font-size: 1rem;
+  }
+}
+
+amalitech-select {
+  --select-label-padding: 0.625rem 0.875rem;
+  --select-label-font-size: 1rem;
+  --select-label-border-color: var(--gray-300);
+  --select-label-radius: 0.5rem;
+  --select-dropdown-border-color: var(--gray-300);
+  --select-option-font-size: 1rem;
+}

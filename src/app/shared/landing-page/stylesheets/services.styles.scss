@@ -1,0 +1,31 @@
+@import "main";
+
+#services {
+  background-color: $white;
+  text-align: center;
+
+  p {
+    @include text-normal($size: 1.145rem);
+    font-family: $font-family-secondary;
+    color: $neutral-700;
+    margin: 50px auto;
+  }
+
+  div.services {
+    display: grid;
+    row-gap: 3rem;
+    column-gap: 1.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include lg {
+      grid-template-columns: repeat(3, 1fr);
+      padding: 4rem;
+    }
+    @include xl {
+      padding: 8rem;
+    }
+  }
+}

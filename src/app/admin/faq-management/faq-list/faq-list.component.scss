@@ -1,0 +1,16 @@
+@import "main";
+
+:host {
+  & > * {
+    margin-bottom: 2rem;
+    display: block;
+  }
+}
+
+div:has(hbp-empty-list, hbp-error-handler, hbp-spinner) {
+  @include center;
+  min-height: 300px;
+  @include max-lg {
+    min-height: 200px;
+  }
+}

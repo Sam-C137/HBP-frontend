@@ -1,0 +1,51 @@
+<form [formGroup]="form" (submit)="submit()">
+    <h2>Create your account</h2>
+    <hbp-input
+        id="patient-register-name"
+        type="text"
+        placeholder="Enter your full name"
+        iconLeftUrl="assets/icons/user.svg"
+        [control]="form.get('name')"
+        [error]="formValidator.errors('name')"
+        [label]="'Name'"
+    ></hbp-input>
+    <hbp-input
+        id="patient-register-email"
+        type="email"
+        placeholder="Enter your email address"
+        iconLeftUrl="assets/icons/email.svg"
+        [control]="form.get('email')"
+        [error]="formValidator.errors('email')"
+        [label]="'Email address'"
+    ></hbp-input>
+    <hbp-input
+        id="patient-register-password"
+        type="password"
+        placeholder="Enter your password"
+        iconLeftUrl="assets/icons/lock.svg"
+        iconRightUrl="assets/icons/eye.svg"
+        [control]="form.get('password')"
+        [error]="formValidator.errors('password')"
+        [label]="'Password'"
+    ></hbp-input>
+    <span class="mt-1">
+        <hbp-button type="submit" [disabled]="registerMutation.isPending()">
+            <span class="display-flex align-items-center justify-center gap-4">
+                @if (registerMutation.isPending()) {
+                    Creating Your Account...
+                    <hbp-spinner />
+                } @else {
+                    Sign up
+                }
+            </span>
+        </hbp-button>
+    </span>
+    <p class="text-center w-full mt-1">
+        By creating an account you agree to our
+        <a href="#">terms of service</a> and <a href="#">privacy policy</a>
+    </p>
+    <p class="text-center w-full mt-1">
+        Already have an account?
+        <a [routerLink]="['/auth/login']">Log in</a>
+    </p>
+</form>

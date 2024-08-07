@@ -1,0 +1,129 @@
+<div
+    [class]="{
+        'chat-section': true,
+        'chat-responsiveness': !selectedContact(),
+    }"
+>
+    @if (!selectedContact() || contacts() === undefined) {
+        <div class="empty-chat">
+            <img src="assets/icons/conversation.svg" alt="unopened chat" />
+            <p class="empty-chat-text">Your opened chats will show here</p>
+        </div>
+    } @else {
+        @if (selectedContact()) {
+            <div class="chat-room">
+                <div class="header">
+                    <img
+                        class="back-btn"
+                        (click)="selectedContact.set(undefined)"
+                        src="/assets/icons/back.svg"
+                        alt="back button"
+                        tabindex="0"
+                    />
+                    <hbp-user-avatar
+                        [fallback]="
+                            selectedContact()?.doctorsId ===
+                            userService.user?.id
+                                ? selectedContact()?.patientsName!
+                                : selectedContact()?.doctorsName!
+                        "
+                        [src]="
+                            selectedContact()?.doctorsId ===
+                            userService.user?.id
+                                ? selectedContact()?.patientPic
+                                : selectedContact()?.doctorPic
+                        "
+                    />
+                    <p>
+                        {{
+                            selectedContact()?.doctorsId ===
+                            userService.user?.id
+                                ? selectedContact()?.patientsName!
+                                : selectedContact()?.doctorsName!
+                        }}
+                    </p>
+                </div>
+                <div #messageContainer class="messages-container customScroll">
+                    <div class="messages">
+                        @if (!selectedContact()?.messages) {
+                            <div
+                                class="display-flex justify-center w-full mb-6 mt-6"
+                            >
+                                <hbp-bars />
+                            </div>
+                        } @else {
+                            @for (
+                                chatData of selectedContact()?.messages
+                                    | keyvalue: originalOrder;
+                                track chatData.key
+                            ) {
+                                <p class="message-time">
+                                    @if (
+                                        isLongBack(chatData.key.split(",")[0])
+                                    ) {
+                                        {{ chatData.key.split(",")[0] }}
+                                    } @else {
+                                        {{ chatData.key.split(",")[1] }}
+                                    }
+                                </p>
+                                @for (
+                                    message of chatData.value;
+                                    track message
+                                ) {
+                                    @if (
+                                        message.senderId ===
+                                        userService.user?.id
+                                    ) {
+                                        <div class="own-messages message">
+                                            <p>{{ message.content }}</p>
+                                            <p class="own-messages__time time">
+                                                {{
+                                                    message.timeStamp
+                                                        | date: "h:mm"
+                                                }}
+                                            </p>
+                                        </div>
+                                    } @else {
+                                        <div class="other-messages message">
+                                            <p>{{ message.content }}</p>
+                                            <p
+                                                class="other-messages__time time"
+                                            >
+                                                {{
+                                                    message.timeStamp
+                                                        | date: "h:mm"
+                                                }}
+                                            </p>
+                                        </div>
+                                    }
+                                }
+                            }
+                            @if (selectedContact()?.loading) {
+                                <div class="own-messages message">
+                                    <div class="loader"></div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="input-container">
+                    <form (ngSubmit)="sendMessage()" class="message-input">
+                        <hbp-input
+                            type="text"
+                            id="search"
+                            [control]="message"
+                            placeholder="Type a message"
+                            [toggleIcons]="false"
+                        />
+                        <button class="send-btn" type="submit">
+                            <img
+                                src="assets/icons/send-icon.svg"
+                                alt="send button"
+                            />
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+</div>

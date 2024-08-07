@@ -1,0 +1,7 @@
+<hbp-navbar position="fixed" />
+<main>
+    <hbp-sidebar position="fixed" [role]="user?.role" />
+    <div [@routeAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+</main>

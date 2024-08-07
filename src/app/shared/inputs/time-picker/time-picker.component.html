@@ -1,0 +1,44 @@
+<label [for]="id()">
+    {{ label() }}
+    @if (required()) {
+        <i>*</i>
+    }
+</label>
+<div
+    class="input"
+    (clickOutside)="dropdown()?.nativeElement?.classList?.remove('open')"
+>
+    <img src="assets/icons/clock.svg" alt="" />
+    <input
+        (click)="toggleOpen()"
+        id="date"
+        type="text"
+        readonly
+        [placeholder]="placeholder()"
+        [value]="control().value | time: 12 : 'next'"
+    />
+    <amalitech-time-picker
+        [formControl]="control()"
+        [meridian]="meridian()"
+        class="position-absolute"
+        output-format="date"
+        #picker
+    ></amalitech-time-picker>
+    @if (useList()) {
+        <div class="dropdown" #dropdown>
+            <ul [class.dbl]="timeList().length > 3">
+                @for (item of timeList(); track $index) {
+                    <li (click)="control().setValue(item)" tabindex="0">
+                        {{ item | time: 12 : "next" }}
+                    </li>
+                } @empty {
+                    <li>You have no time available for this preriod</li>
+                }
+            </ul>
+            @if (loadingState()) {
+                <hbp-spinner />
+            }
+        </div>
+    }
+</div>
+<p class="error">{{ error() }}</p>

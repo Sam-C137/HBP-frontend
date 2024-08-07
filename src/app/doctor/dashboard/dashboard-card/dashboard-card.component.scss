@@ -1,0 +1,39 @@
+@import "main";
+
+article {
+  padding: 0.62rem 0.94rem;
+  background-color: $Gray-50;
+  font-family: var(--font-family-secondary);
+  border-radius: 0.625rem;
+
+  @include max-lg {
+    padding: 0.5rem 0.62rem;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    .card-icon {
+      padding: 0.75rem 0.91rem;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .card-content {
+    margin-top: 2.5rem;
+    @include max-lg {
+      margin-top: 0.62rem;
+    }
+    :nth-child(1) {
+      @include text-bold(1.625rem, $neutral-950, 600);
+    }
+    :nth-child(2) {
+      @include text-bold(0.875rem, $neutral-950, 500);
+      margin-top: 0.56rem;
+
+      @include max-lg {
+        margin-top: 0.38rem;
+      }
+    }
+  }
+}

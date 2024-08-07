@@ -1,0 +1,55 @@
+<form [formGroup]="form">
+    <h1>Email Notifications</h1>
+    <section>
+        <h2>Appointments Notifications</h2>
+        <p>Send me an email when:</p>
+        <ul>
+            <li>
+                <hbp-single-check-box
+                    label="I get an appointment request"
+                    formControlName="appointmentRequested"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="A patient reschedules an appointment"
+                    formControlName="appointmentRescheduled"
+                ></hbp-single-check-box>
+            </li>
+            <li>
+                <hbp-single-check-box
+                    label="A patient cancels an appointment"
+                    formControlName="appointmentCancelled"
+                ></hbp-single-check-box>
+            </li>
+        </ul>
+    </section>
+
+    <section id="account-activity">
+        <h2>Account Activity</h2>
+        <p>Send me an email when:</p>
+        <ul>
+            <li>
+                <hbp-single-check-box
+                    label="My account is deactivated"
+                    formControlName="accountDeactivated"
+                ></hbp-single-check-box>
+            </li>
+
+            <li>
+                <hbp-single-check-box
+                    label="My account information is updated"
+                    formControlName="accountInfoUpdated"
+                ></hbp-single-check-box>
+            </li>
+        </ul>
+    </section>
+
+    <hbp-button
+        type="submit"
+        (click)="saveNewPreferences()"
+        [disabled]="emailPreferencesQuery.isPending()"
+    >
+        Save Changes
+    </hbp-button>
+</form>

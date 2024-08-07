@@ -1,0 +1,39 @@
+@if (error()) {
+    <div>
+        <hbp-error-handler [message]="error()" (retry)="retry.emit()" />
+    </div>
+} @else if (!isLoading() && services().length < 1) {
+    <div>
+        <hbp-empty-list />
+    </div>
+} @else {
+    <hbp-crud-table
+        [headers]="headers"
+        [items]="services()"
+        [loading]="isLoading()"
+        [keys]="keys"
+        listName="service"
+        [(actions)]="actions"
+        [(selectedItem)]="selectedService"
+        (edit)="editService()"
+        (archive)="archiveService()"
+        (delete)="deleteService()"
+    />
+}
+
+<ng-template #modalTemplate>
+    @if (actions === "delete") {
+        <div>
+            Are you sure you want to permanently delete
+            <span class="font-bold">{{ selectedService?.name }} service</span>?
+        </div>
+    }
+    @if (actions === "archive") {
+        <div>
+            Archiving
+            <span class="font-bold"> {{ selectedService?.name }} service </span>
+            means it will temporarily be unavailable for users. Are you sure you
+            want to archive it?
+        </div>
+    }
+</ng-template>

@@ -1,0 +1,36 @@
+<article data-testId="faq-card">
+    <div>
+        <h4>{{ faq().question }}</h4>
+        <p>{{ faq().answer }}</p>
+    </div>
+    <footer>
+        <div class="actions">
+            @if (filters() === "DRAFTED") {
+                <span (click)="toggleFaqStatus('PUBLISHED')" tabindex="0">
+                    <img src="assets/icons/publish.svg" alt="" />
+                    Publish
+                </span>
+            }
+            @if (filters() === "DELETED") {
+                <span (click)="toggleFaqStatus('RESTORE')" tabindex="0">
+                    <img src="assets/icons/restore.svg" alt="" />
+                    Restore
+                </span>
+                <span (click)="toggleFaqStatus('DELETED')" tabindex="0">
+                    <img src="assets/icons/trash-can.svg" alt="" />
+                    Delete Permanently
+                </span>
+            } @else {
+                <span (click)="toggleFaqStatus('DRAFTED')" tabindex="0">
+                    <img src="assets/icons/pencil.svg" alt="" />
+                    Edit
+                </span>
+                <span (click)="toggleFaqStatus('DELETED')" tabindex="0">
+                    <img src="assets/icons/trash-can.svg" alt="" />
+                    Delete
+                </span>
+            }
+        </div>
+        <cite>Created at: {{ faq().creationDate | date: "MM/dd/yyyy" }}</cite>
+    </footer>
+</article>

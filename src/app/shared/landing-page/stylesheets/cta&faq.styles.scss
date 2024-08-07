@@ -1,0 +1,66 @@
+@import "main";
+
+#cta {
+  background: $primary-gradient;
+  display: flex;
+  justify-content: space-between;
+  margin: 120px 0;
+  gap: 1rem;
+  flex-direction: column;
+  padding: 4rem 2rem;
+
+  @include lg {
+    flex-direction: row;
+    padding: 6rem 4rem;
+  }
+
+  h3 {
+    color: $white;
+    font-family: $font-family-secondary;
+    @include text-bold($size: 2.25rem, $color: $white, $weight: 600);
+    line-height: 2.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  p {
+    color: $white;
+    @include text-normal($size: 1rem, $color: $gray-25);
+    font-family: $font-family-secondary;
+    margin-top: 0.5rem;
+  }
+}
+
+#faq {
+  padding: 1rem;
+  header {
+    width: auto;
+    @include flex-column;
+    align-items: center;
+    h3 {
+      font-size: clamp(2rem, 2vw + 0.5rem, 2.75rem);
+      line-height: clamp(2.25rem, 2vw + 0.5rem, 3.25rem);
+      padding: 0 1rem;
+      text-align: center;
+    }
+    p {
+      width: auto;
+      text-wrap: balance;
+      margin-bottom: 2rem;
+      font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+      line-height: clamp(1.25rem, 1vw + 0.5rem, 1.75rem);
+      padding: 0 1rem;
+      text-align: center;
+      @include lg {
+        margin-bottom: 5rem;
+      }
+    }
+  }
+  div {
+    @include flex-column;
+    align-items: center;
+    padding: 0;
+    @include lg {
+      padding: 4rem;
+    }
+  }
+}

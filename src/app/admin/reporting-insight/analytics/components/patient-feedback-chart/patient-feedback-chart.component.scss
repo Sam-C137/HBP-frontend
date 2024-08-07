@@ -1,0 +1,39 @@
+@use "sass:list";
+@use "main" as *;
+$colors: (#0daa0d, #0066ff, #ffe21c, #ff7d04, #e61c1c);
+h4 {
+  padding: 1.25rem;
+  @include max-lg {
+    padding-inline: 0;
+  }
+  @include text-bold(1.25rem, $neutral-800, 500);
+  margin-bottom: 2.31rem;
+}
+.legend {
+  @include flex-row;
+  justify-content: center;
+  gap: 0.6rem;
+
+  li {
+    display: none;
+
+    @include max-lg {
+      @include flex-row;
+    }
+    align-items: center;
+    gap: 0.25rem;
+
+    p {
+      flex-wrap: nowrap;
+    }
+  }
+
+  @for $i from 5 through 1 {
+    .circle__#{$i} {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background-color: nth($colors, $i);
+    }
+  }
+}

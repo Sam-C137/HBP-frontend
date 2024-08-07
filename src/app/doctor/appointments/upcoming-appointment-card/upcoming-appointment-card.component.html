@@ -1,0 +1,62 @@
+<div class="align-items-center">
+    <hbp-user-avatar
+        class="display-block ml-1"
+        [src]="appointment().relatedUser.profilePicture"
+        [fallback]="appointment().relatedUser.fullName"
+    />
+
+    <h5>{{ appointment().relatedUser.fullName }}</h5>
+</div>
+<div class="mt-2">
+    <span class="mr-1">
+        <img src="assets/icons/calendar.svg" alt="date" />
+        {{ appointment().appointmentTime | date: "d MMMM y" }}
+    </span>
+    <span>
+        <img src="assets/icons/clock.svg" alt="time" />
+        {{ appointment().appointmentTime | time: 12 : "next" }}
+    </span>
+</div>
+<hbp-file-attachment
+    [fileUrl]="appointment().medicalRecordUrl!"
+    class="mt-1"
+    *ngIf="appointment().medicalRecordUrl"
+/>
+<p class="mt-1">
+    {{ appointment().description }}
+</p>
+<div class="actions mt-2">
+    <button
+        (click)="
+            selectedAppointment.set(appointment());
+            isRescheduleOpen = !isRescheduleOpen
+        "
+    >
+        Reschedule
+    </button>
+    <button
+        (click)="
+            selectedAppointment.set(appointment()); isCancelOpen = !isCancelOpen
+        "
+    >
+        Cancel
+    </button>
+</div>
+
+@if (isRescheduleOpen) {
+    <hbp-reschedule-appointment-overlay
+        [(open)]="isRescheduleOpen"
+        [appointment]="selectedAppointment()"
+        [doctor]="user!"
+        [targetUser]="user!"
+        (rescheduleSuccess)="invalidateQueries()"
+    />
+}
+
+@if (isCancelOpen) {
+    <hbp-cancel-appointment-overlay
+        [(open)]="isCancelOpen"
+        [appointment]="selectedAppointment()"
+        (cancelSuccess)="invalidateQueries()"
+    />
+}

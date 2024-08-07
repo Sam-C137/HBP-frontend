@@ -1,0 +1,33 @@
+@import "main";
+
+p {
+  @include text-normal(1rem, $gray-700, 500);
+  line-height: 150%;
+  margin-top: 0.5rem;
+}
+
+#banner {
+  background-color: $primary-50;
+  padding: 3.2rem 0;
+  text-align: center;
+  & > *:first-child {
+    @include text-bold(2rem, $gray-900, 700);
+  }
+}
+
+#content {
+  padding: 1rem 2%;
+  margin-bottom: 2rem;
+  @include lg {
+    padding: 2rem 5%;
+  }
+
+  & > div {
+    gap: 5rem;
+  }
+}
+
+div:has(hbp-calendar) {
+  @include center;
+  width: 100%;
+}

@@ -1,0 +1,167 @@
+@import "main";
+
+:host {
+  display: block;
+  padding-bottom: 15rem;
+}
+
+* {
+  font-family: $font-family-secondary;
+}
+
+b {
+  display: block;
+  max-width: 480px;
+  line-height: 1.25rem;
+  @include text-normal(0.875rem, $neutral-600, 500);
+}
+
+p.error {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+h2 {
+  @include text-normal(1.5rem, $gray-800, 500);
+  line-height: 1.3rem;
+  margin-bottom: 1.5rem;
+  @include max-lg {
+    width: 20rem;
+    margin-inline: auto;
+  }
+}
+
+span:has(hbp-user-avatar) {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  & > div {
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  @include max-lg {
+    gap: 1rem;
+    width: 20rem;
+    margin: 0 auto;
+    button {
+      margin: 0;
+    }
+    & > div {
+      flex-direction: column;
+    }
+  }
+
+  button {
+    @include button(
+      $secondary-50,
+      $secondary-500,
+      $secondary-50,
+      1rem,
+      $secondary-50,
+      $padding: 0.6rem 1rem,
+      $font-weight: 500
+    );
+
+    i {
+      @include icon(
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23287DFD' d='M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9m67.4-174.4L687.8 215l73.3 73.3l-362.7 362.6l-88.9 15.7zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32'/%3E%3C/svg%3E")
+      );
+    }
+
+    gap: 0.5rem !important;
+    width: max-content;
+
+    &:last-of-type {
+      @include button(
+        $error-50,
+        $error-500,
+        $error-50,
+        1rem,
+        $error-50,
+        $padding: 0.6rem 1rem,
+        $font-weight: 500
+      );
+
+      i {
+        @include icon(
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20.25 4.5H16.5V3.75C16.5 3.15326 16.2629 2.58097 15.841 2.15901C15.419 1.73705 14.8467 1.5 14.25 1.5H9.75C9.15326 1.5 8.58097 1.73705 8.15901 2.15901C7.73705 2.58097 7.5 3.15326 7.5 3.75V4.5H3.75C3.55109 4.5 3.36032 4.57902 3.21967 4.71967C3.07902 4.86032 3 5.05109 3 5.25C3 5.44891 3.07902 5.63968 3.21967 5.78033C3.36032 5.92098 3.55109 6 3.75 6H4.5V19.5C4.5 19.8978 4.65804 20.2794 4.93934 20.5607C5.22064 20.842 5.60218 21 6 21H18C18.3978 21 18.7794 20.842 19.0607 20.5607C19.342 20.2794 19.5 19.8978 19.5 19.5V6H20.25C20.4489 6 20.6397 5.92098 20.7803 5.78033C20.921 5.63968 21 5.44891 21 5.25C21 5.05109 20.921 4.86032 20.7803 4.71967C20.6397 4.57902 20.4489 4.5 20.25 4.5ZM9 3.75C9 3.55109 9.07902 3.36032 9.21967 3.21967C9.36032 3.07902 9.55109 3 9.75 3H14.25C14.4489 3 14.6397 3.07902 14.7803 3.21967C14.921 3.36032 15 3.55109 15 3.75V4.5H9V3.75ZM18 19.5H6V6H18V19.5ZM10.5 9.75V15.75C10.5 15.9489 10.421 16.1397 10.2803 16.2803C10.1397 16.421 9.94891 16.5 9.75 16.5C9.55109 16.5 9.36032 16.421 9.21967 16.2803C9.07902 16.1397 9 15.9489 9 15.75V9.75C9 9.55109 9.07902 9.36032 9.21967 9.21967C9.36032 9.07902 9.55109 9 9.75 9C9.94891 9 10.1397 9.07902 10.2803 9.21967C10.421 9.36032 10.5 9.55109 10.5 9.75ZM15 9.75V15.75C15 15.9489 14.921 16.1397 14.7803 16.2803C14.6397 16.421 14.4489 16.5 14.25 16.5C14.0511 16.5 13.8603 16.421 13.7197 16.2803C13.579 16.1397 13.5 15.9489 13.5 15.75V9.75C13.5 9.55109 13.579 9.36032 13.7197 9.21967C13.8603 9.07902 14.0511 9 14.25 9C14.4489 9 14.6397 9.07902 14.7803 9.21967C14.921 9.36032 15 9.55109 15 9.75Z' fill='%23F04438'/%3E%3C/svg%3E")
+        );
+      }
+    }
+  }
+}
+
+hbp-user-avatar {
+  --size: 12rem;
+  @include max-lg {
+    --size: 8rem;
+  }
+}
+
+hbp-input {
+  display: block;
+  margin-top: 1rem;
+  --underlying-input-width: 100%;
+}
+
+amalitech-select {
+  --select-label-padding: 0.625rem 0.875rem;
+  --select-label-font-size: 1rem;
+  --select-label-border-color: var(--gray-300);
+  --select-label-radius: 0.5rem;
+  --select-dropdown-border-color: var(--gray-300);
+  --select-option-font-size: 1rem;
+  --select-width: 100%;
+  --select-label-color: var(--gray-700);
+}
+
+label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: $gray-700;
+  font-family: $font-family-secondary;
+  line-height: 1.25rem;
+  margin-top: 1rem;
+  display: block;
+  margin-bottom: 0.625rem;
+}
+
+section {
+  @include max-md {
+    padding-inline: 10vw;
+  }
+}
+
+hbp-textarea {
+  margin-bottom: 0.15rem;
+}
+
+hbp-button {
+  --padding: 0.625rem 1.5rem;
+  --height: 2.75rem;
+  --font-weight: 500;
+  --font-family: var(--font-family-secondary);
+  display: block;
+  margin-top: 2rem;
+  --width: fit-content;
+  float: right;
+  @include max-lg {
+    --width: 100%;
+    margin: 1rem auto 0 auto;
+    width: 20rem;
+    float: none;
+  }
+}
+
+.radio-group {
+  margin-top: 0.7rem;
+}
+
+.checkbox-group {
+  display: flex;
+  row-gap: 1.25rem;
+  margin-top: 0.5rem;
+  gap: 0.75rem;
+}

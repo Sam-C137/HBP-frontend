@@ -1,0 +1,27 @@
+@import "main";
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 1.62rem;
+}
+
+p {
+  margin-bottom: 1.06rem;
+  font-size: 1rem !important;
+}
+h2 {
+  margin-bottom: 1.69rem;
+}
+
+h2:nth-of-type(2) {
+  margin-top: 3.75rem;
+}
+
+div:nth-of-type(2) {
+  margin-bottom: 3.12rem;
+}
+
+hbp-button {
+  --width: fit-content;
+}

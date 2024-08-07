@@ -1,0 +1,223 @@
+// Base
+$white: var(--white) !default;
+$dark: var(--dark) !default;
+
+// TYPOGRAPHY
+$font-family-logo: var(--font-family-logo) !default;
+$font-family-base: var(--font-family-base) !default;
+$font-family-secondary: var(--font-family-secondary) !default;
+
+// SHADOWS
+$shadow-xs: var(--shadow-xs) !default;
+$shadow-lg: var(--shadow-lg) !default;
+$shadow-lg-1: var(--shadow-lg-1) !default;
+$shadow-lg-2: var(--shadow-lg-2) !default;
+
+// COLORS
+$primary-gradient: var(--primary-gradient) !default;
+
+//Primary
+$primary: var(--primary) !default;
+$primary-hover: var(--primary-hover) !default;
+$primary-15: var(--primary-15) !default;
+$primary-50: var(--primary-50) !default;
+$primary-100: var(--primary-100) !default;
+$primary-200: var(--primary-200) !default;
+$primary-700: var(--primary-700) !default;
+
+//Secondary
+$secondary-50: var(--secondary-50) !default;
+$secondary-100: var(--secondary-100) !default;
+$secondary-200: var(--secondary-200) !default;
+$secondary-300: var(--secondary-300) !default;
+$secondary-400: var(--secondary-400) !default;
+$secondary-500: var(--secondary-500) !default;
+$secondary-600: var(--secondary-600) !default;
+$secondary-700: var(--secondary-700) !default;
+$secondary-800: var(--secondary-800) !default;
+$secondary-900: var(--secondary-900) !default;
+$secondary-950: var(--secondary-950) !default;
+
+// Dark
+$dark-700: var(--dark-700) !default;
+$dark-800: var(--dark-800) !default;
+$dark-900: var(--dark-900) !default;
+
+//Gray
+$gray: var(--gray) !default;
+$gray-15: var(--gray-15) !default;
+$gray-25: var(--gray-25) !default;
+$gray-35: var(--gray-35) !default;
+$gray-45: var(--gray-45) !default;
+$gray-50: var(--gray-50) !default;
+$gray-100: var(--gray-100) !default;
+$gray-200: var(--gray-200) !default;
+$gray-300: var(--gray-300) !default;
+$gray-400: var(--gray-400) !default;
+$gray-500: var(--gray-500) !default;
+$gray-600: var(--gray-600) !default;
+$gray-700: var(--gray-700) !default;
+$gray-800: var(--gray-800) !default;
+$gray-900: var(--gray-900) !default;
+$gray-1100: var(--gray-1100) !default;
+
+//Gray but in caps
+$Gray-50: var(--gray-50) !default;
+$Gray-100: var(--gray-100) !default;
+$Gray-200: var(--gray-200) !default;
+$Gray-300: var(--gray-300) !default;
+$Gray-400: var(--gray-400) !default;
+$Gray-500: var(--gray-500) !default;
+$Gray-600: var(--gray-600) !default;
+$Gray-700: var(--gray-700) !default;
+$Gray-800: var(--gray-800) !default;
+$Gray-900: var(--gray-900) !default;
+$Gray-950: var(--gray-950) !default;
+
+//Moss
+$moss-100: var(--moss-100) !default;
+$moss-800: var(--moss-800) !default;
+
+//Blue
+$blue-base: var(--blue-base) !default;
+$blue-200: var(--blue-200) !default;
+
+//Red
+$error: var(--error) !default;
+$error-light: var(--error-light) !default;
+$error-50: var(--error-50) !default;
+$error-100: var(--error-100) !default;
+$error-200: var(--error-200) !default;
+$error-300: var(--error-300) !default;
+$error-400: var(--error-400) !default;
+$error-500: var(--error-500) !default;
+$error-600: var(--error-600) !default;
+$error-700: var(--error-700) !default;
+$error-800: var(--error-800) !default;
+$error-900: var(--error-900) !default;
+$error-950: var(--error-950) !default;
+
+//Purple
+$purple-100: var(--purple-100) !default;
+$purple-200: var(--purple-200) !default;
+$purple-300: var(--purple-300) !default;
+$purple-400: var(--purple-400) !default;
+$purple-500: var(--purple-500) !default;
+$purple-600: var(--purple-600) !default;
+$purple-700: var(--purple-700) !default;
+$purple-800: var(--purple-800) !default;
+$purple-900: var(--purple-900) !default;
+$purple-950: var(--purple-950) !default;
+
+//Moss
+$moss-100: var(--moss-100) !default;
+$moss-200: var(--moss-200) !default;
+$moss-300: var(--moss-300) !default;
+$moss-400: var(--moss-400) !default;
+$moss-500: var(--moss-500) !default;
+$moss-600: var(--moss-600) !default;
+$moss-700: var(--moss-700) !default;
+$moss-800: var(--moss-800) !default;
+$moss-900: var(--moss-900) !default;
+$moss-950: var(--moss-950) !default;
+
+//Olive
+$olive-100: var(--olive-100) !default;
+$olive-200: var(--olive-200) !default;
+$olive-300: var(--olive-300) !default;
+$olive-400: var(--olive-400) !default;
+$olive-500: var(--olive-500) !default;
+$olive-600: var(--olive-600) !default;
+$olive-700: var(--olive-700) !default;
+$olive-800: var(--olive-800) !default;
+$olive-900: var(--olive-900) !default;
+$olive-950: var(--olive-950) !default;
+
+// Blue
+$blue-100: var(--blue-100) !default;
+$blue-200: var(--blue-200) !default;
+$blue-300: var(--blue-300) !default;
+$blue-400: var(--blue-400) !default;
+$blue-500: var(--blue-500) !default;
+$blue-600: var(--blue-600) !default;
+$blue-700: var(--blue-700) !default;
+$blue-800: var(--blue-800) !default;
+$blue-900: var(--blue-900) !default;
+$blue-950: var(--blue-950) !default;
+
+//Pink
+$pink-100: var(--pink-100) !default;
+$pink-200: var(--pink-200) !default;
+$pink-300: var(--pink-300) !default;
+$pink-400: var(--pink-400) !default;
+$pink-500: var(--pink-500) !default;
+$pink-600: var(--pink-600) !default;
+$pink-700: var(--pink-700) !default;
+$pink-800: var(--pink-800) !default;
+$pink-900: var(--pink-900) !default;
+$pink-950: var(--pink-950) !default;
+
+//Yellow
+$warning-300: var(--warning-300) !default;
+$yellow-100: var(--yellow-100) !default;
+$yellow-200: var(--yellow-200) !default;
+$yellow-300: var(--yellow-300) !default;
+$yellow-400: var(--yellow-400) !default;
+$yellow-500: var(--yellow-500) !default;
+$yellow-600: var(--yellow-600) !default;
+$yellow-700: var(--yellow-700) !default;
+$yellow-800: var(--yellow-800) !default;
+$yellow-900: var(--yellow-900) !default;
+$yellow-950: var(--yellow-950) !default;
+
+//Neutral
+$neutral-100: var(--neutral-100) !default;
+$neutral-200: var(--neutral-200) !default;
+$neutral-300: var(--neutral-300) !default;
+$neutral-400: var(--neutral-400) !default;
+$neutral-500: var(--neutral-500) !default;
+$neutral-600: var(--neutral-600) !default;
+$neutral-700: var(--neutral-700) !default;
+$neutral-800: var(--neutral-800) !default;
+$neutral-900: var(--neutral-900) !default;
+$neutral-950: var(--neutral-950) !default;
+
+//Green
+$success-25: var(--success-25) !default;
+$success-50: var(--success-50) !default;
+$success-100: var(--success-100) !default;
+$success-200: var(--success-200) !default;
+$success-300: var(--success-300) !default;
+$success-400: var(--success-400) !default;
+$success-500: var(--success-500) !default;
+$success-600: var(--success-600) !default;
+$success-700: var(--success-700) !default;
+$success-800: var(--success-800) !default;
+$success-900: var(--success-900) !default;
+$success-950: var(--success-950) !default;
+
+//Red
+$red-50: var(--red-50) !default;
+$red-100: var(--red-100) !default;
+$red-200: var(--red-200) !default;
+$red-300: var(--red-300) !default;
+$red-400: var(--red-400) !default;
+$red-500: var(--red-500) !default;
+$red-600: var(--red-600) !default;
+$red-700: var(--red-700) !default;
+$red-800: var(--red-800) !default;
+$red-900: var(--red-900) !default;
+$red-950: var(--red-950) !default;
+
+//Pending
+$pending-50: var(--pending-50) !default;
+$pending-100: var(--pending-100) !default;
+$pending-200: var(--pending-200) !default;
+$pending-300: var(--pending-300) !default;
+$pending-400: var(--pending-400) !default;
+$pending-500: var(--pending-500) !default;
+$pending-600: var(--pending-600) !default;
+$pending-700: var(--pending-700) !default;
+$pending-800: var(--pending-800) !default;
+$pending-900: var(--pending-900) !default;
+$pending-950: var(--pending-950) !default;

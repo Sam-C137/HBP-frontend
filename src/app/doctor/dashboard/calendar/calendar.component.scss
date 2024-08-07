@@ -1,0 +1,84 @@
+@import "main";
+
+.calendar {
+  padding-bottom: 1.5rem;
+  font-family: "Montserrat";
+
+  .activeDate {
+    @include text-bold(1.5rem, $neutral-950, 400);
+    padding: 1rem 1.5rem 0.75rem 0.75rem;
+    border-bottom: 1px solid $gray-200;
+  }
+  .calendar-controls {
+    @include flex-row;
+    padding: 1rem 1.5rem 0.75rem 0.75rem;
+    justify-content: space-between;
+    select {
+      border: 0;
+    }
+    select:focus-visible {
+      outline: 0;
+    }
+
+    .chevrons {
+      display: flex;
+      gap: .4rem;
+
+      .day {
+        padding: 0.32rem;
+      }
+    }
+  }
+}
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding-inline: 0.62rem;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.03125rem;
+  cursor: pointer;
+  padding: 0.62rem 0.72rem;
+  user-select: none;
+  font-family: $font-family-secondary;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  color: $neutral-950;
+
+  &:hover {
+    background-color: $gray-100;
+    border-radius: 50%;
+  }
+}
+
+.isToday {
+  border: 1px solid $secondary-500;
+  color: $secondary-500;
+  border-radius: 50%;
+  &:hover {
+    background-color: $gray-100;
+  }
+}
+
+.isSelected {
+  background-color: $secondary-500;
+  border-radius: 50%;
+  color: $white;
+  &:hover {
+    background-color: $secondary-500;
+  }
+}
+
+button {
+  border: 0;
+  background-color: $white;
+}

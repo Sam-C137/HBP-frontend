@@ -1,0 +1,28 @@
+<main class="analytics">
+    <section class="analytics__header">
+        <h2 class="analytics__header__title">Analytics</h2>
+        <hbp-button (click)="openReportConfig()" [type]="'button'">
+            <span>Export Report</span>
+        </hbp-button>
+    </section>
+    <section class="analytics__booking-trends">
+        <hbp-booking-trends-chart
+            [doctorServices]="servicesQuery.data()?.content"
+        />
+    </section>
+    <section class="analytics__doctor-allocations">
+        <hbp-doctor-allocations-chart
+            [doctorServices]="servicesQuery.data()?.content"
+        />
+    </section>
+    <section class="analytics__doctor-allocations">
+        <hbp-patient-feedback-chart />
+    </section>
+</main>
+
+@if (exportReport) {
+    <hbp-export-report
+        [(open)]="exportReport"
+        [doctorServices]="servicesQuery.data()?.content"
+    />
+}

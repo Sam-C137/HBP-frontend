@@ -1,0 +1,108 @@
+@import "main";
+
+aside {
+  border-right: 1px solid $gray-200;
+  min-height: calc(100dvh - 90px);
+  padding: 1.25rem 0.625rem;
+  background-color: $white;
+  z-index: 8;
+  @include max-lg {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    max-width: 70%;
+    height: 100dvh;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    transition: left 0.3s ease-out;
+
+    &.open {
+      left: 0;
+
+      & + .backdrop {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+}
+
+ul {
+  @include flex-column;
+  gap: 0.625rem;
+
+  li {
+    border-left: 3px solid transparent;
+    @include xl {
+      margin-bottom: 1rem;
+    }
+    @media (max-height: 700px) {
+      margin-bottom: 0;
+    }
+
+    &:has(a.active) {
+      border-left: 3px solid $primary;
+    }
+
+    a {
+      @include flex-row;
+      align-items: center;
+      gap: 0.62rem;
+      @include text-bold(1.125rem, $gray-500, 600);
+      font-family: $font-family-secondary;
+      line-height: 1.25rem;
+      padding: 0.75rem;
+      margin-left: 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-out;
+
+      &:hover {
+        background: $primary-50;
+      }
+
+      &.active {
+        color: $primary;
+        background: $primary-50;
+      }
+
+      span {
+        @include center;
+      }
+    }
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 7;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: fixed;
+  top: 1.3rem;
+  left: 1rem;
+  z-index: 10;
+  cursor: pointer;
+
+  @include lg {
+    display: none;
+  }
+}
+
+span.logo-text {
+  @include center;
+  border-bottom: 1px solid $gray-200;
+  margin-bottom: 2rem;
+  @include lg {
+    display: none;
+  }
+}

@@ -1,0 +1,52 @@
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.logo-text {
+  font-size: 40px;
+  font-family: $font-family-logo;
+  background: $primary-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+}
+
+a.active {
+  color: $primary;
+  svg {
+    path {
+      stroke: $primary;
+      fill: $primary;
+    }
+    stop {
+      stop-color: $primary;
+    }
+  }
+}
+
+.error {
+  color: $error;
+}
+
+$gaps: (
+  "0": 0rem,
+  "1": 0.0625rem,
+  "2": 0.125rem,
+  "3": 0.25rem,
+  "4": 0.5rem,
+  "5": 1rem,
+  "6": 1.5rem,
+  "7": 2rem,
+  "8": 2.5rem,
+  "9": 3rem,
+  "10": 4rem,
+  "11": 5rem,
+  "12": 6rem,
+);
+
+@each $key, $val in $gaps {
+  .gap-#{$key} > * {
+    gap: $val;
+  }
+}

@@ -1,0 +1,14 @@
+<form [formGroup]="form" (submit)="submit()">
+    <div class="input">
+        <label class="display-none" for="email"></label>
+        <hbp-input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Your e-mail address"
+            [control]="form.get('email')"
+            [highlightFocus]="false"
+        />
+        <hbp-button type="submit"> Submit </hbp-button>
+    </div>
+</form>

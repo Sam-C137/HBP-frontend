@@ -1,0 +1,113 @@
+@import "main";
+
+input {
+  min-width: fit-content;
+}
+button {
+  display: block;
+  background-color: transparent;
+  width: 100%;
+  outline: 0;
+  cursor: pointer;
+  border: 0;
+  text-align: start;
+  font: inherit;
+}
+
+.combobox-container {
+  position: relative;
+  font: {
+    family: "Montserrat";
+    weight: 500;
+  }
+  &__chevron {
+    position: absolute;
+    right: 0.88rem;
+    top: 0.62rem;
+    width: 14px;
+    height: 14px;
+    transition: all 0.3s;
+
+    &--rotate {
+      transform: rotate(-180deg);
+      transform-origin: 50% 55%;
+    }
+  }
+}
+.UP {
+  bottom: 100%;
+}
+
+.DOWN {
+  top: 100%;
+}
+
+.no-show {
+  display: none;
+}
+
+.combobox {
+  border: 1px solid $Gray-300;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+
+  &__container {
+    &__value {
+      float: left;
+      color: black;
+    }
+  }
+
+  &--focused {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &__dropdown {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: auto;
+    padding: 0.5rem 0.75rem;
+    background: white;
+    border: 1px solid $Gray-300;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+
+    &__list {
+      max-height: 200px;
+      width: 100%;
+      overflow: auto;
+      margin-top: 0.35rem;
+
+      &-item {
+        border-radius: 0.35rem;
+        padding: 0.5rem 0.75rem;
+        @include text-bold(1rem, $neutral-500, 500);
+        font-family: "Work Sans";
+        cursor: pointer;
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+    &__input {
+      @include text-bold(1rem, $neutral-500, 500);
+      font-family: "Montserrat";
+      border: 0;
+      border-bottom: 1px solid $Gray-300;
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      outline: 0;
+    }
+  }
+
+  &:focus,
+  &:focus-visible {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 2px solid #a5f5d4;
+  }
+}

@@ -1,0 +1,11 @@
+<span
+    [style.backgroundColor]="lighten(colorCode(), 90)"
+    [style.width]="size()"
+    [style.height]="size()"
+>
+    @if (src()) {
+        <img [src]="replaceStroke(src(), colorCode())" [alt]="fallback()" />
+    } @else {
+        <p>{{ fallback() | initials : "service" }}</p>
+    }
+</span>

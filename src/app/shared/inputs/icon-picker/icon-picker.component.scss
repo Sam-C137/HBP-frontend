@@ -1,0 +1,118 @@
+@import "main";
+
+:host {
+  --padding: 0.45rem 0.85rem;
+  --width: 100%;
+  --border-color: var(--gray-300);
+  --border-radius: 0.5rem;
+  --font-size: 1rem;
+  --font-weight: 500;
+  --color: var(--gray-700);
+  --label-color: var(--gray-700);
+  --label-font-size: 0.875rem;
+  --error-position: relative;
+  --icon-size: 2rem;
+  display: block;
+  @include max-md {
+    --icon-size: 1.5rem;
+  }
+}
+
+label {
+  @include text-normal(var(--label-font-size), var(--label-color), 500);
+  font-family: $font-family-secondary;
+  line-height: 1.25rem;
+}
+
+:where(.icon-picker) {
+  @include reset;
+  font-weight: var(--font-weight);
+  width: var(--width);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  color: var(--color);
+  font-size: var(--font-size);
+  margin: 0.5rem 0;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  resize: none;
+  &:focus,
+  :focus-visible {
+    border: 1px solid rgba(141, 242, 218, 0.5);
+    box-shadow:
+      0px 1px 2px 0px rgba(125, 228, 204, 0.15),
+      0px 0px 0px 4px rgba(125, 228, 204, 0.15);
+  }
+  &.focus-error {
+    border: 1px solid #fda29b;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  }
+}
+
+div.icon-picker {
+  display: flex;
+  gap: 0.5rem;
+  span {
+    width: calc(var(--icon-size) * 5 + 4rem);
+    height: 1.5rem;
+    border-radius: 0.125rem;
+    @include flex-row;
+    justify-content: space-between;
+    @include max-md {
+      width: calc(var(--icon-size) * 5 + 2rem);
+    }
+  }
+}
+
+.error {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: -0.25rem;
+  position: var(--error-position);
+}
+
+section {
+  padding: var(--select-dropdown-padding, 0.75rem);
+  border-radius: var(--select-dropdown-radius, 0.35rem);
+  border: 1px solid $gray-200;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  background: $white;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  &.scrollable {
+    max-height: calc(var(--icon-size) * 6 + 0.75rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  &.open {
+    animation: moveDownOut 0.1s linear forwards;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  img {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-bottom: 0.25rem;
+  }
+}
+
+.arrow-down {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.arrow-up {
+  transform: rotate(-180deg);
+  transition: transform 0.3s;
+}
+
+i {
+  font-weight: 600;
+  color: $error-500;
+}

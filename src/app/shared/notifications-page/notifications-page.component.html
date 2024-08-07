@@ -1,0 +1,85 @@
+<hbp-navbar />
+<main>
+    <hbp-breadcrumb
+        [homeRoot]="'/' + user?.role"
+        [breadcrumbs]="[
+            {
+                name: 'Updates',
+                route: '/notificactions',
+            },
+        ]"
+    />
+
+    @for (notification of notifications; track $index) {
+        <div class="notification-card" [class.new]="!notification.receipt">
+            <hbp-user-avatar
+                [src]="notification.profilePicture"
+                [fallback]="notification.senderName"
+            />
+            <div>
+                <span class="display-flex justify-space-between w-full">
+                    <h3>{{ notification.senderName }}</h3>
+                    <b>{{ notification.timeStamp | date: "dd/MM/yyyy" }}</b>
+                </span>
+                <p>{{ notification.content }}</p>
+                <a
+                    class="cursor-pointer"
+                    (click)="
+                        notificationAction(notification.type, notification)
+                    "
+                    tabindex="0"
+                >
+                    @switch (notification.type) {
+                        @case ("BOOK") {
+                            {{
+                                user?.role === "patient"
+                                    ? "Book Appointment"
+                                    : ""
+                            }}
+                        }
+
+                        @case ("REVIEW") {
+                            Review Doctor
+                        }
+
+                        @case ("ACCOUNT") {
+                            View Profile
+                        }
+                    }
+                </a>
+            </div>
+        </div>
+    } @empty {
+        <h2
+            *ngIf="!Number.isNaN(totalElements()) && totalElements() === 0"
+            class="text-center font-semibold text-lg mt-4"
+        >
+            You have no notifications
+        </h2>
+    }
+
+    @if (isNotificationsLoading) {
+        <div class="display-flex justify-center w-full mb-6">
+            <hbp-bars />
+        </div>
+    }
+</main>
+
+@if (isReviewOverlayVisible) {
+    <hbp-review-overlay [(open)]="isReviewOverlayVisible" />
+}
+
+<h2
+    *ngIf="totalElements() && notifications.length >= totalElements()!"
+    class="text-center font-semibold text-lg mt-4"
+>
+    You have reached the end of your notification history
+</h2>
+
+<div
+    hbpIntersectionObserver
+    #pageBottom="intersection"
+    [debounce]="1000"
+    id="page-bottom"
+    (intersectionEmitted)="!isNotificationsLoading && getNotifications()"
+></div>

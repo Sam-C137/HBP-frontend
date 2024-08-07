@@ -1,0 +1,29 @@
+@if (isLoading()) {
+    <div>
+        <hbp-spinner size="lg" />
+    </div>
+} @else if (error()) {
+    <div>
+        <hbp-error-handler [message]="error()" (retry)="retry.emit()" />
+    </div>
+} @else if (!isLoading() && faqs().length < 1) {
+    <div>
+        <hbp-empty-list />
+    </div>
+} @else {
+    @for (faq of faqs(); track $index) {
+        <hbp-faq-card
+            [faq]="faq"
+            (edit)="editFaq()"
+            (delete)="deleteFaq()"
+            (publish)="publishFaq()"
+            (restore)="restoreFaq()"
+            [(selectedFaq)]="selectedFaq"
+            [filters]="filters()"
+        />
+    }
+}
+
+<ng-template #modalTemplate>
+    <div>Are you sure you want to delete this Frequently Asked Question?</div>
+</ng-template>

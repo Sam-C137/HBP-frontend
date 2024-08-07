@@ -1,0 +1,62 @@
+<article
+    [class]="{
+        open: open(),
+        'screen-fit': open(),
+        modal: true,
+    }"
+    role="alertdialog"
+    aria-labelledby="label"
+    @popup
+>
+    <header>
+        <p id="label">Appointment Cancelled</p>
+        <img
+            src="assets/icons/close-small.svg"
+            (click)="close()"
+            alt="close"
+            class="cursor-pointer"
+            tabindex="0"
+        />
+    </header>
+    <section>
+        <p class="mb-2 mt-1">
+            We found
+            @if (availableDoctorsQuery.data()) {
+                {{ availableDoctorsQuery.data()?.length }}
+            }
+            doctors who are available on
+            {{ appointment().appointmentTime | date: "MMMM d yyyy" }}
+            {{ appointment().appointmentTime | time: 12 : "next" }}
+        </p>
+        @if (availableDoctorsQuery.isPending()) {
+            <div class="w-full h-full center-div">
+                <hbp-bars />
+            </div>
+        } @else if (availableDoctorsQuery.data()) {
+            <ul>
+                @for (doctor of availableDoctorsQuery.data(); track $index) {
+                    <li>
+                        <span class="display-flex align-items-center">
+                            <hbp-user-avatar
+                                [src]="doctor.profilePicture"
+                                [fallback]="doctor.fullName"
+                                class="mr-2"
+                            />
+                            {{ doctor.fullName }}
+                        </span>
+                        <hbp-button (click)="bookDoctor(doctor)">
+                            Book
+                        </hbp-button>
+                    </li>
+                }
+            </ul>
+        }
+        <hbp-button class="cancel mt-2" (click)="close()">Cancel</hbp-button>
+    </section>
+</article>
+<div
+    class="backdrop"
+    [class.open]="open()"
+    tabindex="-1"
+    (click)="open.set(false)"
+></div>

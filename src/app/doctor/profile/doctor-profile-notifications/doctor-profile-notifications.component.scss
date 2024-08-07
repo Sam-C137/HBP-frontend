@@ -1,0 +1,90 @@
+@import "main";
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  font-family: Montserrat;
+  color: #464646;
+
+  @include max-md {
+    padding-inline: 10vw;
+  }
+
+  h1 {
+    @include max-md {
+      padding-inline: 10vw;
+    }
+  }
+
+  h1,
+  h2 {
+    @include text-normal(1.75rem, $gray-800, 500);
+    line-height: 1.87rem;
+  }
+
+  h2 {
+    @include text-normal(1.25rem, #464646, 500);
+    padding: 0.625rem 0rem;
+    align-items: center;
+  }
+
+  p {
+    @include text-normal(1rem, #464646, 500);
+    color: var(--Neutral-800, #464646);
+    font-family: Montserrat;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem; /* 125% */
+  }
+
+  section {
+    gap: 0.625rem;
+    @include flex-column;
+    align-items: flex-start;
+
+    @include max-md {
+      padding-inline: 10vw;
+    }
+
+    ul {
+      @include flex-column;
+      align-items: flex-start;
+      gap: 0.625rem;
+      @include max-lg {
+        padding: 0 4rem 0 0;
+      }
+
+      li {
+        display: flex;
+        padding: 0.625rem 0rem;
+        align-items: center;
+        gap: 0.625rem;
+      }
+    }
+  }
+
+  hbp-button {
+    --padding: 0.625rem 1.5rem;
+    --height: 2.75rem;
+    --font-weight: 500;
+    --font-family: var(--font-family-secondary);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    --width: fit-content;
+    margin-bottom: 20rem;
+    float: right;
+    @include max-lg {
+      --width: 100%;
+      margin: 1rem auto 0 auto;
+      width: 20rem;
+      float: none;
+      margin-bottom: 10rem;
+      // align-items: center;
+      // justify-content: center;
+      padding-inline: 10vw;
+    }
+  }
+}

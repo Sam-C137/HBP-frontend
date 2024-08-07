@@ -1,0 +1,43 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+:where(form) {
+  border: 1px solid $gray-200;
+  gap: 0.625rem;
+  @include flex-column;
+  background: $white;
+  max-width: 350px;
+  margin-top: 5rem;
+  padding: 1.5rem;
+  @media (max-height: 700px) {
+    margin-top: 4rem;
+  }
+  @include md {
+    padding: 2rem;
+    width: 30rem;
+    max-width: none;
+  }
+  h2 {
+    font-size: clamp(1.25rem, 2vw + 1rem, 2rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: $gray-600;
+    text-align: center;
+  }
+  p {
+    font-size: 1rem;
+  }
+  a {
+    color: $blue-base;
+    font-size: 1rem;
+  }
+}
+
+hbp-spinner {
+  --color: var(--white);
+  --thickness: 4px;
+  --width: 20px;
+}

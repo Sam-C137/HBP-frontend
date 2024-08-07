@@ -1,0 +1,37 @@
+<hbp-navbar />
+<main>
+    <hbp-breadcrumb
+        [breadcrumbs]="[
+            {
+                name: 'My Appointments',
+                route: '/patient/appointments',
+            },
+            {
+                name: 'Calendar',
+                route: '/patient/calendar',
+            },
+        ]"
+    />
+
+    @if (patientSchedule.isPending()) {
+        <div class="w-full h-96 center-div">
+            <hbp-spinner size="lg" />
+        </div>
+    } @else if (patientSchedule.data()) {
+        <div>
+            <hbp-calendar
+                [schedule]="patientSchedule.data()!"
+                [config]="{
+                    userRole: Roles.Doctor,
+                    detailPrecision: 'precise',
+                    activeColor: 'inheritFromService',
+                }"
+            />
+        </div>
+    } @else if (patientSchedule.error()) {
+        <hbp-error-handler
+            [message]="patientSchedule.error()?.message"
+            (retry)="patientSchedule.refetch()"
+        />
+    }
+</main>

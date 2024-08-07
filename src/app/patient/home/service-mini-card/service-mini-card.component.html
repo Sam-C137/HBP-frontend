@@ -1,0 +1,24 @@
+<article
+    [class]="control().value === value() ? 'active' : ''"
+    (click)="radio.click()"
+    tabindex="0"
+>
+    <span class="img-bg" [style.backgroundColor]="service().colorCode"></span>
+    <hbp-service-avatar
+        [src]="service().icon"
+        [fallback]="service().name"
+        [colorCode]="service().colorCode"
+    />
+    <p>{{ service().name }}</p>
+</article>
+
+<input
+    type="radio"
+    [formControl]="control()"
+    [title]="service().name"
+    [id]="service().id"
+    [name]="name()"
+    [value]="value()"
+    #radio
+    class="display-none"
+/>

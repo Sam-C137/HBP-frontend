@@ -1,0 +1,28 @@
+@import "main";
+
+ol {
+  margin-left: 0.85rem;
+  margin-top: 2.13rem;
+  margin-bottom: 2.62rem;
+  @include flex-row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+  color: $gray-500;
+  font-weight: 500;
+  li:last-of-type {
+    @include gradient-text;
+  }
+}
+
+i {
+  @include icon(
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23D0D5DD' d='M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01'/%3E%3C/svg%3E")
+  );
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}

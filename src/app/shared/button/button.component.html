@@ -1,0 +1,19 @@
+<button
+    [type]="type()"
+    [disabled]="disabled()"
+    class="size-{{size()}} {{ shadow() ? 'shadow' : '' }} {{ variant() }}"
+>
+    @if (loading()) {
+    <amalitech-progress-ring
+        indeterminate
+        progress="30"
+        radius="10"
+        stroke="2"
+        progress-color="#50caad"
+    ></amalitech-progress-ring>
+    } @else {
+        <div>
+            <ng-content></ng-content>
+        </div>
+    }
+</button>

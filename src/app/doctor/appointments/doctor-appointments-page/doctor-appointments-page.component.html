@@ -1,0 +1,178 @@
+<main>
+    <header>
+        <h1>Upcoming Appointments</h1>
+        <a [routerLink]="['/doctor/schedule']">View Calendar</a>
+    </header>
+
+    <div class="reel">
+        @if (upcomingAppointmentsQuery.data()) {
+            @for (
+                appointment of upcomingAppointmentsQuery.data()?.content;
+                track $index
+            ) {
+                <hbp-upcoming-appointment-card
+                    [appointment]="appointment"
+                    [class.short]="
+                        (upcomingAppointmentsQuery.data()?.content)!.length < 4
+                    "
+                />
+            } @empty {
+                <div class="h-60 w-full center-div ml-2">
+                    <img
+                        src="assets/misc/empty-appointment.svg"
+                        alt="no-appointments"
+                    />
+                    <h2 class="font-semibold">
+                        You currently have no upcoming appointments
+                    </h2>
+                </div>
+            }
+        } @else {
+            <div class="h-60 w-full center-div ml-2">
+                <hbp-spinner size="sm" />
+            </div>
+        }
+    </div>
+
+    <form [formGroup]="form" class="mt-2 mb-2">
+        <ul>
+            <li
+                [class.active]="
+                    form.get('status')?.value === AppointmentActions.PENDING
+                "
+                (click)="
+                    form.get('status')?.setValue(AppointmentActions.PENDING)
+                "
+                class="mr-2"
+                tabindex="0"
+            >
+                Requests
+            </li>
+            <li
+                [class.active]="
+                    form.get('status')?.value !== AppointmentActions.PENDING
+                "
+                (click)="
+                    form.get('status')?.setValue(AppointmentActions.ACCEPTED)
+                "
+                class="mr-2"
+                tabindex="0"
+            >
+                Appointments
+            </li>
+        </ul>
+        <div class="display-flex align-items-center">
+            <amalitech-select
+                *ngIf="form.get('status')?.value === AppointmentActions.PENDING"
+                label="Sort"
+                class="mt-1 mr-2"
+                formControlName="sort"
+            >
+                <amalitech-select-option value=""
+                    >Newest to Oldest
+                </amalitech-select-option>
+                <amalitech-select-option value="old"
+                    >Oldest to Newest
+                </amalitech-select-option>
+            </amalitech-select>
+            <amalitech-select
+                *ngIf="form.get('status')?.value !== AppointmentActions.PENDING"
+                label="Status"
+                class="mt-1 mr-2"
+                formControlName="status"
+            >
+                <amalitech-select-option value="ACCEPTED"
+                    >Accepted
+                </amalitech-select-option>
+                <amalitech-select-option value="COMPLETED"
+                    >Completed
+                </amalitech-select-option>
+                <amalitech-select-option value="PATIENT_RESCHEDULED"
+                    >Rescheduled
+                </amalitech-select-option>
+            </amalitech-select>
+            <hbp-input
+                iconLeftUrl="assets/icons/search.svg"
+                type="text"
+                id="search"
+                [control]="form.get('search')"
+                placeholder="Search"
+                [toggleIcons]="false"
+            />
+        </div>
+    </form>
+
+    @if (appointmentsQuery.error()) {
+        <div>
+            <hbp-error-handler
+                [message]="appointmentsQuery.error()?.message"
+                (retry)="appointmentsQuery.refetch()"
+            />
+        </div>
+    } @else if (
+        !appointmentsQuery.isPending() &&
+        !appointmentsQuery.isRefetching() &&
+        appointmentsQuery.data()?.content?.length === 0
+    ) {
+        <div>
+            <hbp-empty-list />
+        </div>
+    } @else {
+        <hbp-appointment-table
+            [items]="appointmentsQuery.data()?.content || []"
+            [actions]="form.get('status')?.value"
+            (cancel)="
+                selectedAppointment = $event; isCancelOpen = !isCancelOpen
+            "
+            (reschedule)="
+                selectedAppointment = $event;
+                isRescheduleOpen = !isRescheduleOpen
+            "
+            (accept)="selectedAppointment = $event; acceptAppointment()"
+            (reject)="selectedAppointment = $event; rejectAppointment()"
+            (complete)="selectedAppointment = $event; completeAppointment()"
+            [(selectedAppointment)]="selectedAppointment"
+            [loading]="
+                appointmentsQuery.isPending() ||
+                appointmentsQuery.isRefetching()
+            "
+        />
+        <div class="display-flex align-items-center justify-center mt-4 w-full">
+            <amalitech-pagination
+                *ngIf="
+                    appointmentsQuery.data() &&
+                    appointmentsQuery.data()!.totalElements > 10
+                "
+                (amalitechPageChange)="changePage($event)"
+                [pageNumber]="currentPage() + 1"
+                [totalItems]="appointmentsQuery.data()!.totalElements"
+            ></amalitech-pagination>
+        </div>
+    }
+</main>
+
+@if (isCancelOpen) {
+    <hbp-cancel-appointment-overlay
+        [(open)]="isCancelOpen"
+        [appointment]="selectedAppointment"
+        (cancelSuccess)="invalidateQueries()"
+    />
+}
+
+@if (isRescheduleOpen) {
+    <hbp-reschedule-appointment-overlay
+        [(open)]="isRescheduleOpen"
+        [appointment]="selectedAppointment"
+        (rescheduleSuccess)="invalidateQueries()"
+        [doctor]="user!"
+        [targetUser]="user!"
+    />
+}
+
+<ng-template #modalTemplate>
+    Do you really want to reject an appointment with
+    <span class="font-bold">{{
+        selectedAppointment?.relatedUser?.fullName
+    }}</span
+    >?
+</ng-template>

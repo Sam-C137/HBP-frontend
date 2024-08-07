@@ -1,0 +1,11 @@
+<article>
+    <div class="card-header">
+        <div [style]="{ backgroundColor: color() }" class="card-icon">
+            <img [src]="svgSrc()" alt="icon" />
+        </div>
+    </div>
+    <div class="card-content">
+        <p>{{ numOfPatients() }}</p>
+        <p>{{ cardLabel() }}</p>
+    </div>
+</article>

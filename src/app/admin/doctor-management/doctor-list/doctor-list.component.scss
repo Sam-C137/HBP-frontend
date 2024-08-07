@@ -1,0 +1,9 @@
+@import "main";
+
+div:has(hbp-empty-list) {
+  @include center;
+  min-height: 500px;
+  @include max-lg {
+    min-height: 200px;
+  }
+}

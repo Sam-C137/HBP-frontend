@@ -1,0 +1,147 @@
+<hbp-navbar />
+<main>
+    <hbp-breadcrumb
+        [breadcrumbs]="[
+            {
+                name: 'My Appointments',
+                route: '/patient/appointments',
+            },
+        ]"
+        class="mb-4 display-block"
+    />
+    <ol>
+        <li
+            (click)="toggle.set('pending')"
+            [class.inactive]="toggle() !== 'pending'"
+            tabindex="0"
+        >
+            Pending Approval
+        </li>
+        <li
+            (click)="toggle.set('upcoming')"
+            [class.inactive]="toggle() !== 'upcoming'"
+            tabindex="0"
+        >
+            Upcoming Appointments
+        </li>
+        <li
+            (click)="toggle.set('past')"
+            [class.inactive]="toggle() !== 'past'"
+            tabindex="0"
+        >
+            Past Appointment
+        </li>
+        <li>
+            <a [routerLink]="['/patient', 'calendar']"> View Calendar </a>
+        </li>
+    </ol>
+    @if (appointmentsQuery.isPending()) {
+        <div class="w-full h-60 center-div">
+            <hbp-bars />
+        </div>
+    } @else if (appointmentsQuery.data()) {
+        @for (appointment of appointmentsQuery.data()?.content; track $index) {
+            <article
+                [style.backgroundColor]="
+                    toggle() === 'past'
+                        ? 'var(--gray-100)'
+                        : lighten(appointment.relatedService.colorCode, 85)
+                "
+            >
+                <div
+                    [style.borderLeftColor]="
+                        appointment.relatedService.colorCode
+                    "
+                >
+                    <h4 [class.past]="toggle() === 'past'">
+                        Appointment with
+                        {{ appointment.relatedUser.fullName }}
+                    </h4>
+                    <p>
+                        {{ appointment.appointmentTime | date: "MMMM d yyyy" }}
+                        {{ appointment.appointmentTime | time: 12 : "next" }}
+                    </p>
+                    <b
+                        *ngIf="
+                            appointment.appointmentStatus ===
+                                AppointmentStatuses.RESCHEDULED ||
+                            appointment.appointmentStatus ===
+                                AppointmentStatuses.DOCTOR_RESCHEDULED ||
+                            appointment.appointmentStatus ===
+                                AppointmentStatuses.PATIENT_RESCHEDULED
+                        "
+                    >
+                        <i></i>
+                        This appointment was rescheduled
+                    </b>
+                    <span>
+                        @if (toggle() === "past") {
+                            <button style="cursor: auto">
+                                <i class="completed"></i>
+                                Completed
+                            </button>
+                        } @else {
+                            <button
+                                *ngIf="
+                                    appointment.appointmentStatus ===
+                                    AppointmentStatuses.ACCEPTED
+                                "
+                                (click)="
+                                    selectedAppointment.set(appointment);
+                                    isRescheduleOpen = !isRescheduleOpen
+                                "
+                            >
+                                <i class="reschedule"></i>
+                                Reschedule
+                            </button>
+                            <button
+                                (click)="
+                                    selectedAppointment.set(appointment);
+                                    isCancelOpen = !isCancelOpen
+                                "
+                                class="cancel"
+                            >
+                                <i class="cancel"></i>
+                                Cancel
+                            </button>
+                        }
+                    </span>
+                </div>
+            </article>
+        } @empty {
+            <hbp-empty-list
+                [imgSrc]="'assets/images/Calendar-pana.png'"
+                [message]="'You have no ' + toggle() + ' appointments'"
+                class="mt-3 display-block"
+            />
+        }
+    } @else {}
+</main>
+
+@if (isRescheduleOpen) {
+    <hbp-reschedule-appointment-overlay
+        [(open)]="isRescheduleOpen"
+        [doctor]="$any(selectedAppointment()?.relatedUser)"
+        (rescheduleSuccess)="invalidateQueries()"
+        [appointment]="selectedAppointment()"
+        [targetUser]="user!"
+    />
+}
+
+@if (isCancelOpen) {
+    <hbp-cancel-appointment-overlay
+        [(open)]="isCancelOpen"
+        [appointment]="selectedAppointment()!"
+        (cancelSuccess)="
+            invalidateQueries(); isSuggestedOpen = !isSuggestedOpen
+        "
+        [targetUser]="user!"
+    />
+}
+
+@if (isSuggestedOpen) {
+    <hbp-suggested-doctors-overlay
+        [(open)]="isSuggestedOpen"
+        [appointment]="selectedAppointment()!"
+    />
+}

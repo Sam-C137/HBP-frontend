@@ -1,0 +1,38 @@
+@import "main";
+
+form {
+  @include lg {
+    padding: 3.12rem;
+  }
+  a {
+    margin-bottom: 2rem;
+    & + * {
+      display: block;
+      margin-top: 1rem;
+    }
+  }
+}
+
+a {
+  margin-bottom: 0 !important;
+}
+
+p {
+  text-align: center;
+  @include text-normal(0.875rem, $gray-500, 400);
+}
+
+hbp-check-box-group {
+  color: $gray-500;
+  ::ng-deep {
+    input[type="checkbox"] {
+      border-color: $gray-400;
+    }
+    label {
+      column-gap: 0.5rem;
+    }
+    span {
+      font-weight: 400;
+    }
+  }
+}

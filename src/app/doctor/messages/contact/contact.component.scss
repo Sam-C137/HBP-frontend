@@ -1,0 +1,64 @@
+@import "main";
+:host {
+  --bg: white;
+}
+
+article {
+  background-color: var(--bg);
+  width: 100%;
+}
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0.75rem;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #f5f6f5;
+  }
+  .contact-info {
+    @include flex-row;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 70%;
+
+    @include max-lg {
+      max-width: 60%;
+    }
+  }
+  .message {
+    @include flex-column;
+    gap: 0.5rem;
+    .receipient {
+      font-weight: 600;
+    }
+  }
+  .content {
+    width: auto;
+    font-weight: 500;
+  }
+
+  .indicators {
+    .time {
+      white-space: nowrap;
+      font-size: 0.875rem;
+      align-self: flex-end;
+    }
+    .message-indicator {
+      margin-inline: auto;
+      margin-top: 0.63rem;
+      width: 0.5625rem;
+      height: 0.5625rem;
+      border-radius: 50%;
+      background-color: $secondary-500;
+
+      &--selected {
+        background-color: transparent;
+      }
+    }
+  }
+}

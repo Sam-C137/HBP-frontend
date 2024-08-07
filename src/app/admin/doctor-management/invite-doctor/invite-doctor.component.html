@@ -1,0 +1,65 @@
+<article
+    [class]="{
+        open: open(),
+        'screen-fit': open(),
+        modal: true,
+    }"
+    role="alertdialog"
+    aria-labelledby="label"
+    @popup
+>
+    <header>
+        <p id="label">Invite doctors</p>
+        <img
+            src="assets/icons/close-small.svg"
+            (click)="close()"
+            alt="close"
+            class="cursor-pointer"
+            tabindex="0"
+        />
+    </header>
+    <section>
+        <form [formGroup]="form" tabindex="0" (keydown)="addEmail($event)">
+            <hbp-input
+                label="Email"
+                id="email"
+                type="email"
+                placeholder="Enter an email address"
+                [control]="form.get('email')"
+                [required]="true"
+            ></hbp-input>
+            <div class="listed-emails">
+                <p>Current emails</p>
+                <div class="email-list">
+                    @for (email of emailList; track $index) {
+                        <span
+                            >{{ email }}
+                            <img
+                                (click)="removeEmail(email)"
+                                src="assets/icons/close-rounded.svg"
+                                class="cursor-pointer"
+                                alt="remove"
+                                tabindex="0"
+                        /></span>
+                    }
+                </div>
+            </div>
+            <footer>
+                <hbp-button
+                    type="button"
+                    [loading]="inviteDoctorMutation.isPending()"
+                    [disabled]="inviteDoctorMutation.isPending()"
+                    (click)="submit()"
+                >
+                    Send Invite
+                </hbp-button>
+            </footer>
+        </form>
+    </section>
+</article>
+<div
+    class="backdrop"
+    [class.open]="open()"
+    tabindex="-1"
+    (click)="open.set(false)"
+></div>

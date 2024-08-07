@@ -1,0 +1,63 @@
+@import "main";
+
+.chart {
+  padding: 1.25rem;
+  padding-right: 0;
+  @include max-lg {
+    padding-inline: 0;
+  }
+  &__header {
+    @include flex-row;
+    justify-content: space-between;
+    align-items: center;
+    @include max-lg {
+      @include flex-column;
+      align-items: flex-start;
+    }
+    &__title {
+      @include text-bold(1.25rem, $neutral-800, 500);
+    }
+    &__switch {
+      margin-left: auto;
+      :first-child {
+        margin-right: 1.06rem;
+      }
+    }
+  }
+  &__filters {
+    @include flex-row;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    @include max-lg {
+      align-self: center;
+      margin-top: 0.3rem;
+    }
+
+    &__filter {
+      &__1 {
+        width: 10rem;
+      }
+      &__2 {
+        width: 7.5rem;
+      }
+    }
+  }
+  &__timePeriod {
+    margin-top: 1.25rem;
+    margin-left: auto;
+    width: 7.5rem;
+  }
+}
+
+amalitech-select {
+  --select-width: 100%;
+  --select-label-padding: 0.5rem 0.3rem;
+  --select-label-gap: 0.5rem;
+  --select-label-border-color: var(--gray-300);
+  --select-dropdown-border-color: var(--gray-300);
+}
+amalitech-select.chart__filters__filter__3 {
+  --select-label-bg: var(--gray-50);
+  --select-label-border-color: var(--gray-50);
+}

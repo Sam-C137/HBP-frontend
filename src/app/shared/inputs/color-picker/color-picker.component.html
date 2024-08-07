@@ -1,0 +1,20 @@
+<span class="position-relative">
+    <label [for]="id()">{{ label() }}</label>
+    <div
+        class="color-picker cursor-pointer"
+        [class.focus-error]="error()"
+        (click)="colorPicker.click()"
+        tabindex="1"
+    >
+        <img src="assets/icons/color-pallete.svg" alt="" />
+        <span [style.background]="control().value"></span>
+    </div>
+    <input
+        type="color"
+        [id]="id()"
+        [name]="id()"
+        [formControl]="control()"
+        #colorPicker
+    />
+    <p class="error">{{ error() }}</p>
+</span>

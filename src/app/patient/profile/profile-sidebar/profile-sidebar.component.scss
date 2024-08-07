@@ -1,0 +1,61 @@
+@import "main";
+
+aside {
+  width: 100vw;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  @include md {
+    border-right: 1px solid $gray-200;
+    min-height: calc(100dvh - 90px);
+    padding: 0 0.625rem 1.25rem 0.625rem;
+    background-color: $white;
+    margin-right: 2.5rem;
+    width: auto;
+  }
+}
+
+ul {
+  @include flex-column;
+  gap: 0.625rem;
+
+  @include max-md {
+    @include flex-row;
+    margin-bottom: 2rem;
+  }
+
+  li {
+    border-radius: 0.5rem;
+    @include lg {
+      max-width: 13.75rem;
+      border-left: 4px solid transparent;
+      &:has(a.active) {
+        border-left: 3px solid $primary-700;
+      }
+    }
+    a {
+      @include flex-row;
+      align-items: center;
+      gap: 0.62rem;
+      @include text-bold(1rem, $gray-700, 600);
+      font-family: $font-family-secondary;
+      line-height: 1.25rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-out;
+      white-space: nowrap;
+      &.active {
+        color: $primary-700;
+        background: $primary-50;
+      }
+    }
+    &:last-of-type {
+      a {
+        color: $error-500;
+      }
+    }
+  }
+}

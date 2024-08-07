@@ -1,0 +1,34 @@
+@if (loading()) {
+    <div>
+        <hbp-spinner size="lg" />
+    </div>
+} @else if (error()) {
+    <div>
+        <hbp-error-handler [message]="error()" (retry)="retry.emit()" />
+    </div>
+} @else if (!loading() && doctors().length < 1) {
+    <div>
+        <hbp-empty-list />
+    </div>
+} @else {
+    <div class="doctor-list">
+        @for (doctor of doctors(); track $index) {
+            <article>
+                <span class="status active">Avalilable</span>
+                <div>
+                    <hbp-user-avatar
+                        [src]="doctor.profilePicture"
+                        [fallback]="doctor.fullName"
+                    />
+                    <h3>{{ doctor.fullName }}</h3>
+                    <p>{{ doctor.specialization }}</p>
+                </div>
+                <footer>
+                    <hbp-button (click)="navigateTo(doctor)">
+                        Select
+                    </hbp-button>
+                </footer>
+            </article>
+        }
+    </div>
+}

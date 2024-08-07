@@ -1,0 +1,75 @@
+@import "main";
+
+* {
+  font-family: $font-family-secondary;
+}
+
+aside {
+  width: 100vw;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  @include md {
+    border-right: 1px solid $gray-200;
+    min-height: calc(100dvh - 90px);
+    padding: 1rem 2.5rem 2.5rem 2.5rem;
+    background-color: $white;
+    margin-right: 2.5rem;
+    width: auto;
+  }
+
+  h2 {
+    @include text-bold(1.375rem, $neutral-950, 500);
+    line-height: 1.25rem;
+    padding: 1.25rem;
+    @include max-md {
+      display: none;
+    }
+  }
+}
+
+ul {
+  @include flex-column;
+  gap: 0.5rem;
+
+  @include max-md {
+    @include flex-row;
+    margin-block: 2rem;
+  }
+
+  li {
+    border-radius: 0.5rem;
+    @include lg {
+      max-width: 13.75rem;
+    }
+
+    a {
+      @include flex-row;
+      align-items: center;
+      gap: 0.62rem;
+      @include text-bold(1rem, $gray-700, 600);
+      font-family: $font-family-secondary;
+      line-height: 1.25rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-out;
+      white-space: nowrap;
+
+      &.active {
+        color: $secondary-600;
+        background: $secondary-50;
+      }
+    }
+
+    &:last-of-type {
+      a {
+        color: $error-500;
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@import "main";
+
+.host {
+  padding: 0.5rem 0;
+  max-width: 80rem;
+
+  button {
+    @include reset;
+    @include flex-row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: $dark-700;
+    font-family: $font-family-secondary;
+    font-weight: 500;
+    padding: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    span {
+      @include center;
+      @include text-bold(1.25rem, $gray-900, 500);
+    }
+    &:hover {
+      background: $gray-50;
+    }
+    &:has(+ .open) {
+      background: $gray-50;
+    }
+  }
+
+  .content-box {
+    display: grid;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    font-size: 1.15rem;
+    color: $gray-500;
+    opacity: 0;
+    grid-template-rows: 0fr;
+    padding: 1rem;
+    padding-bottom: 0;
+
+    &.open {
+      background: $gray-50;
+      grid-template-rows: 1fr;
+      opacity: 1;
+      padding-bottom: 1rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    & > div {
+      overflow: hidden;
+      line-height: 140%;
+    }
+  }
+}
+
+svg {
+  &.expanded {
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+  &.collapsed {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover path {
+    transition: all 0.3s ease;
+    fill: $dark;
+  }
+}

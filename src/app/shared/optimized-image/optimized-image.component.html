@@ -1,0 +1,9 @@
+<div
+    [class]="{ 'blur-load': true, loaded: loaded }"
+    [ngStyle]="
+        !loaded ? { 'background-image': 'url(' + fallback() + ')' } : null
+    "
+    [class.loaded]="loaded"
+>
+    <img #img [src]="src()" [alt]="alt()" (load)="onLoad()" loading="lazy" />
+</div>

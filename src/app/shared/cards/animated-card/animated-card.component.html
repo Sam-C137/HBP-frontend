@@ -1,0 +1,19 @@
+<article>
+    <div class="mt-2 mb-2 overflow-hidden center-div">
+        <hbp-service-avatar
+            [src]="service().icon"
+            [fallback]="service().name"
+            [colorCode]="service().colorCode"
+        />
+        <span>
+            <h2>{{ service().name }}</h2>
+            <p>{{ service().description }}</p>
+            <hbp-button
+                routerLink="services"
+                [queryParams]="{ info: service().name }"
+            >
+                Learn More
+            </hbp-button>
+        </span>
+    </div>
+</article>

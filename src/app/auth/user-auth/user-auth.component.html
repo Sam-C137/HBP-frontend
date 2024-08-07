@@ -1,0 +1,12 @@
+<hbp-navbar position="fixed" />
+<main>
+    <div>
+        <hbp-optimized-image
+            [src]="'assets/images/Doctor-Illustration.png'"
+            [fallback]="'assets/images/Doctor-Illustration-small.png'"
+        />
+    </div>
+    <div [@routeAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+</main>

@@ -1,0 +1,18 @@
+<span class="position-relative">
+    <label [for]="id()">
+        {{ label() }}
+        @if (required()) {
+            <i>*</i>
+        }
+    </label>
+    <textarea
+        preventLeadingSpace
+        [id]="id()"
+        [class.focus-error]="error()"
+        [name]="id()"
+        [placeholder]="placeholder()"
+        [rows]="rows()"
+        [formControl]="control()"
+    ></textarea>
+    <p class="error">{{ error() }}</p>
+</span>

@@ -1,0 +1,201 @@
+@import "main";
+
+:host {
+  display: block;
+  width: 100%;
+  @include center;
+}
+
+* {
+  font-family: $font-family-secondary;
+  transition: all 0.3s ease;
+}
+
+.center {
+  @include center;
+}
+
+.calendar {
+  width: 90rem;
+  height: max(100dvh, 60rem);
+  background: $white;
+  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.02);
+  @include max-lg {
+    width: 100rem;
+    height: 100%;
+  }
+
+  & > header {
+    width: 100%;
+    padding: 1rem;
+    @include center;
+    justify-content: space-between;
+
+    button {
+      padding: 0.5rem 1rem;
+      @include text-normal(0.875rem, $gray-900, 500);
+      border-radius: 0.5rem;
+      border: 1px solid $gray-300;
+      cursor: pointer;
+      background: $white;
+
+      &.today {
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    button.active {
+      color: $white;
+      background: $blue-200;
+    }
+
+    div.toggles-left,
+    div.toggles-right {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    div.toggles-right {
+      span {
+        button:first-of-type {
+          border-radius: 0.5rem 0 0 0.5rem;
+        }
+        button:last-of-type {
+          border-radius: 0 0.5rem 0.5rem 0;
+        }
+      }
+    }
+
+    h4 {
+      @include text-bold(1.15rem, $gray-900, 600);
+    }
+  }
+
+  & > main.week-view {
+    .week-day {
+      flex-direction: column;
+      padding-block: 1rem;
+      gap: 0.5rem;
+      &:not(:nth-child(1)) {
+        border-left: 1px solid $gray-300;
+      }
+      &:nth-child(1) {
+        background: $gray-100;
+      }
+      &:nth-child(7n) {
+        background: $gray-100;
+      }
+      h5 {
+        @include text-normal(0.875rem, $gray-700, 500);
+      }
+      h6 {
+        @include text-normal(1.5rem, $gray-900, 600);
+        line-height: 2rem;
+      }
+    }
+    header {
+      display: flex;
+      background: $white;
+      span {
+        padding: 12px 5px;
+        max-width: 200px;
+        width: 200px;
+        gap: 5px;
+      }
+      section {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 100%;
+        div {
+          height: 100%;
+          width: 100%;
+          border-bottom: 1px solid $gray;
+          &.active {
+            & > * {
+              color: $secondary-500 !important;
+            }
+          }
+        }
+      }
+    }
+
+    summary {
+      display: flex;
+      & > div {
+        width: 100%;
+        position: relative;
+
+        section {
+          display: grid;
+          width: 100%;
+          height: calc(88vh - 70px - 45px);
+          grid-template-columns: repeat(7, 1fr);
+          grid-template-rows: repeat(11, 1fr);
+
+          div {
+            border: 1px solid $gray-100;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            min-height: 4rem;
+            &:nth-child(7n + 1) {
+              border-left: none;
+              border-right: none;
+              border-bottom: none;
+              background: $gray-100;
+              box-shadow: -1px -1px 0px 0px #e0e0e0 inset;
+              position: relative;
+              &::before {
+                content: attr(data-time);
+                position: absolute;
+                top: 0;
+                left: -30%;
+                width: 100%;
+                height: 100%;
+                @include text-normal(0.875rem, $gray-800, 500);
+                @include max-lg {
+                  content: none;
+                }
+              }
+            }
+            &:nth-child(7n) {
+              border-right: none;
+              border-left: none;
+              border-bottom: none;
+              background: $gray-100;
+              box-shadow: 1px -1px 0px 0px #e0e0e0 inset;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.outline-grid {
+  div {
+    @include center;
+    flex-direction: column;
+    &:not(.active) {
+      b,
+      p {
+        display: none;
+      }
+    }
+    &.active {
+      b {
+        @include text-normal(
+          clamp(0.75rem, 2vw + 0.875rem, 0.875rem),
+          inherit,
+          500
+        );
+        text-align: center;
+      }
+      p {
+        @include text-normal(clamp(0.875rem, 2vw + 1rem, 1rem), inherit, 600);
+        margin-top: 0.25rem;
+        text-align: center;
+      }
+    }
+  }
+}

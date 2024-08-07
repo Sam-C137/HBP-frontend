@@ -1,0 +1,23 @@
+<div class="card-header">
+    <div class="reviewer">
+        <hbp-user-avatar
+            [src]="
+                useDoctor()
+                    ? review().doctorProfileImage
+                    : review().reviewerProfileImage
+            "
+            [fallback]="useDoctor() ? review().doctor : review().reviewer"
+        />
+        <p>{{ useDoctor() ? review().doctor : review().reviewer }}</p>
+    </div>
+    <p>{{ review().createdDate | date: "MM/dd/yyyy" }}</p>
+</div>
+<amalitech-star-rating
+    animated
+    [value]="review().rating.toFixed()"
+    readonly
+    stroke-color="var(--yellow-500)"
+></amalitech-star-rating>
+<div class="review-details">
+    <p>{{ review().review }}</p>
+</div>

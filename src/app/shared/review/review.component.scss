@@ -1,0 +1,42 @@
+@import "main";
+
+:host {
+  display: block;
+  max-width: 70rem;
+  border-bottom: 1px solid $gray-200;
+  padding: 1rem 0.75rem;
+  padding-left: 0;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.62rem;
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+    }
+
+    p {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+  }
+
+  .review-details {
+    @include text-normal(1.15rem, $gray-700, 500);
+    line-height: 100%;
+    margin-top: 1.24rem;
+  }
+}
+
+amalitech-star-rating {
+  --star-rating-active: var(--yellow-500);
+  display: inline;
+}
+
+hbp-user-avatar {
+  --size: 3.125rem;
+  margin-right: 1rem;
+}

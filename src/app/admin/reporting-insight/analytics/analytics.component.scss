@@ -1,0 +1,17 @@
+@import "main";
+
+.analytics {
+  padding: 2.75rem 4.5rem 5rem 2.56rem;
+  @include max-lg {
+    padding-inline: 3vw;
+  }
+  &__header {
+    @include flex-row;
+    align-items: center;
+    justify-content: space-between;
+
+    &__title {
+      @include text-bold(2rem, $neutral-900, 600);
+    }
+  }
+}

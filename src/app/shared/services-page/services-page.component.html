@@ -1,0 +1,57 @@
+<hbp-navbar />
+<main>
+    <section id="banner">
+        <h1 class="logo-text">HBMS</h1>
+        <p>
+            We provide a comprehensive range of medical services to meet your
+            healthcare needs.
+        </p>
+    </section>
+    <section id="content">
+        <header>
+            <h1>Our Services</h1>
+            <p>
+                Explore our specialized departments and find the right care for
+                you and your family
+            </p>
+        </header>
+        <article id="body">
+            @if (services.isLoading()) {
+                <div class="center-div w-full h-full mt-2">
+                    <hbp-spinner />
+                </div>
+            } @else if (services.data()) {
+                @if ((services.data()?.content)!.length < 1) {
+                    <div class="center-div w-full">
+                        <h2 class="text-center font-semibold text-md">
+                            We currently have no services available on the
+                            platform, please check back later
+                        </h2>
+                    </div>
+                } @else {
+                    @for (service of services.data()!.content; track $index) {
+                        <div
+                            class="service-info"
+                            [id]="service.name"
+                            #serviceItem
+                        >
+                            <span class="services">
+                                <hbp-service-avatar
+                                    [src]="service.icon"
+                                    [fallback]="service.name"
+                                    [colorCode]="service.colorCode"
+                                />
+                                <small>{{ service.name }}</small>
+                            </span>
+
+                            <pre id="service-description">
+                                {{ service.description?.trim() }}
+                            </pre>
+                        </div>
+                    }
+                }
+            }
+        </article>
+    </section>
+</main>
+<hbp-footer />
